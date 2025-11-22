@@ -36,7 +36,6 @@ export default function AdminDashboard() {
 
   const handleCopyLink = () => navigator.clipboard.writeText(generatedLink);
   const handleSendEmail = () => alert(`Link sent to ${selectedEmployee.email}`);
-  
 
   return (
     <ProtectedRoute roles={['admin']}>
@@ -46,9 +45,9 @@ export default function AdminDashboard() {
           <Navbar title="Admin Dashboard" />
 
           <main className="p-6">
-            <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold mb-6 animate-fade-in-up">Admin Dashboard</h1>
 
-            <div className="mb-6">
+            <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               <label className="block mb-2 font-medium">Filter by Employee</label>
               <select
                 className="p-3 border rounded-lg w-full"
@@ -72,13 +71,13 @@ export default function AdminDashboard() {
               <Card title="Points Earned" value={data.points} icon="⭐" />
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
+            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
               <h3 className="text-lg font-bold mb-4">{selectedEmployee ? `${selectedEmployee.name} Progress` : 'Overall Progress'}</h3>
               <Chart />
             </div>
 
             {selectedEmployee && (
-              <div className="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3">
+              <div className="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3 animate-fade-in-up">
                 <input
                   type="text"
                   readOnly
@@ -86,7 +85,7 @@ export default function AdminDashboard() {
                   className="flex-1 bg-gray-100 p-2 rounded-md border border-gray-300 focus:outline-none"
                   placeholder="Click 'Generate Link'..."
                 />
-                <button onClick={handleGenerateLink} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                <button onClick={handleGenerateLink} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition transform hover:scale-105">
                   Generate Link
                 </button>
                 <button onClick={handleCopyLink} className="flex items-center space-x-1 bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg transition">

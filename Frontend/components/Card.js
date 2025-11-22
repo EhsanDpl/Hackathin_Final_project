@@ -1,10 +1,12 @@
 // /components/Card.js
 export default function Card({ title, value, icon }) {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
-      <span className="text-3xl">{icon}</span>
-      <h2 className="text-xl font-bold mt-2">{title}</h2>
-      <p className="text-2xl">{value}</p>
+    <div className="bg-white p-6 rounded-2xl shadow-lg transform transition hover:scale-105 animate-fade-in-up">
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
+        <span className="text-2xl">{icon}</span>
+      </div>
+      <p className="text-3xl font-bold text-gray-900">{value}</p>
     </div>
   );
 }
