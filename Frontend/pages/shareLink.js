@@ -22,6 +22,9 @@ export default function Dashboard() {
 
   // Determine displayed data
   const displayData = () => {
+    if (!user) {
+      return { completedSkills: 0, ongoingCourses: 0, points: 0, name: 'Guest' };
+    }
     if (user.role === 'learner') {
       return { completedSkills: 12, ongoingCourses: 3, points: 250, name: user.email };
     } else if (selectedEmployee) {
@@ -58,11 +61,11 @@ export default function Dashboard() {
 
           <main className="p-6">
             <h1 className="text-3xl font-bold mb-6 text-gray-800">
-              Welcome, {user.role === 'admin' && !selectedEmployee ? 'Admin' : data.name}!
+              Welcome, {user && user.role === 'admin' && !selectedEmployee ? 'Admin' : data.name}!
             </h1>
 
             {/* Admin Employee Filter */}
-            {user.role === 'admin' && (
+            {user && user.role === 'admin' && (
               <div className="mb-6">
                 <label className="block mb-2 font-medium">Filter by Employee</label>
                 <select
@@ -87,7 +90,7 @@ export default function Dashboard() {
               <Card title="Completed Skills" value={data.completedSkills} icon="✓" />
               <Card title="Ongoing Courses" value={data.ongoingCourses} icon="📚" />
               <Card title="Points Earned" value={data.points} icon="⭐" />
-              {user.role === 'admin' && !selectedEmployee && (
+              {user && user.role === 'admin' && !selectedEmployee && (
                 <Card title="Employee Management" value="Manage" icon="👤" />
               )}
             </div>
@@ -95,13 +98,13 @@ export default function Dashboard() {
             {/* Chart */}
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition duration-500 hover:scale-105 mb-6">
               <h3 className="text-lg font-bold mb-4 text-gray-700">
-                {user.role === 'learner' ? 'Learning Progress' : selectedEmployee ? `${selectedEmployee.name} Progress` : 'Overall Progress'}
+                {user && user.role === 'learner' ? 'Learning Progress' : selectedEmployee ? `${selectedEmployee.name} Progress` : 'Overall Progress'}
               </h3>
               <Chart />
             </div>
 
             {/* Admin Link Generation */}
-            {user.role === 'admin' && selectedEmployee && (
+            {user && user.role === 'admin' && selectedEmployee && (
               <div className="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3 animate-fadeInUp">
                 <input
                   type="text"

@@ -1,0 +1,69 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: skillpilot-postgres
+    environment:
+      POSTGRES_USER: skillpilot
+      POSTGRES_PASSWORD: skillpilot123
+      POSTGRES_DB: skillpilot_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./skillpilot-mock-server/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skillpilot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - skillpilot-network
+
+  # Backend API Server (NestJS)
+  api:
+    build:
+      context: ./skillpilot-mock-server
+      dockerfile: Dockerfile
+    container_name: skillpilot-api
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: skillpilot
+      DB_PASSWORD: skillpilot123
+      DB_NAME: skillpilot_db
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - skillpilot-network
+    restart: unless-stopped
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: skillpilot-frontend
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://api:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - skillpilot-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  skillpilot-network:
+    driver: bridge
+
