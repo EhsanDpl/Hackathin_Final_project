@@ -295,6 +295,23 @@ export class MockServerController {
   }
 
   /**
+   * Get all mentors
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mentors')
+  async getMentors() {
+    try {
+      const mentors = await this.mockServerService.getMentors();
+      return mentors;
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
    * Update current user's profile and connect integrations
    */
   @UseGuards(JwtAuthGuard)

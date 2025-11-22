@@ -545,6 +545,32 @@ export class MockServerService implements OnModuleDestroy {
     }
   }
 
+  async getMentors() {
+    if (this.usePostgres && this.pool) {
+      // Get all learners with role = 'mentor'
+      const result = await this.pool.query(
+        `SELECT id, name, email, phone, location, department, "currentLevel", "yearsExperience"
+         FROM learners 
+         WHERE role = 'mentor' AND status = 'active'
+         ORDER BY name ASC`
+      );
+      return result.rows;
+    } else {
+      // Fallback for JSON server
+      const mentors = this.dbData?.learners?.filter((l: any) => l.role === 'mentor' && l.status === 'active') || [];
+      return mentors.map((m: any) => ({
+        id: m.id,
+        name: m.name,
+        email: m.email,
+        phone: m.phone,
+        location: m.location,
+        department: m.department,
+        currentLevel: m.currentLevel,
+        yearsExperience: m.yearsExperience,
+      }));
+    }
+  }
+
   async updateProfile(email: string, profileData: any) {
     const { 
       phone, 
@@ -570,6 +596,25 @@ export class MockServerService implements OnModuleDestroy {
       if (location !== undefined) {
         updates.push(`location = $${paramCount++}`);
         values.push(location);
+      }
+      if (profileData.mentorId !== undefined) {
+        const mentorId = profileData.mentorId ? parseInt(profileData.mentorId, 10) : null;
+        if (mentorId !== null && isNaN(mentorId)) {
+          throw new Error('Invalid mentorId: must be a number');
+        }
+        // Verify mentor exists if mentorId is provided
+        if (mentorId !== null) {
+          const mentorCheck = await this.pool.query(
+            'SELECT id, role FROM learners WHERE id = $1 AND role = $2',
+            [mentorId, 'mentor']
+          );
+          if (mentorCheck.rows.length === 0) {
+            throw new Error(`Mentor with id ${mentorId} not found or is not a mentor`);
+          }
+        }
+        updates.push(`"mentorId" = $${paramCount++}`);
+        values.push(mentorId);
+        this.logger.log(`👥 Setting mentor ${mentorId} for learner ${email}`);
       }
       if (linkedinProfile !== undefined) {
         updates.push(`"linkedinProfile" = $${paramCount++}`);

@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import Chart from '../components/Chart';
 import { useAuth } from '../contexts/AuthContext';
-import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData } from '../utils/api';
+import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData, getMentors } from '../utils/api';
 import { 
   ClipboardIcon, 
   PaperAirplaneIcon,
@@ -42,7 +42,10 @@ export default function Dashboard() {
     phone: '',
     location: '',
     linkedinProfile: '',
+    mentorId: '',
   });
+  const [mentors, setMentors] = useState([]);
+  const [loadingMentors, setLoadingMentors] = useState(false);
   const [showMockDataModal, setShowMockDataModal] = useState(false);
   const [selectedIntegration, setSelectedIntegration] = useState(null);
   const [mockDataOptions, setMockDataOptions] = useState([]);
@@ -51,7 +54,21 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchProfile();
+    fetchMentors();
   }, []);
+
+  const fetchMentors = async () => {
+    try {
+      setLoadingMentors(true);
+      const mentorsList = await getMentors();
+      setMentors(mentorsList);
+    } catch (error) {
+      console.error('Error fetching mentors:', error);
+      setError('Failed to load mentors');
+    } finally {
+      setLoadingMentors(false);
+    }
+  };
 
   const fetchProfile = async () => {
     try {
@@ -70,6 +87,7 @@ export default function Dashboard() {
         phone: data.phone || '',
         location: data.location || '',
         linkedinProfile: data.linkedinProfile || '',
+        mentorId: data.mentorId || data.mentor?.id || '',
       });
     } catch (err) {
       console.error('Error fetching profile:', err);
@@ -345,6 +363,45 @@ export default function Dashboard() {
                         placeholder="Enter location"
                       />
                     </div>
+                  </div>
+                  
+                  {/* Mentor Selection */}
+                  <div className="col-span-1 md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
+                      <AcademicCapIcon className="h-4 w-4 text-indigo-600" />
+                      <span>Select Mentor</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <AcademicCapIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <select
+                        value={profileData.mentorId}
+                        onChange={(e) => setProfileData({ ...profileData, mentorId: e.target.value })}
+                        className="w-full pl-10 p-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all bg-white"
+                        disabled={loadingMentors}
+                      >
+                        <option value="">-- No Mentor Selected --</option>
+                        {loadingMentors ? (
+                          <option disabled>Loading mentors...</option>
+                        ) : mentors.length === 0 ? (
+                          <option disabled>No mentors available</option>
+                        ) : (
+                          mentors.map((mentor) => (
+                            <option key={mentor.id} value={mentor.id}>
+                              {mentor.name} {mentor.email ? `(${mentor.email})` : ''}
+                              {mentor.department ? ` - ${mentor.department}` : ''}
+                            </option>
+                          ))
+                        )}
+                      </select>
+                    </div>
+                    {profile?.mentor && (
+                      <p className="mt-2 text-sm text-green-600 flex items-center space-x-1">
+                        <CheckCircleIcon className="h-4 w-4" />
+                        <span>Current Mentor: <strong>{profile.mentor.name}</strong> ({profile.mentor.email})</span>
+                      </p>
+                    )}
                   </div>
                 </div>
                 <button

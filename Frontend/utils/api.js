@@ -70,3 +70,9 @@ export const sendChatMessage = async (message, history = []) => {
   return response.data || { response: '', model: '' };
 };
 
+// Get all mentors
+export const getMentors = async () => {
+  const response = await apiRequest('/mentors');
+  return response || [];
+};
+
