@@ -356,7 +356,8 @@ export class MockServerService implements OnModuleDestroy {
       if (password) {
         const bcrypt = require('bcrypt');
         const hashedPassword = await bcrypt.hash(password, 10);
-        const userRole = role === 'admin' ? 'admin' : 'learner';
+        // Map role: admin -> admin, mentor -> mentor, learner -> learner
+        const userRole = role === 'admin' ? 'admin' : role === 'mentor' ? 'mentor' : 'learner';
         
         // Check if user already exists
         const existingUser = await this.pool.query(

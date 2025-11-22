@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import {
   HomeIcon,
   LinkIcon,
-  UserIcon, ChatBubbleLeftRightIcon,
+  UserIcon, ChatBubbleLeftRightIcon, AcademicCapIcon,
   AcademicCapIcon,
   ChartBarIcon,
   BookOpenIcon,
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { isAdmin, isLearner } from '../utils/auth';
+import { isAdmin, isLearner, isMentor, isSuperAdmin } from '../utils/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Sidebar() {

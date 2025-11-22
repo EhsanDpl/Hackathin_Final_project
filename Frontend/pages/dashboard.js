@@ -4,9 +4,7 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import Chart from '../components/Chart';
-import BottomChat from '../components/BottomChat';
 import { useAuth } from '../contexts/AuthContext';
-import { isLearner } from '../utils/auth';
 import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData } from '../utils/api';
 import { 
   ClipboardIcon, 
@@ -249,7 +247,7 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute roles={['learner']}>
-      <div className="flex h-screen bg-gray-50" style={{ paddingBottom: isLearner(user) ? '500px' : '0' }}>
+      <div className="flex h-screen bg-gray-50">
         <Sidebar />
         <div className="flex-1 flex flex-col overflow-auto">
           <Navbar title="Employee Dashboard" />
@@ -633,9 +631,6 @@ export default function Dashboard() {
           </main>
         </div>
       </div>
-
-      {/* Bottom Chat - Only for learners */}
-      {isLearner(user) && <BottomChat />}
     </ProtectedRoute>
   );
 }
