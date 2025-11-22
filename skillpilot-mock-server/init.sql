@@ -19,6 +19,9 @@ CREATE TABLE IF NOT EXISTS learners (
     "githubUsername" VARCHAR(255),
     status VARCHAR(50) DEFAULT 'active',
     "growthPlanStatus" VARCHAR(50) DEFAULT 'inactive',
+    "linkedinConnected" BOOLEAN DEFAULT false,
+    "jiraConnected" BOOLEAN DEFAULT false,
+    "teamsConnected" BOOLEAN DEFAULT false,
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

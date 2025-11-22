@@ -417,6 +417,85 @@ export class MockServerService implements OnModuleDestroy {
     }
   }
 
+  async getLearnerByEmail(email: string) {
+    if (this.usePostgres && this.pool) {
+      const result = await this.pool.query(
+        'SELECT * FROM learners WHERE email = $1',
+        [email],
+      );
+      return result.rows[0] || null;
+    } else {
+      return this.dbData?.learners?.find((l: any) => l.email === email) || null;
+    }
+  }
+
+  async updateProfile(email: string, profileData: any) {
+    const { phone, location, linkedinConnected, jiraConnected, teamsConnected, linkedinProfile } = profileData;
+    
+    if (this.usePostgres && this.pool) {
+      const updates: string[] = [];
+      const values: any[] = [];
+      let paramCount = 1;
+
+      if (phone !== undefined) {
+        updates.push(`phone = $${paramCount++}`);
+        values.push(phone);
+      }
+      if (location !== undefined) {
+        updates.push(`location = $${paramCount++}`);
+        values.push(location);
+      }
+      if (linkedinProfile !== undefined) {
+        updates.push(`"linkedinProfile" = $${paramCount++}`);
+        values.push(linkedinProfile);
+      }
+      if (linkedinConnected !== undefined) {
+        updates.push(`"linkedinConnected" = $${paramCount++}`);
+        values.push(linkedinConnected);
+      }
+      if (jiraConnected !== undefined) {
+        updates.push(`"jiraConnected" = $${paramCount++}`);
+        values.push(jiraConnected);
+      }
+      if (teamsConnected !== undefined) {
+        updates.push(`"teamsConnected" = $${paramCount++}`);
+        values.push(teamsConnected);
+      }
+
+      if (updates.length === 0) {
+        throw new Error('No fields to update');
+      }
+
+      updates.push(`"updatedAt" = CURRENT_TIMESTAMP`);
+      values.push(email);
+
+      const query = `UPDATE learners SET ${updates.join(', ')} WHERE email = $${paramCount} RETURNING *`;
+      const result = await this.pool.query(query, values);
+
+      if (result.rows.length === 0) {
+        throw new Error('Learner not found');
+      }
+
+      this.logger.log(`✅ Profile updated for: ${email}`);
+      return result.rows[0];
+    } else {
+      const learner = this.dbData?.learners?.find((l: any) => l.email === email);
+      if (!learner) {
+        throw new Error('Learner not found');
+      }
+
+      if (phone !== undefined) learner.phone = phone;
+      if (location !== undefined) learner.location = location;
+      if (linkedinProfile !== undefined) learner.linkedinProfile = linkedinProfile;
+      if (linkedinConnected !== undefined) learner.linkedinConnected = linkedinConnected;
+      if (jiraConnected !== undefined) learner.jiraConnected = jiraConnected;
+      if (teamsConnected !== undefined) learner.teamsConnected = teamsConnected;
+      learner.updatedAt = new Date().toISOString();
+
+      return learner;
+    }
+  }
+
   async onModuleDestroy() {
     if (this.pool) {
       await this.pool.end();

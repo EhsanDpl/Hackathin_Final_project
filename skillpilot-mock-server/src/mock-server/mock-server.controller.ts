@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Param, Body, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Query, Param, Body, HttpException, HttpStatus, UseGuards, Request } from '@nestjs/common';
 import { MockServerService } from './mock-server.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { SkillSuggestionService } from '../services/skill-suggestion.service';
@@ -227,6 +227,51 @@ export class MockServerController {
     } catch (error) {
       throw new HttpException(
         error.message || 'Failed to get skill suggestions',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Get current user's profile
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Request() req: any) {
+    try {
+      const email = req.user.email;
+      const profile = await this.mockServerService.getLearnerByEmail(email);
+      
+      if (!profile) {
+        throw new HttpException('Profile not found', HttpStatus.NOT_FOUND);
+      }
+
+      return profile;
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Update current user's profile and connect integrations
+   */
+  @UseGuards(JwtAuthGuard)
+  @Put('profile')
+  async updateProfile(@Request() req: any, @Body() profileData: any) {
+    try {
+      const email = req.user.email;
+      const updatedProfile = await this.mockServerService.updateProfile(email, profileData);
+      
+      return {
+        ...updatedProfile,
+        message: 'Profile updated successfully',
+      };
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
