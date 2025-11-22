@@ -2,30 +2,59 @@
 import ProtectedRoute from '../components/ProtectedRoute';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { ClipboardIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { getLearners } from '../utils/api';
 
 export default function CreateLinkPage() {
   const { user } = useAuth();
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [generatedLink, setGeneratedLink] = useState('');
+  const [learners, setLearners] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const employees = [
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-  ];
+  // Fetch learners from API
+  useEffect(() => {
+    const fetchLearners = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getLearners();
+        setLearners(data || []);
+      } catch (err) {
+        console.error('Error fetching learners:', err);
+        setError(err.message || 'Failed to load learners');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLearners();
+  }, []);
 
   const handleGenerateLink = () => {
     if (!selectedEmployee) return;
-    setGeneratedLink(`https://example.com/learner/${selectedEmployee.id}`);
+    // Generate link using learner ID
+    setGeneratedLink(`${window.location.origin}/shareLink?learnerId=${selectedEmployee.id}`);
   };
 
-  const handleCopyLink = () => navigator.clipboard.writeText(generatedLink);
-  const handleSendEmail = () => alert(`Link sent to ${selectedEmployee.email}`);
+  const handleCopyLink = () => {
+    if (generatedLink) {
+      navigator.clipboard.writeText(generatedLink);
+      alert('Link copied to clipboard!');
+    }
+  };
+
+  const handleSendEmail = () => {
+    if (selectedEmployee) {
+      alert(`Link sent to ${selectedEmployee.email}`);
+    }
+  };
 
   return (
-    <ProtectedRoute roles={['admin']}>
+    <ProtectedRoute roles={['admin', 'super_admin']}>
       <div className="flex h-screen bg-gray-50">
         <Sidebar />
         <div className="flex-1 flex flex-col overflow-auto">
@@ -37,21 +66,39 @@ export default function CreateLinkPage() {
               <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center animate-fade-in-up">Create Learner Link</h1>
 
               <div className="mb-6 animate-fade-in-up">
-                <label className="block mb-2 font-medium text-gray-700">Select Employee</label>
-                <select
-                  className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-                  value={selectedEmployee?.id || ''}
-                  onChange={(e) => {
-                    const emp = employees.find(emp => emp.id === parseInt(e.target.value));
-                    setSelectedEmployee(emp || null);
-                    setGeneratedLink('');
-                  }}
-                >
-                  <option value="">Select Employee</option>
-                  {employees.map(emp => (
-                    <option key={emp.id} value={emp.id}>{emp.name}</option>
-                  ))}
-                </select>
+                <label className="block mb-2 font-medium text-gray-700">Select Learner</label>
+                {loading ? (
+                  <div className="w-full p-3 border rounded-lg bg-gray-100 text-gray-500 text-center">
+                    Loading learners...
+                  </div>
+                ) : error ? (
+                  <div className="w-full p-3 border rounded-lg bg-red-50 text-red-600 text-center">
+                    {error}
+                  </div>
+                ) : (
+                  <select
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+                    value={selectedEmployee?.id || ''}
+                    onChange={(e) => {
+                      const learner = learners.find(l => l.id === parseInt(e.target.value));
+                      setSelectedEmployee(learner || null);
+                      setGeneratedLink('');
+                    }}
+                    disabled={learners.length === 0}
+                  >
+                    <option value="">Select Learner</option>
+                    {learners.map(learner => (
+                      <option key={learner.id} value={learner.id}>
+                        {learner.name} ({learner.email})
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {learners.length > 0 && (
+                  <p className="mt-2 text-sm text-gray-500">
+                    {learners.length} learner{learners.length !== 1 ? 's' : ''} available
+                  </p>
+                )}
               </div>
 
               {selectedEmployee && (

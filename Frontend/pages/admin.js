@@ -22,7 +22,7 @@ export default function Admin() {
   const handleSendEmail = () => alert(`Link sent to ${selectedEmployee.email}`);
 
   return (
-    <ProtectedRoute role="admin">
+    <ProtectedRoute roles={['admin', 'super_admin']}>
       <div className="flex h-screen bg-gray-50">
         <Sidebar />
         <div className="flex-1 flex flex-col overflow-hidden">

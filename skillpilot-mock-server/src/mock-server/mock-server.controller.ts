@@ -1,5 +1,6 @@
-import { Controller, Get, Query, Param, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Query, Param, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { MockServerService } from './mock-server.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller()
 export class MockServerController {
@@ -10,6 +11,7 @@ export class MockServerController {
     return this.mockServerService.healthcheck();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('learners')
   async getLearners() {
     try {
@@ -22,6 +24,7 @@ export class MockServerController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('learners/:id')
   async getLearnerById(@Param('id') id: string) {
     try {

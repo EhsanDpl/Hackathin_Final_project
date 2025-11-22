@@ -5,8 +5,13 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Enable CORS
-  app.enableCors();
+  // Enable CORS with specific origins
+  app.enableCors({
+    origin: ['http://localhost:3000', 'http://frontend:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
   
   // Swagger configuration
   const config = new DocumentBuilder()
@@ -33,7 +38,8 @@ async function bootstrap() {
   console.log('');
   console.log('Available Endpoints:');
   console.log(`  GET http://localhost:${port}/healthcheck - Health check`);
-  console.log(`  GET http://localhost:${port}/learners - Get all learners`);
+  console.log(`  POST http://localhost:${port}/auth/login - Login (requires email & password)`);
+  console.log(`  GET http://localhost:${port}/learners - Get all learners (requires JWT token)`);
   console.log(`  GET http://localhost:${port}/githubProfiles - GitHub integration`);
   console.log(`  GET http://localhost:${port}/linkedinProfiles - LinkedIn integration`);
   console.log(`  POST http://localhost:${port}/api/v1/langchain-chat/basic-chat - Basic chat`);

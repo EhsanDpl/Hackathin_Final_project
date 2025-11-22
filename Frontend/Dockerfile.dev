@@ -1,0 +1,21 @@
+# Development Dockerfile for Next.js
+FROM node:20-alpine
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy application files
+COPY . .
+
+# Expose port 3000
+EXPOSE 3000
+
+# Start Next.js in development mode with hot reload
+CMD ["npm", "run", "dev"]
+
