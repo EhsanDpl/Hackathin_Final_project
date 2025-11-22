@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
+import { AtSymbolIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 
 export default function Login() {
   const { login, user } = useAuth();
@@ -38,38 +39,58 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient">
-      <div className="bg-white p-10 rounded-3xl shadow-2xl w-96 transform transition duration-500 hover:scale-105 animate-fade-in">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Skiller Login</h2>
-        <form onSubmit={handleLogin} className="space-y-5">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:shadow-lg transition"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:shadow-lg transition"
-            required
-          />
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-              {error}
+      <div className="bg-white rounded-3xl shadow-xl w-full max-w-md p-8">
+        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Skiller</h1>
+        <p className="text-center text-gray-500 mb-8">Login to continue to your dashboard</p>
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">Email</label>
+            <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-purple-400">
+              <span className="p-3 bg-gray-100">
+                <AtSymbolIcon className="w-5 h-5 text-gray-500" />
+              </span>
+              <input
+                type="email"
+                required
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 p-3 outline-none"
+              />
             </div>
-          )}
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">Password</label>
+            <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-purple-400">
+              <span className="p-3 bg-gray-100">
+                <LockClosedIcon className="w-5 h-5 text-gray-500" />
+              </span>
+              <input
+                type="password"
+                required
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="flex-1 p-3 outline-none"
+              />
+            </div>
+          </div>
+
           <button
             type="submit"
-            disabled={loading}
-            className="w-full p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white font-bold py-3 rounded-lg shadow-lg hover:scale-105 transition transform"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            Login
           </button>
         </form>
+
+        <p className="mt-6 text-center text-gray-400">
+          &copy; 2025 Skiller. All rights reserved.
+        </p>
       </div>
     </div>
   );
