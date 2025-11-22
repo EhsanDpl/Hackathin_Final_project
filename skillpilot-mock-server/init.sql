@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS learners (
     "linkedinProfile" VARCHAR(255),
     "githubUsername" VARCHAR(255),
     status VARCHAR(50) DEFAULT 'active',
+    "growthPlanStatus" VARCHAR(50) DEFAULT 'inactive',
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -150,6 +151,16 @@ CREATE TABLE IF NOT EXISTS "jiraData" (
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Users Table for Authentication
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_learners_email ON learners(email);
 CREATE INDEX IF NOT EXISTS idx_github_learner ON "githubProfiles"("learnerId");
@@ -157,4 +168,5 @@ CREATE INDEX IF NOT EXISTS idx_linkedin_learner ON "linkedinProfiles"("learnerId
 CREATE INDEX IF NOT EXISTS idx_skill_assessments_learner ON "skillAssessments"("learnerId");
 CREATE INDEX IF NOT EXISTS idx_learning_paths_learner ON "learningPaths"("learnerId");
 CREATE INDEX IF NOT EXISTS idx_daily_missions_learner ON "dailyMissions"("learnerId");
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 

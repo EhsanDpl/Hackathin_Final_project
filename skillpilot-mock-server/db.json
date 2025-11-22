@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Rajesh Kumar",
-      "email": "rajesh.kumar@company.com",
+      "email": "ehsan.h+rk@dplit.com",
       "phone": "+91-9876543210",
       "role": "Software Engineer II (Backend)",
       "department": "Backend Platform",
@@ -20,7 +20,7 @@
     {
       "id": 2,
       "name": "Priya Sharma",
-      "email": "priya.sharma@company.com",
+      "email": "hamza.k+ps@dplit.com",
       "phone": "+91-8765432109",
       "role": "Senior Frontend Engineer",
       "department": "Frontend",
@@ -37,7 +37,7 @@
     {
       "id": 3,
       "name": "Amit Patel",
-      "email": "amit.patel@company.com",
+      "email": "abdul.a+ap@dplit.com",
       "phone": "+91-7654321098",
       "role": "DevOps Engineer",
       "department": "Infrastructure",
@@ -54,7 +54,7 @@
     {
       "id": 4,
       "name": "Neha Singh",
-      "email": "neha.singh@company.com",
+      "email": "ehsan.h+ns@dplit.com",
       "phone": "+91-6543210987",
       "role": "QA Automation Engineer",
       "department": "Quality Assurance",
@@ -71,7 +71,7 @@
     {
       "id": 5,
       "name": "Vikram Desai",
-      "email": "vikram.desai@company.com",
+      "email": "hamza.k+vd@dplit.com",
       "phone": "+91-5432109876",
       "role": "Full-Stack Engineer",
       "department": "Platform",
@@ -88,7 +88,7 @@
     {
       "id": 6,
       "name": "Sneha Gupta",
-      "email": "sneha.gupta@company.com",
+      "email": "abdul.a+sg@dplit.com",
       "phone": "+91-4321098765",
       "role": "Junior Software Engineer",
       "department": "Backend Platform",
@@ -105,7 +105,7 @@
     {
       "id": 7,
       "name": "Rohan Verma",
-      "email": "rohan.verma@company.com",
+      "email": "ehsan.h+rv@dplit.com",
       "phone": "+91-3210987654",
       "role": "Engineering Lead",
       "department": "Backend Platform",
@@ -122,7 +122,7 @@
     {
       "id": 8,
       "name": "Divya Reddy",
-      "email": "divya.reddy@company.com",
+      "email": "hamza.k+dr@dplit.com",
       "phone": "+91-2109876543",
       "role": "Data Engineer",
       "department": "Data & Analytics",
@@ -139,7 +139,7 @@
     {
       "id": 9,
       "name": "Arjun Mishra",
-      "email": "arjun.mishra@company.com",
+      "email": "abdul.a+am@dplit.com",
       "phone": "+91-1098765432",
       "role": "Mobile Developer",
       "department": "Mobile",
@@ -156,7 +156,7 @@
     {
       "id": 10,
       "name": "Zara Khan",
-      "email": "zara.khan@company.com",
+      "email": "ehsan.h+zk@dplit.com",
       "phone": "+91-9098765432",
       "role": "Frontend Specialist",
       "department": "Frontend",
@@ -172,56 +172,506 @@
     }
   ],
   "skillAssessments": [
-    {"id": 1, "learnerId": 1, "skill": "TypeScript", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 72, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
-    {"id": 2, "learnerId": 1, "skill": "Node.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-15", "source": "GitHub Analysis"},
-    {"id": 3, "learnerId": 1, "skill": "Docker", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
-    {"id": 4, "learnerId": 1, "skill": "AWS", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 45, "assessmentDate": "2024-01-15", "source": "Gap Analysis"},
-    {"id": 5, "learnerId": 1, "skill": "System Design", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
-    {"id": 6, "learnerId": 2, "skill": "React", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 95, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
-    {"id": 7, "learnerId": 2, "skill": "TypeScript", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 88, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
-    {"id": 8, "learnerId": 2, "skill": "Next.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
-    {"id": 9, "learnerId": 2, "skill": "System Design", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-14", "source": "Self-Assessment"},
-    {"id": 10, "learnerId": 2, "skill": "Testing (Jest)", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
-    {"id": 11, "learnerId": 3, "skill": "Kubernetes", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-13", "source": "Work Experience"},
-    {"id": 12, "learnerId": 3, "skill": "Docker", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-13", "source": "Work Experience"},
-    {"id": 13, "learnerId": 3, "skill": "AWS", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 72, "assessmentDate": "2024-01-13", "source": "Work Experience"},
-    {"id": 14, "learnerId": 3, "skill": "Terraform", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-13", "source": "Self-Assessment"},
-    {"id": 15, "learnerId": 3, "skill": "CI/CD", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-13", "source": "Work Experience"},
-    {"id": 16, "learnerId": 4, "skill": "Python", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-12", "source": "GitHub Analysis"},
-    {"id": 17, "learnerId": 4, "skill": "Selenium", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-12", "source": "Work Experience"},
-    {"id": 18, "learnerId": 4, "skill": "API Testing", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-12", "source": "Work Experience"},
-    {"id": 19, "learnerId": 4, "skill": "Performance Testing", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 40, "assessmentDate": "2024-01-12", "source": "Gap Analysis"},
-    {"id": 20, "learnerId": 4, "skill": "CI/CD", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-12", "source": "Self-Assessment"},
-    {"id": 21, "learnerId": 5, "skill": "TypeScript", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 92, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
-    {"id": 22, "learnerId": 5, "skill": "React", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
-    {"id": 23, "learnerId": 5, "skill": "Node.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
-    {"id": 24, "learnerId": 5, "skill": "Cloud Architecture", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-11", "source": "Self-Assessment"},
-    {"id": 25, "learnerId": 5, "skill": "System Design", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 78, "assessmentDate": "2024-01-11", "source": "Self-Assessment"},
-    {"id": 26, "learnerId": 6, "skill": "JavaScript", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 35, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
-    {"id": 27, "learnerId": 6, "skill": "React", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 30, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
-    {"id": 28, "learnerId": 6, "skill": "Node.js", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 32, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
-    {"id": 29, "learnerId": 6, "skill": "SQL", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 55, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
-    {"id": 30, "learnerId": 6, "skill": "Git", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 40, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
-    {"id": 31, "learnerId": 7, "skill": "Leadership", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-09", "source": "360 Review"},
-    {"id": 32, "learnerId": 7, "skill": "Architecture", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 95, "assessmentDate": "2024-01-09", "source": "Work Experience"},
-    {"id": 33, "learnerId": 7, "skill": "Mentoring", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-09", "source": "360 Review"},
-    {"id": 34, "learnerId": 7, "skill": "Strategic Thinking", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 78, "assessmentDate": "2024-01-09", "source": "360 Review"},
-    {"id": 35, "learnerId": 7, "skill": "Technical Communication", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-09", "source": "360 Review"},
-    {"id": 36, "learnerId": 8, "skill": "Python", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 88, "assessmentDate": "2024-01-08", "source": "GitHub Analysis"},
-    {"id": 37, "learnerId": 8, "skill": "SQL", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-08", "source": "Work Experience"},
-    {"id": 38, "learnerId": 8, "skill": "Spark", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-08", "source": "Work Experience"},
-    {"id": 39, "learnerId": 8, "skill": "Machine Learning", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 45, "assessmentDate": "2024-01-08", "source": "Self-Assessment"},
-    {"id": 40, "learnerId": 8, "skill": "Data Visualization", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-08", "source": "Self-Assessment"},
-    {"id": 41, "learnerId": 9, "skill": "Swift", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-07", "source": "Work Experience"},
-    {"id": 42, "learnerId": 9, "skill": "Kotlin", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-07", "source": "Work Experience"},
-    {"id": 43, "learnerId": 9, "skill": "Backend Development", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 38, "assessmentDate": "2024-01-07", "source": "Gap Analysis"},
-    {"id": 44, "learnerId": 9, "skill": "Node.js", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 35, "assessmentDate": "2024-01-07", "source": "Self-Assessment"},
-    {"id": 45, "learnerId": 9, "skill": "System Design", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 32, "assessmentDate": "2024-01-07", "source": "Self-Assessment"},
-    {"id": 46, "learnerId": 10, "skill": "React", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 93, "assessmentDate": "2024-01-06", "source": "GitHub Analysis"},
-    {"id": 47, "learnerId": 10, "skill": "CSS/Styling", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 94, "assessmentDate": "2024-01-06", "source": "GitHub Analysis"},
-    {"id": 48, "learnerId": 10, "skill": "Performance Optimization", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-06", "source": "Work Experience"},
-    {"id": 49, "learnerId": 10, "skill": "System Design", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-06", "source": "Self-Assessment"},
-    {"id": 50, "learnerId": 10, "skill": "Leadership", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-06", "source": "360 Review"}
+    {
+      "id": 1,
+      "learnerId": 1,
+      "skill": "TypeScript",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 72,
+      "assessmentDate": "2024-01-15",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "skill": "Node.js",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 85,
+      "assessmentDate": "2024-01-15",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 3,
+      "learnerId": 1,
+      "skill": "Docker",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 68,
+      "assessmentDate": "2024-01-15",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 4,
+      "learnerId": 1,
+      "skill": "AWS",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 45,
+      "assessmentDate": "2024-01-15",
+      "source": "Gap Analysis"
+    },
+    {
+      "id": 5,
+      "learnerId": 1,
+      "skill": "System Design",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 60,
+      "assessmentDate": "2024-01-15",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 6,
+      "learnerId": 2,
+      "skill": "React",
+      "currentLevel": "Expert",
+      "targetLevel": "Expert",
+      "proficiency": 95,
+      "assessmentDate": "2024-01-14",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 7,
+      "learnerId": 2,
+      "skill": "TypeScript",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 88,
+      "assessmentDate": "2024-01-14",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 8,
+      "learnerId": 2,
+      "skill": "Next.js",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 82,
+      "assessmentDate": "2024-01-14",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 9,
+      "learnerId": 2,
+      "skill": "System Design",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 65,
+      "assessmentDate": "2024-01-14",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 10,
+      "learnerId": 2,
+      "skill": "Testing (Jest)",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 80,
+      "assessmentDate": "2024-01-14",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 11,
+      "learnerId": 3,
+      "skill": "Kubernetes",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 70,
+      "assessmentDate": "2024-01-13",
+      "source": "Work Experience"
+    },
+    {
+      "id": 12,
+      "learnerId": 3,
+      "skill": "Docker",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 85,
+      "assessmentDate": "2024-01-13",
+      "source": "Work Experience"
+    },
+    {
+      "id": 13,
+      "learnerId": 3,
+      "skill": "AWS",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 72,
+      "assessmentDate": "2024-01-13",
+      "source": "Work Experience"
+    },
+    {
+      "id": 14,
+      "learnerId": 3,
+      "skill": "Terraform",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 68,
+      "assessmentDate": "2024-01-13",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 15,
+      "learnerId": 3,
+      "skill": "CI/CD",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 80,
+      "assessmentDate": "2024-01-13",
+      "source": "Work Experience"
+    },
+    {
+      "id": 16,
+      "learnerId": 4,
+      "skill": "Python",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 82,
+      "assessmentDate": "2024-01-12",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 17,
+      "learnerId": 4,
+      "skill": "Selenium",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 65,
+      "assessmentDate": "2024-01-12",
+      "source": "Work Experience"
+    },
+    {
+      "id": 18,
+      "learnerId": 4,
+      "skill": "API Testing",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 70,
+      "assessmentDate": "2024-01-12",
+      "source": "Work Experience"
+    },
+    {
+      "id": 19,
+      "learnerId": 4,
+      "skill": "Performance Testing",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 40,
+      "assessmentDate": "2024-01-12",
+      "source": "Gap Analysis"
+    },
+    {
+      "id": 20,
+      "learnerId": 4,
+      "skill": "CI/CD",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 60,
+      "assessmentDate": "2024-01-12",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 21,
+      "learnerId": 5,
+      "skill": "TypeScript",
+      "currentLevel": "Expert",
+      "targetLevel": "Expert",
+      "proficiency": 92,
+      "assessmentDate": "2024-01-11",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 22,
+      "learnerId": 5,
+      "skill": "React",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 85,
+      "assessmentDate": "2024-01-11",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 23,
+      "learnerId": 5,
+      "skill": "Node.js",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 80,
+      "assessmentDate": "2024-01-11",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 24,
+      "learnerId": 5,
+      "skill": "Cloud Architecture",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 65,
+      "assessmentDate": "2024-01-11",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 25,
+      "learnerId": 5,
+      "skill": "System Design",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 78,
+      "assessmentDate": "2024-01-11",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 26,
+      "learnerId": 6,
+      "skill": "JavaScript",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 35,
+      "assessmentDate": "2024-01-10",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 27,
+      "learnerId": 6,
+      "skill": "React",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 30,
+      "assessmentDate": "2024-01-10",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 28,
+      "learnerId": 6,
+      "skill": "Node.js",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 32,
+      "assessmentDate": "2024-01-10",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 29,
+      "learnerId": 6,
+      "skill": "SQL",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 55,
+      "assessmentDate": "2024-01-10",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 30,
+      "learnerId": 6,
+      "skill": "Git",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 40,
+      "assessmentDate": "2024-01-10",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 31,
+      "learnerId": 7,
+      "skill": "Leadership",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 80,
+      "assessmentDate": "2024-01-09",
+      "source": "360 Review"
+    },
+    {
+      "id": 32,
+      "learnerId": 7,
+      "skill": "Architecture",
+      "currentLevel": "Expert",
+      "targetLevel": "Expert",
+      "proficiency": 95,
+      "assessmentDate": "2024-01-09",
+      "source": "Work Experience"
+    },
+    {
+      "id": 33,
+      "learnerId": 7,
+      "skill": "Mentoring",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 82,
+      "assessmentDate": "2024-01-09",
+      "source": "360 Review"
+    },
+    {
+      "id": 34,
+      "learnerId": 7,
+      "skill": "Strategic Thinking",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 78,
+      "assessmentDate": "2024-01-09",
+      "source": "360 Review"
+    },
+    {
+      "id": 35,
+      "learnerId": 7,
+      "skill": "Technical Communication",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 85,
+      "assessmentDate": "2024-01-09",
+      "source": "360 Review"
+    },
+    {
+      "id": 36,
+      "learnerId": 8,
+      "skill": "Python",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 88,
+      "assessmentDate": "2024-01-08",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 37,
+      "learnerId": 8,
+      "skill": "SQL",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 82,
+      "assessmentDate": "2024-01-08",
+      "source": "Work Experience"
+    },
+    {
+      "id": 38,
+      "learnerId": 8,
+      "skill": "Spark",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 68,
+      "assessmentDate": "2024-01-08",
+      "source": "Work Experience"
+    },
+    {
+      "id": 39,
+      "learnerId": 8,
+      "skill": "Machine Learning",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 45,
+      "assessmentDate": "2024-01-08",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 40,
+      "learnerId": 8,
+      "skill": "Data Visualization",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 65,
+      "assessmentDate": "2024-01-08",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 41,
+      "learnerId": 9,
+      "skill": "Swift",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 70,
+      "assessmentDate": "2024-01-07",
+      "source": "Work Experience"
+    },
+    {
+      "id": 42,
+      "learnerId": 9,
+      "skill": "Kotlin",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 68,
+      "assessmentDate": "2024-01-07",
+      "source": "Work Experience"
+    },
+    {
+      "id": 43,
+      "learnerId": 9,
+      "skill": "Backend Development",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 38,
+      "assessmentDate": "2024-01-07",
+      "source": "Gap Analysis"
+    },
+    {
+      "id": 44,
+      "learnerId": 9,
+      "skill": "Node.js",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 35,
+      "assessmentDate": "2024-01-07",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 45,
+      "learnerId": 9,
+      "skill": "System Design",
+      "currentLevel": "Beginner",
+      "targetLevel": "Intermediate",
+      "proficiency": 32,
+      "assessmentDate": "2024-01-07",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 46,
+      "learnerId": 10,
+      "skill": "React",
+      "currentLevel": "Expert",
+      "targetLevel": "Expert",
+      "proficiency": 93,
+      "assessmentDate": "2024-01-06",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 47,
+      "learnerId": 10,
+      "skill": "CSS/Styling",
+      "currentLevel": "Expert",
+      "targetLevel": "Expert",
+      "proficiency": 94,
+      "assessmentDate": "2024-01-06",
+      "source": "GitHub Analysis"
+    },
+    {
+      "id": 48,
+      "learnerId": 10,
+      "skill": "Performance Optimization",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 85,
+      "assessmentDate": "2024-01-06",
+      "source": "Work Experience"
+    },
+    {
+      "id": 49,
+      "learnerId": 10,
+      "skill": "System Design",
+      "currentLevel": "Advanced",
+      "targetLevel": "Expert",
+      "proficiency": 80,
+      "assessmentDate": "2024-01-06",
+      "source": "Self-Assessment"
+    },
+    {
+      "id": 50,
+      "learnerId": 10,
+      "skill": "Leadership",
+      "currentLevel": "Intermediate",
+      "targetLevel": "Advanced",
+      "proficiency": 60,
+      "assessmentDate": "2024-01-06",
+      "source": "360 Review"
+    }
   ],
   "learningPaths": [
     {
@@ -671,7 +1121,10 @@
       "completedPathsTotal": 28,
       "departmentProgress": 42,
       "topPerformer": "Priya Sharma",
-      "needsAttention": ["Sneha Gupta", "Arjun Mishra"]
+      "needsAttention": [
+        "Sneha Gupta",
+        "Arjun Mishra"
+      ]
     }
   ],
   "githubProfiles": [
@@ -685,14 +1138,34 @@
       "publicRepos": 28,
       "followers": 145,
       "following": 67,
-      "languages": ["TypeScript", "JavaScript", "Python", "Go"],
+      "languages": [
+        "TypeScript",
+        "JavaScript",
+        "Python",
+        "Go"
+      ],
       "primaryLanguage": "TypeScript",
       "recentActivity": "Active 2 days ago",
       "profileUrl": "https://github.com/rajesh-kb",
       "topRepositories": [
-        {"name": "distributed-cache", "language": "TypeScript", "stars": 234, "forks": 45},
-        {"name": "api-gateway", "language": "Go", "stars": 156, "forks": 28},
-        {"name": "data-pipeline", "language": "Python", "stars": 89, "forks": 12}
+        {
+          "name": "distributed-cache",
+          "language": "TypeScript",
+          "stars": 234,
+          "forks": 45
+        },
+        {
+          "name": "api-gateway",
+          "language": "Go",
+          "stars": 156,
+          "forks": 28
+        },
+        {
+          "name": "data-pipeline",
+          "language": "Python",
+          "stars": 89,
+          "forks": 12
+        }
       ],
       "contributionsLastYear": 1250
     },
@@ -706,14 +1179,34 @@
       "publicRepos": 35,
       "followers": 287,
       "following": 89,
-      "languages": ["JavaScript", "TypeScript", "CSS", "HTML"],
+      "languages": [
+        "JavaScript",
+        "TypeScript",
+        "CSS",
+        "HTML"
+      ],
       "primaryLanguage": "JavaScript",
       "recentActivity": "Active 1 day ago",
       "profileUrl": "https://github.com/priya-sharma-ui",
       "topRepositories": [
-        {"name": "react-ui-kit", "language": "TypeScript", "stars": 1205, "forks": 245},
-        {"name": "performance-guide", "language": "Markdown", "stars": 678, "forks": 123},
-        {"name": "next-starter", "language": "TypeScript", "stars": 456, "forks": 89}
+        {
+          "name": "react-ui-kit",
+          "language": "TypeScript",
+          "stars": 1205,
+          "forks": 245
+        },
+        {
+          "name": "performance-guide",
+          "language": "Markdown",
+          "stars": 678,
+          "forks": 123
+        },
+        {
+          "name": "next-starter",
+          "language": "TypeScript",
+          "stars": 456,
+          "forks": 89
+        }
       ],
       "contributionsLastYear": 1890
     },
@@ -727,14 +1220,34 @@
       "publicRepos": 22,
       "followers": 98,
       "following": 54,
-      "languages": ["HCL", "YAML", "Python", "Bash"],
+      "languages": [
+        "HCL",
+        "YAML",
+        "Python",
+        "Bash"
+      ],
       "primaryLanguage": "HCL",
       "recentActivity": "Active 3 days ago",
       "profileUrl": "https://github.com/amit-devops",
       "topRepositories": [
-        {"name": "terraform-modules", "language": "HCL", "stars": 345, "forks": 67},
-        {"name": "k8s-automation", "language": "Bash", "stars": 189, "forks": 34},
-        {"name": "infra-as-code", "language": "Python", "stars": 123, "forks": 22}
+        {
+          "name": "terraform-modules",
+          "language": "HCL",
+          "stars": 345,
+          "forks": 67
+        },
+        {
+          "name": "k8s-automation",
+          "language": "Bash",
+          "stars": 189,
+          "forks": 34
+        },
+        {
+          "name": "infra-as-code",
+          "language": "Python",
+          "stars": 123,
+          "forks": 22
+        }
       ],
       "contributionsLastYear": 980
     },
@@ -748,14 +1261,34 @@
       "publicRepos": 18,
       "followers": 76,
       "following": 42,
-      "languages": ["Python", "JavaScript", "Java", "Gherkin"],
+      "languages": [
+        "Python",
+        "JavaScript",
+        "Java",
+        "Gherkin"
+      ],
       "primaryLanguage": "Python",
       "recentActivity": "Active 1 day ago",
       "profileUrl": "https://github.com/neha-qa-automation",
       "topRepositories": [
-        {"name": "selenium-framework", "language": "Python", "stars": 234, "forks": 45},
-        {"name": "api-test-suite", "language": "Python", "stars": 145, "forks": 28},
-        {"name": "automation-utils", "language": "JavaScript", "stars": 89, "forks": 15}
+        {
+          "name": "selenium-framework",
+          "language": "Python",
+          "stars": 234,
+          "forks": 45
+        },
+        {
+          "name": "api-test-suite",
+          "language": "Python",
+          "stars": 145,
+          "forks": 28
+        },
+        {
+          "name": "automation-utils",
+          "language": "JavaScript",
+          "stars": 89,
+          "forks": 15
+        }
       ],
       "contributionsLastYear": 756
     },
@@ -769,14 +1302,34 @@
       "publicRepos": 42,
       "followers": 512,
       "following": 156,
-      "languages": ["TypeScript", "JavaScript", "Python", "SQL"],
+      "languages": [
+        "TypeScript",
+        "JavaScript",
+        "Python",
+        "SQL"
+      ],
       "primaryLanguage": "TypeScript",
       "recentActivity": "Active today",
       "profileUrl": "https://github.com/vikram-fullstack",
       "topRepositories": [
-        {"name": "full-stack-starter", "language": "TypeScript", "stars": 2345, "forks": 456},
-        {"name": "micro-services", "language": "TypeScript", "stars": 1567, "forks": 289},
-        {"name": "monitoring-toolkit", "language": "Python", "stars": 789, "forks": 145}
+        {
+          "name": "full-stack-starter",
+          "language": "TypeScript",
+          "stars": 2345,
+          "forks": 456
+        },
+        {
+          "name": "micro-services",
+          "language": "TypeScript",
+          "stars": 1567,
+          "forks": 289
+        },
+        {
+          "name": "monitoring-toolkit",
+          "language": "Python",
+          "stars": 789,
+          "forks": 145
+        }
       ],
       "contributionsLastYear": 2145
     },
@@ -790,14 +1343,34 @@
       "publicRepos": 8,
       "followers": 12,
       "following": 25,
-      "languages": ["JavaScript", "Python", "HTML", "CSS"],
+      "languages": [
+        "JavaScript",
+        "Python",
+        "HTML",
+        "CSS"
+      ],
       "primaryLanguage": "JavaScript",
       "recentActivity": "Active 2 hours ago",
       "profileUrl": "https://github.com/sneha-junior-dev",
       "topRepositories": [
-        {"name": "portfolio-site", "language": "JavaScript", "stars": 15, "forks": 3},
-        {"name": "todo-app", "language": "React", "stars": 8, "forks": 2},
-        {"name": "practice-problems", "language": "Python", "stars": 22, "forks": 5}
+        {
+          "name": "portfolio-site",
+          "language": "JavaScript",
+          "stars": 15,
+          "forks": 3
+        },
+        {
+          "name": "todo-app",
+          "language": "React",
+          "stars": 8,
+          "forks": 2
+        },
+        {
+          "name": "practice-problems",
+          "language": "Python",
+          "stars": 22,
+          "forks": 5
+        }
       ],
       "contributionsLastYear": 245
     },
@@ -811,14 +1384,34 @@
       "publicRepos": 56,
       "followers": 890,
       "following": 234,
-      "languages": ["TypeScript", "Go", "Python", "Java"],
+      "languages": [
+        "TypeScript",
+        "Go",
+        "Python",
+        "Java"
+      ],
       "primaryLanguage": "TypeScript",
       "recentActivity": "Active today",
       "profileUrl": "https://github.com/rohan-lead",
       "topRepositories": [
-        {"name": "scalable-architecture", "language": "TypeScript", "stars": 3456, "forks": 678},
-        {"name": "system-design-patterns", "language": "Markdown", "stars": 2789, "forks": 567},
-        {"name": "engineering-handbook", "language": "Markdown", "stars": 2145, "forks": 434}
+        {
+          "name": "scalable-architecture",
+          "language": "TypeScript",
+          "stars": 3456,
+          "forks": 678
+        },
+        {
+          "name": "system-design-patterns",
+          "language": "Markdown",
+          "stars": 2789,
+          "forks": 567
+        },
+        {
+          "name": "engineering-handbook",
+          "language": "Markdown",
+          "stars": 2145,
+          "forks": 434
+        }
       ],
       "contributionsLastYear": 3456
     },
@@ -832,14 +1425,34 @@
       "publicRepos": 19,
       "followers": 143,
       "following": 67,
-      "languages": ["Python", "SQL", "Scala", "Spark"],
+      "languages": [
+        "Python",
+        "SQL",
+        "Scala",
+        "Spark"
+      ],
       "primaryLanguage": "Python",
       "recentActivity": "Active 1 day ago",
       "profileUrl": "https://github.com/divya-data-eng",
       "topRepositories": [
-        {"name": "etl-pipeline", "language": "Python", "stars": 267, "forks": 45},
-        {"name": "data-viz-toolkit", "language": "Python", "stars": 145, "forks": 28},
-        {"name": "spark-utils", "language": "Scala", "stars": 98, "forks": 16}
+        {
+          "name": "etl-pipeline",
+          "language": "Python",
+          "stars": 267,
+          "forks": 45
+        },
+        {
+          "name": "data-viz-toolkit",
+          "language": "Python",
+          "stars": 145,
+          "forks": 28
+        },
+        {
+          "name": "spark-utils",
+          "language": "Scala",
+          "stars": 98,
+          "forks": 16
+        }
       ],
       "contributionsLastYear": 1123
     },
@@ -853,14 +1466,34 @@
       "publicRepos": 15,
       "followers": 54,
       "following": 38,
-      "languages": ["Swift", "Kotlin", "JavaScript", "Python"],
+      "languages": [
+        "Swift",
+        "Kotlin",
+        "JavaScript",
+        "Python"
+      ],
       "primaryLanguage": "Swift",
       "recentActivity": "Active 4 days ago",
       "profileUrl": "https://github.com/arjun-mobile",
       "topRepositories": [
-        {"name": "ios-app-kit", "language": "Swift", "stars": 189, "forks": 34},
-        {"name": "android-library", "language": "Kotlin", "stars": 123, "forks": 22},
-        {"name": "mobile-utils", "language": "Swift", "stars": 76, "forks": 12}
+        {
+          "name": "ios-app-kit",
+          "language": "Swift",
+          "stars": 189,
+          "forks": 34
+        },
+        {
+          "name": "android-library",
+          "language": "Kotlin",
+          "stars": 123,
+          "forks": 22
+        },
+        {
+          "name": "mobile-utils",
+          "language": "Swift",
+          "stars": 76,
+          "forks": 12
+        }
       ],
       "contributionsLastYear": 654
     },
@@ -874,14 +1507,34 @@
       "publicRepos": 38,
       "followers": 456,
       "following": 123,
-      "languages": ["TypeScript", "JavaScript", "CSS", "HTML"],
+      "languages": [
+        "TypeScript",
+        "JavaScript",
+        "CSS",
+        "HTML"
+      ],
       "primaryLanguage": "TypeScript",
       "recentActivity": "Active today",
       "profileUrl": "https://github.com/zara-frontend-specialist",
       "topRepositories": [
-        {"name": "design-system-lib", "language": "TypeScript", "stars": 1897, "forks": 345},
-        {"name": "frontend-best-practices", "language": "Markdown", "stars": 1234, "forks": 223},
-        {"name": "accessibility-toolkit", "language": "TypeScript", "stars": 876, "forks": 156}
+        {
+          "name": "design-system-lib",
+          "language": "TypeScript",
+          "stars": 1897,
+          "forks": 345
+        },
+        {
+          "name": "frontend-best-practices",
+          "language": "Markdown",
+          "stars": 1234,
+          "forks": 223
+        },
+        {
+          "name": "accessibility-toolkit",
+          "language": "TypeScript",
+          "stars": 876,
+          "forks": 156
+        }
       ],
       "contributionsLastYear": 1876
     }
@@ -899,11 +1552,26 @@
       "profilePictureUrl": "https://api.placeholder.com/rajesh-kumar.jpg",
       "about": "Passionate about building scalable backend systems. 5+ years of experience in full-stack development.",
       "endorsedSkills": [
-        {"skill": "TypeScript", "endorsements": 45},
-        {"skill": "Node.js", "endorsements": 52},
-        {"skill": "AWS", "endorsements": 28},
-        {"skill": "Docker", "endorsements": 35},
-        {"skill": "System Design", "endorsements": 22}
+        {
+          "skill": "TypeScript",
+          "endorsements": 45
+        },
+        {
+          "skill": "Node.js",
+          "endorsements": 52
+        },
+        {
+          "skill": "AWS",
+          "endorsements": 28
+        },
+        {
+          "skill": "Docker",
+          "endorsements": 35
+        },
+        {
+          "skill": "System Design",
+          "endorsements": 22
+        }
       ],
       "experience": [
         {
@@ -942,11 +1610,26 @@
       "profilePictureUrl": "https://api.placeholder.com/priya-sharma.jpg",
       "about": "Frontend specialist with 7+ years building performant React applications.",
       "endorsedSkills": [
-        {"skill": "React", "endorsements": 89},
-        {"skill": "JavaScript", "endorsements": 76},
-        {"skill": "Performance Optimization", "endorsements": 64},
-        {"skill": "TypeScript", "endorsements": 71},
-        {"skill": "UI/UX", "endorsements": 45}
+        {
+          "skill": "React",
+          "endorsements": 89
+        },
+        {
+          "skill": "JavaScript",
+          "endorsements": 76
+        },
+        {
+          "skill": "Performance Optimization",
+          "endorsements": 64
+        },
+        {
+          "skill": "TypeScript",
+          "endorsements": 71
+        },
+        {
+          "skill": "UI/UX",
+          "endorsements": 45
+        }
       ],
       "experience": [
         {
@@ -985,11 +1668,26 @@
       "profilePictureUrl": "https://api.placeholder.com/amit-patel.jpg",
       "about": "DevOps engineer focused on cloud infrastructure and automation.",
       "endorsedSkills": [
-        {"skill": "Kubernetes", "endorsements": 42},
-        {"skill": "Docker", "endorsements": 48},
-        {"skill": "AWS", "endorsements": 38},
-        {"skill": "Terraform", "endorsements": 35},
-        {"skill": "CI/CD", "endorsements": 40}
+        {
+          "skill": "Kubernetes",
+          "endorsements": 42
+        },
+        {
+          "skill": "Docker",
+          "endorsements": 48
+        },
+        {
+          "skill": "AWS",
+          "endorsements": 38
+        },
+        {
+          "skill": "Terraform",
+          "endorsements": 35
+        },
+        {
+          "skill": "CI/CD",
+          "endorsements": 40
+        }
       ],
       "experience": [
         {
@@ -1028,11 +1726,26 @@
       "profilePictureUrl": "https://api.placeholder.com/neha-singh.jpg",
       "about": "QA automation enthusiast with expertise in test automation frameworks.",
       "endorsedSkills": [
-        {"skill": "Selenium", "endorsements": 38},
-        {"skill": "Python", "endorsements": 52},
-        {"skill": "Test Automation", "endorsements": 44},
-        {"skill": "API Testing", "endorsements": 32},
-        {"skill": "CI/CD", "endorsements": 25}
+        {
+          "skill": "Selenium",
+          "endorsements": 38
+        },
+        {
+          "skill": "Python",
+          "endorsements": 52
+        },
+        {
+          "skill": "Test Automation",
+          "endorsements": 44
+        },
+        {
+          "skill": "API Testing",
+          "endorsements": 32
+        },
+        {
+          "skill": "CI/CD",
+          "endorsements": 25
+        }
       ],
       "experience": [
         {
@@ -1071,11 +1784,26 @@
       "profilePictureUrl": "https://api.placeholder.com/vikram-desai.jpg",
       "about": "Full-stack expert with 8+ years building scalable systems. Active open source contributor.",
       "endorsedSkills": [
-        {"skill": "TypeScript", "endorsements": 78},
-        {"skill": "React", "endorsements": 62},
-        {"skill": "Node.js", "endorsements": 71},
-        {"skill": "Cloud Architecture", "endorsements": 55},
-        {"skill": "Microservices", "endorsements": 48}
+        {
+          "skill": "TypeScript",
+          "endorsements": 78
+        },
+        {
+          "skill": "React",
+          "endorsements": 62
+        },
+        {
+          "skill": "Node.js",
+          "endorsements": 71
+        },
+        {
+          "skill": "Cloud Architecture",
+          "endorsements": 55
+        },
+        {
+          "skill": "Microservices",
+          "endorsements": 48
+        }
       ],
       "experience": [
         {
@@ -1112,7 +1840,10 @@
       "startTime": "2024-01-22T10:00:00Z",
       "endTime": "2024-01-22T10:30:00Z",
       "duration": 30,
-      "attendees": ["rajesh.kumar@company.com", "manager@company.com"],
+      "attendees": [
+        "rajesh.kumar@company.com",
+        "manager@company.com"
+      ],
       "isRecurring": true,
       "status": "Scheduled"
     },
@@ -1124,7 +1855,10 @@
       "startTime": "2024-01-22T09:30:00Z",
       "endTime": "2024-01-22T09:45:00Z",
       "duration": 15,
-      "attendees": ["rajesh.kumar@company.com", "team@company.com"],
+      "attendees": [
+        "rajesh.kumar@company.com",
+        "team@company.com"
+      ],
       "isRecurring": true,
       "status": "Scheduled"
     },
@@ -1136,7 +1870,10 @@
       "startTime": "2024-01-22T14:00:00Z",
       "endTime": "2024-01-22T15:00:00Z",
       "duration": 60,
-      "attendees": ["priya.sharma@company.com", "design-team@company.com"],
+      "attendees": [
+        "priya.sharma@company.com",
+        "design-team@company.com"
+      ],
       "isRecurring": false,
       "status": "Scheduled"
     },
@@ -1148,7 +1885,10 @@
       "startTime": "2024-01-23T11:00:00Z",
       "endTime": "2024-01-23T12:00:00Z",
       "duration": 60,
-      "attendees": ["amit.patel@company.com", "infra-team@company.com"],
+      "attendees": [
+        "amit.patel@company.com",
+        "infra-team@company.com"
+      ],
       "isRecurring": false,
       "status": "Scheduled"
     }
@@ -1259,32 +1999,79 @@
     {
       "id": 1,
       "category": "Backend Development",
-      "skills": ["TypeScript", "Node.js", "Python", "Go", "Java", "System Design", "Database Design", "API Design"]
+      "skills": [
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "Go",
+        "Java",
+        "System Design",
+        "Database Design",
+        "API Design"
+      ]
     },
     {
       "id": 2,
       "category": "Frontend Development",
-      "skills": ["React", "Vue.js", "Angular", "CSS/Styling", "Performance Optimization", "Testing", "Accessibility"]
+      "skills": [
+        "React",
+        "Vue.js",
+        "Angular",
+        "CSS/Styling",
+        "Performance Optimization",
+        "Testing",
+        "Accessibility"
+      ]
     },
     {
       "id": 3,
       "category": "DevOps & Infrastructure",
-      "skills": ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Monitoring", "Security"]
+      "skills": [
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Terraform",
+        "CI/CD",
+        "Monitoring",
+        "Security"
+      ]
     },
     {
       "id": 4,
       "category": "Quality Assurance",
-      "skills": ["Selenium", "API Testing", "Performance Testing", "Test Automation", "Gherkin", "Manual Testing"]
+      "skills": [
+        "Selenium",
+        "API Testing",
+        "Performance Testing",
+        "Test Automation",
+        "Gherkin",
+        "Manual Testing"
+      ]
     },
     {
       "id": 5,
       "category": "Data Engineering",
-      "skills": ["Python", "SQL", "Spark", "ETL", "Data Modeling", "Machine Learning", "Analytics"]
+      "skills": [
+        "Python",
+        "SQL",
+        "Spark",
+        "ETL",
+        "Data Modeling",
+        "Machine Learning",
+        "Analytics"
+      ]
     },
     {
       "id": 6,
       "category": "Leadership & Soft Skills",
-      "skills": ["Leadership", "Mentoring", "Communication", "Strategic Thinking", "Project Management", "Team Building"]
+      "skills": [
+        "Leadership",
+        "Mentoring",
+        "Communication",
+        "Strategic Thinking",
+        "Project Management",
+        "Team Building"
+      ]
     }
   ],
   "courses": [
@@ -1297,7 +2084,10 @@
       "rating": 4.8,
       "reviews": 2345,
       "price": "$14.99",
-      "skills": ["TypeScript", "Advanced"],
+      "skills": [
+        "TypeScript",
+        "Advanced"
+      ],
       "description": "Master TypeScript with advanced patterns and best practices"
     },
     {
@@ -1309,7 +2099,10 @@
       "rating": 4.9,
       "reviews": 876,
       "price": "$29/month",
-      "skills": ["React", "Performance"],
+      "skills": [
+        "React",
+        "Performance"
+      ],
       "description": "Optimize React applications for maximum performance"
     },
     {
@@ -1321,7 +2114,10 @@
       "rating": 4.7,
       "reviews": 5678,
       "price": "$14.99",
-      "skills": ["Kubernetes", "DevOps"],
+      "skills": [
+        "Kubernetes",
+        "DevOps"
+      ],
       "description": "Complete Kubernetes deployment and management"
     },
     {
@@ -1333,7 +2129,10 @@
       "rating": 4.6,
       "reviews": 3456,
       "price": "$49/month",
-      "skills": ["System Design", "Architecture"],
+      "skills": [
+        "System Design",
+        "Architecture"
+      ],
       "description": "Prepare for system design interviews"
     },
     {
@@ -1345,7 +2144,10 @@
       "rating": 4.5,
       "reviews": 2134,
       "price": "$25/month",
-      "skills": ["Python", "Data Engineering"],
+      "skills": [
+        "Python",
+        "Data Engineering"
+      ],
       "description": "Build data pipelines with Python"
     }
   ]

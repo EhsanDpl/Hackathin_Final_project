@@ -61,11 +61,11 @@ export default function Dashboard() {
 
           <main className="p-6">
             <h1 className="text-3xl font-bold mb-6 text-gray-800">
-              Welcome, {user && user.role === 'admin' && !selectedEmployee ? 'Admin' : data.name}!
+              Welcome, {user && (user.role === 'admin' || user.role === 'super_admin') && !selectedEmployee ? 'Admin' : data.name}!
             </h1>
 
             {/* Admin Employee Filter */}
-            {user && user.role === 'admin' && (
+            {user && (user.role === 'admin' || user.role === 'super_admin') && (
               <div className="mb-6">
                 <label className="block mb-2 font-medium">Filter by Employee</label>
                 <select
@@ -90,7 +90,7 @@ export default function Dashboard() {
               <Card title="Completed Skills" value={data.completedSkills} icon="✓" />
               <Card title="Ongoing Courses" value={data.ongoingCourses} icon="📚" />
               <Card title="Points Earned" value={data.points} icon="⭐" />
-              {user && user.role === 'admin' && !selectedEmployee && (
+              {user && (user.role === 'admin' || user.role === 'super_admin') && !selectedEmployee && (
                 <Card title="Employee Management" value="Manage" icon="👤" />
               )}
             </div>
@@ -104,7 +104,7 @@ export default function Dashboard() {
             </div>
 
             {/* Admin Link Generation */}
-            {user && user.role === 'admin' && selectedEmployee && (
+            {user && (user.role === 'admin' || user.role === 'super_admin') && selectedEmployee && (
               <div className="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-3 animate-fadeInUp">
                 <input
                   type="text"
