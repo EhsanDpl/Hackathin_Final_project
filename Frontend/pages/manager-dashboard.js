@@ -10,13 +10,23 @@ import {
   AcademicCapIcon,
   ArrowRightIcon,
   CheckCircleIcon,
-  XCircleIcon
+  XCircleIcon,
+  MagnifyingGlassIcon,
+  FunnelIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+  CalendarIcon
 } from '@heroicons/react/24/outline';
 
 export default function ManagerDashboard() {
   const { user } = useAuth();
   const [quizStatus, setQuizStatus] = useState([]);
+  const [filteredStatus, setFilteredStatus] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('name');
+  const [sortOrder, setSortOrder] = useState('asc');
   const [stats, setStats] = useState({
     activeLearners: 0,
     engagement: 0,
@@ -62,8 +72,62 @@ export default function ManagerDashboard() {
   useEffect(() => {
     if (quizStatus.length > 0) {
       fetchStats();
+      applyFilters();
     }
-  }, [quizStatus]);
+  }, [quizStatus, searchTerm, statusFilter, sortBy, sortOrder]);
+
+  const applyFilters = () => {
+    let filtered = [...quizStatus];
+
+    // Search filter
+    if (searchTerm) {
+      filtered = filtered.filter(emp => 
+        emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (emp.role && emp.role.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (emp.department && emp.department.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    // Status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(emp => emp.status === statusFilter);
+    }
+
+    // Sort
+    filtered.sort((a, b) => {
+      let aVal, bVal;
+      switch (sortBy) {
+        case 'name':
+          aVal = a.name.toLowerCase();
+          bVal = b.name.toLowerCase();
+          break;
+        case 'score':
+          aVal = a.averageScore || 0;
+          bVal = b.averageScore || 0;
+          break;
+        case 'quizzes':
+          aVal = a.totalQuizzes || 0;
+          bVal = b.totalQuizzes || 0;
+          break;
+        case 'status':
+          aVal = a.status || '';
+          bVal = b.status || '';
+          break;
+        default:
+          aVal = a.name.toLowerCase();
+          bVal = b.name.toLowerCase();
+      }
+
+      if (sortOrder === 'asc') {
+        return aVal > bVal ? 1 : -1;
+      } else {
+        return aVal < bVal ? 1 : -1;
+      }
+    });
+
+    setFilteredStatus(filtered);
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -82,6 +146,34 @@ export default function ManagerDashboard() {
     if (score >= 70) return 'bg-green-500';
     if (score >= 50) return 'bg-yellow-500';
     return 'bg-orange-500';
+  };
+
+  const exportToCSV = () => {
+    const headers = ['Name', 'Email', 'Role', 'Department', 'Average Score', 'Total Quizzes', 'Coding Challenges', 'Status', 'Last Quiz Date'];
+    const rows = filteredStatus.map(emp => [
+      emp.name,
+      emp.email,
+      emp.role || 'N/A',
+      emp.department || 'N/A',
+      (emp.averageScore || 0).toFixed(1),
+      emp.totalQuizzes || 0,
+      emp.codingChallengeCount || 0,
+      emp.status || 'No Status',
+      emp.lastQuizDate ? new Date(emp.lastQuizDate).toLocaleDateString() : 'N/A'
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `employee-learning-report-${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   if (loading) {
@@ -117,39 +209,134 @@ export default function ManagerDashboard() {
               <p className="text-gray-600 mb-6">Engineering Team - Frontend & Backend Squad</p>
               
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 hover:shadow-md transition-shadow">
                   <div className="text-3xl font-bold text-blue-700">{stats.activeLearners}</div>
                   <div className="text-sm text-blue-600 font-medium">Active Learners</div>
+                  <div className="text-xs text-blue-500 mt-1">Currently learning</div>
                 </div>
-                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
+                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200 hover:shadow-md transition-shadow">
                   <div className="text-3xl font-bold text-green-700">{stats.engagement}%</div>
                   <div className="text-sm text-green-600 font-medium">Engagement</div>
+                  <div className="text-xs text-green-500 mt-1">Average score</div>
                 </div>
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200 hover:shadow-md transition-shadow">
                   <div className="text-3xl font-bold text-purple-700">{stats.hoursThisMonth}</div>
                   <div className="text-sm text-purple-600 font-medium">Hours This Month</div>
+                  <div className="text-xs text-purple-500 mt-1">Learning time</div>
                 </div>
-                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-4 border border-pink-200">
+                <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-4 border border-pink-200 hover:shadow-md transition-shadow">
                   <div className="text-3xl font-bold text-pink-700">{stats.pathsCompleted}</div>
                   <div className="text-sm text-pink-600 font-medium">Paths Completed</div>
+                  <div className="text-xs text-pink-500 mt-1">Achievements</div>
                 </div>
               </div>
+              
+              {/* Status Breakdown */}
+              {quizStatus.length > 0 && (
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <h3 className="text-lg font-semibold text-gray-700 mb-3">Status Breakdown</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">On Track:</span>
+                      <span className="font-bold text-gray-800">
+                        {quizStatus.filter(e => e.status === 'On Track').length}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Needs Improvement:</span>
+                      <span className="font-bold text-gray-800">
+                        {quizStatus.filter(e => e.status === 'Needs Improvement').length}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
+                      <span className="text-sm text-gray-600">Behind:</span>
+                      <span className="font-bold text-gray-800">
+                        {quizStatus.filter(e => e.status === 'Behind').length}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Team Members Quiz Status */}
             <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
-              <div className="flex items-center gap-2 mb-4">
-                <UserGroupIcon className="w-6 h-6 text-purple-600" />
-                <h2 className="text-2xl font-bold text-gray-800">Team Members</h2>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                <div className="flex items-center gap-2">
+                  <UserGroupIcon className="w-6 h-6 text-purple-600" />
+                  <h2 className="text-2xl font-bold text-gray-800">Team Members</h2>
+                  <span className="text-sm text-gray-500">({filteredStatus.length} of {quizStatus.length})</span>
+                </div>
+                
+                {/* Search and Filters */}
+                <div className="flex flex-wrap gap-2">
+                  {/* Search */}
+                  <div className="relative">
+                    <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Search employees..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    />
+                  </div>
+                  
+                  {/* Status Filter */}
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="all">All Status</option>
+                    <option value="On Track">On Track</option>
+                    <option value="Needs Improvement">Needs Improvement</option>
+                    <option value="Behind">Behind</option>
+                  </select>
+                  
+                  {/* Sort */}
+                  <select
+                    value={`${sortBy}-${sortOrder}`}
+                    onChange={(e) => {
+                      const [field, order] = e.target.value.split('-');
+                      setSortBy(field);
+                      setSortOrder(order);
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="score-desc">Score (High to Low)</option>
+                    <option value="score-asc">Score (Low to High)</option>
+                    <option value="quizzes-desc">Quizzes (Most)</option>
+                    <option value="status-asc">Status</option>
+                  </select>
+                  
+                  {/* Export Button */}
+                  <button
+                    onClick={exportToCSV}
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+                  >
+                    <ArrowDownIcon className="w-4 h-4" />
+                    Export CSV
+                  </button>
+                </div>
               </div>
               
               {quizStatus.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
                   No quiz data available yet. Employees need to complete quizzes first.
                 </div>
+              ) : filteredStatus.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  No employees match your search criteria.
+                </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {quizStatus.map((employee) => {
+                  {filteredStatus.map((employee) => {
                     const progress = employee.averageScore || 0;
                     const initials = employee.name
                       .split(' ')
@@ -201,10 +388,28 @@ export default function ManagerDashboard() {
                         </div>
                         
                         {/* Stats */}
-                        <div className="flex items-center justify-between text-xs text-gray-600 mb-3">
-                          <span>📊 {employee.totalQuizzes} Quizzes</span>
-                          <span>💻 {employee.codingChallengeCount} Challenges</span>
+                        <div className="grid grid-cols-3 gap-2 text-xs text-gray-600 mb-3">
+                          <div className="text-center">
+                            <div className="font-bold text-gray-800">{employee.totalQuizzes}</div>
+                            <div className="text-gray-500">Quizzes</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-bold text-gray-800">{employee.codingChallengeCount}</div>
+                            <div className="text-gray-500">Challenges</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="font-bold text-gray-800">{employee.department || 'N/A'}</div>
+                            <div className="text-gray-500">Department</div>
+                          </div>
                         </div>
+                        
+                        {/* Last Quiz Date */}
+                        {employee.lastQuizDate && (
+                          <div className="text-xs text-gray-500 mb-2 flex items-center gap-1">
+                            <CalendarIcon className="w-3 h-3" />
+                            Last quiz: {new Date(employee.lastQuizDate).toLocaleDateString()}
+                          </div>
+                        )}
                         
                         {/* Status Badge */}
                         <div className="flex justify-center">

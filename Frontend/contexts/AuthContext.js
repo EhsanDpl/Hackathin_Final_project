@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
       // Redirect based on role
       if (loggedUser.role === 'super_admin' || loggedUser.role === 'admin') {
-        router.push('/admin-dashboard');
+        router.push('/manager-dashboard');
       } else {
         router.push('/dashboard');
       }

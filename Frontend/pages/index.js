@@ -13,7 +13,7 @@ export default function Login() {
   useEffect(() => {
     if (user) {
       if (user.role === 'admin' || user.role === 'super_admin') {
-        router.push('/admin-dashboard');
+        router.push('/manager-dashboard');
       } else {
         router.push('/dashboard');
       }

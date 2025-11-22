@@ -23,7 +23,6 @@ export default function Sidebar() {
 
   if (userIsAdmin) {
     navItems.push(
-      { name: 'Admin Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/admin-dashboard' },
       { name: 'Manager Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/manager-dashboard' },
       { name: 'Create Growth Plan', icon: <LinkIcon className="w-5 h-5" />, path: '/create-link' },
       { name: 'Create Employee', icon: <UserIcon className="w-5 h-5" />, path: '/create-employee' }
@@ -31,8 +30,8 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-64 bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white flex flex-col p-6 min-h-screen">
-      <h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-gray-200 transition" onClick={() => router.push(userIsAdmin ? '/admin-dashboard' : '/dashboard')}>
+    <aside className="w-72 bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white flex flex-col p-6 min-h-screen">
+      <h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-gray-200 transition" onClick={() => router.push(userIsAdmin ? '/manager-dashboard' : '/dashboard')}>
         SkillPilot AI
       </h2>
       <ul className="flex flex-col space-y-2">
