@@ -7,7 +7,7 @@ services:
       - .env
     environment:
       POSTGRES_USER: ${DB_USER:-skillpilot}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-skillpilot123}
       POSTGRES_DB: ${DB_NAME:-skillpilot_db}
     ports:
       - "5433:5432"
@@ -53,14 +53,14 @@ services:
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: ${DB_USER:-skillpilot}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD:-skillpilot123}
       DB_NAME: ${DB_NAME:-skillpilot_db}
-      JWT_SECRET: ${JWT_SECRET}
-      GROQ_API_KEY: ${GROQ_API_KEY}
+      JWT_SECRET: ${JWT_SECRET:-skillpilot-super-secret-jwt-key-change-in-production-min-32-chars}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      MAILERSEND_API_TOKEN: ${MAILERSEND_API_TOKEN}
-      MAILERSEND_FROM_EMAIL: ${MAILERSEND_FROM_EMAIL}
+      MAILERSEND_API_TOKEN: ${MAILERSEND_API_TOKEN:-}
+      MAILERSEND_FROM_EMAIL: ${MAILERSEND_FROM_EMAIL:-}
       MAILERSEND_FROM_NAME: ${MAILERSEND_FROM_NAME:-SkillPilot AI}
     ports:
       - "3001:3001"

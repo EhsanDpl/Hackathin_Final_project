@@ -50,15 +50,21 @@ export class InvitationService {
         this.linkExpirationSeconds,
       );
 
-      // Send invitation email
-      await this.mailerSendService.sendInvitationEmail(
-        email,
-        name,
-        invitationLink,
-        role,
-      );
+      // Send invitation email (optional - won't fail if email service is unavailable)
+      try {
+        await this.mailerSendService.sendInvitationEmail(
+          email,
+          name,
+          invitationLink,
+          role,
+        );
+        this.logger.log(`✅ Invitation email sent to ${email}`);
+      } catch (error: any) {
+        // Don't fail invitation creation if email fails
+        this.logger.warn(`⚠️  Failed to send invitation email, but invitation link created: ${invitationLink}`);
+      }
 
-      this.logger.log(`✅ Invitation created and sent to ${email}`);
+      this.logger.log(`✅ Invitation created for ${email}`);
 
       return {
         invitationLink,

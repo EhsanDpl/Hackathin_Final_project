@@ -38,17 +38,13 @@ export class MailerSendService {
     role: string,
   ): Promise<void> {
     if (!this.apiToken) {
-      throw new HttpException(
-        'Email service is not configured. Please set MAILERSEND_API_TOKEN.',
-        HttpStatus.SERVICE_UNAVAILABLE,
-      );
+      this.logger.warn('⚠️  Email service not configured. Skipping email send.');
+      return; // Don't throw error, just skip
     }
 
     if (!this.fromEmail) {
-      throw new HttpException(
-        'Email sender not configured. Please set MAILERSEND_FROM_EMAIL with a verified domain in MailerSend.',
-        HttpStatus.SERVICE_UNAVAILABLE,
-      );
+      this.logger.warn('⚠️  Email sender not configured. Skipping email send.');
+      return; // Don't throw error, just skip
     }
 
     try {
@@ -83,10 +79,17 @@ export class MailerSendService {
       this.logger.log(`✅ Invitation email sent to ${toEmail}`);
     } catch (error: any) {
       this.logger.error('Error sending invitation email:', error.response?.data || error.message);
-      throw new HttpException(
-        error.response?.data?.message || 'Failed to send invitation email',
-        error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      
+      // Don't throw error - just log it and continue
+      // This allows the application to work even if email service fails
+      if (error.response?.data?.message?.includes('domain must be verified')) {
+        this.logger.warn(`⚠️  MailerSend domain not verified. Email not sent to ${toEmail}. Please verify domain in MailerSend dashboard.`);
+        return; // Return silently - don't break the flow
+      }
+      
+      // For other errors, also don't throw - just log
+      this.logger.warn(`⚠️  Failed to send email to ${toEmail}, but continuing without email.`);
+      return;
     }
   }
 
