@@ -1,13 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import {
-  HomeIcon,
-  LinkIcon,
-  UserIcon, ChatBubbleLeftRightIcon, AcademicCapIcon,
-  AcademicCapIcon,
-  ChartBarIcon,
-  BookOpenIcon,
-} from '@heroicons/react/24/outline';
+import {HomeIcon,LinkIcon,UserIcon, ChatBubbleLeftRightIcon, AcademicCapIcon,ChartBarIcon,BookOpenIcon,} from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { isAdmin, isLearner, isMentor, isSuperAdmin } from '../utils/auth';
 import { motion, AnimatePresence } from 'framer-motion';
