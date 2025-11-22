@@ -12,8 +12,9 @@ if [ "$confirm" != "yes" ]; then
     exit 1
 fi
 
-# The API key to remove
-SECRET="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"
+# The API key to remove (replace with your actual key)
+# IMPORTANT: Replace YOUR_API_KEY_HERE with the actual key you want to remove
+SECRET="YOUR_API_KEY_HERE"
 
 echo "Removing secret from git history..."
 git filter-branch --force --index-filter \

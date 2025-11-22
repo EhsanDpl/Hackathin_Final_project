@@ -29,7 +29,7 @@ Use the provided script or manual commands:
 # OR manually using git filter-repo (recommended tool)
 pip install git-filter-repo
 git filter-repo --path docker-compose.yml --path skillpilot-mock-server/docker-compose.yml \
-  --invert-paths --replace-text <(echo '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==>REMOVED_SECRET')
+  --invert-paths --replace-text <(echo 'YOUR_API_KEY_HERE==>REMOVED_SECRET')
 ```
 
 ## 📝 Next Steps
@@ -71,6 +71,7 @@ GROQ_API_KEY=your_key docker-compose up
 
 After fixing, verify the key is not in your codebase:
 ```bash
-grep -r "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" .
-# Should return no results
+# Replace YOUR_API_KEY_HERE with your actual key when checking
+grep -r "YOUR_API_KEY_HERE" .
+# Should return no results (or only in .env which is gitignored)
 ```
