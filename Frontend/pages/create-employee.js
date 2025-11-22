@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../contexts/AuthContext';
 import { apiRequest } from '../utils/api';
+import { isSuperAdmin } from '../utils/auth';
 
 export default function CreateEmployee() {
   const { user } = useAuth();
@@ -120,6 +121,7 @@ export default function CreateEmployee() {
       setPosition('');
       setPositionEntered(false);
       setSelectedSkills([]);
+      setAvailableSkills([]);
       
       // Clear success message after 5 seconds
       setTimeout(() => {
@@ -134,8 +136,11 @@ export default function CreateEmployee() {
   };
 
   const isFormValid = () => {
-    if (!name || !email || !role || !position) return false;
-    if (role === 'learner' && selectedSkills.length === 0) return false;
+    if (!name || !email || !role) return false;
+    // For learners, position and at least one skill are required
+    if (role === 'learner') {
+      if (!position || selectedSkills.length === 0) return false;
+    }
     return true;
   };
 
@@ -235,39 +240,58 @@ export default function CreateEmployee() {
               </div>
 
               <div>
-                <label className="block text-gray-700 font-medium mb-2">Role</label>
+                <label className="block text-gray-700 font-medium mb-2 flex items-center space-x-2">
+                  <UserPlusIcon className="h-5 w-5 text-indigo-600" />
+                  <span>Role</span>
+                </label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-purple-400"
+                  className="w-full p-3 border-2 border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
                 >
-                  <option value="learner">Learner</option>
-                  <option value="admin">Admin</option>
+                  <option value="learner">👤 Learner (Employee)</option>
+                  <option value="mentor">🎓 Mentor</option>
+                  {isSuperAdmin(user) && (
+                    <option value="admin">⚙️ Admin</option>
+                  )}
                 </select>
+                {!isSuperAdmin(user) && (
+                  <p className="mt-2 text-sm text-gray-500">
+                    ℹ️ As an Admin, you can create Learners and Mentors. Only Super Admin can create Admin accounts.
+                  </p>
+                )}
+                {isSuperAdmin(user) && (
+                  <p className="mt-2 text-sm text-indigo-600">
+                    ✨ As Super Admin, you can create Admin, Mentor, and Learner accounts.
+                  </p>
+                )}
               </div>
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Current Position</label>
-                <input
-                  type="text"
-                  required
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && position.trim() !== '') {
-                      e.preventDefault();
-                      setPositionEntered(true);
-                    }
-                  }}
-                  onBlur={() => {
-                    if (position.trim() !== '') setPositionEntered(true);
-                  }}
-                  className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-purple-400"
-                  placeholder="Enter current position and press Enter"
-                />
-              </div>
+              {/* Position and Skills - Only for Learners */}
+              {role === 'learner' && (
+                <>
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2">Current Position *</label>
+                    <input
+                      type="text"
+                      required
+                      value={position}
+                      onChange={(e) => setPosition(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && position.trim() !== '') {
+                          e.preventDefault();
+                          setPositionEntered(true);
+                        }
+                      }}
+                      onBlur={() => {
+                        if (position.trim() !== '') setPositionEntered(true);
+                      }}
+                      className="w-full p-3 border-2 border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                      placeholder="Enter current position and press Enter"
+                    />
+                  </div>
 
-                     {role === 'learner' && positionEntered && (
+                  {positionEntered && (
                        <div>
                          <label className="block text-gray-700 font-medium mb-2">
                            Skills
@@ -350,7 +374,19 @@ export default function CreateEmployee() {
                            </>
                          )}
                        </div>
-                     )}
+                  )}
+                </>
+              )}
+
+              {/* Info message for non-learner roles */}
+              {role !== 'learner' && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <p className="text-sm text-blue-800">
+                    ℹ️ <strong>{role === 'admin' ? 'Admin' : role === 'mentor' ? 'Mentor' : 'User'}</strong> accounts don't require position or skills. 
+                    Click "Create Employee" to proceed.
+                  </p>
+                </div>
+              )}
 
               <button
                 type="submit"

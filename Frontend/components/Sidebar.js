@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { HomeIcon, LinkIcon, UserIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import { isAdmin, isLearner } from '../utils/auth';
+import { HomeIcon, LinkIcon, UserIcon, ChatBubbleLeftRightIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { isAdmin, isLearner, isMentor, isSuperAdmin } from '../utils/auth';
 
 export default function Sidebar() {
   const { user } = useAuth();
@@ -18,6 +18,13 @@ export default function Sidebar() {
     navItems.push({ name: 'AI Chat', icon: <ChatBubbleLeftRightIcon className="w-5 h-5" />, path: '/chat' });
   }
 
+  if (isMentor(user)) {
+    navItems.push(
+      { name: 'Mentor Dashboard', icon: <AcademicCapIcon className="w-5 h-5" />, path: '/dashboard' },
+      { name: 'My Learners', icon: <UserIcon className="w-5 h-5" />, path: '/dashboard' }
+    );
+  }
+
   if (userIsAdmin) {
     navItems.push(
       { name: 'Admin Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/admin-dashboard' },
@@ -30,7 +37,15 @@ export default function Sidebar() {
     <aside className="w-64 bg-gradient-to-b from-indigo-600 via-purple-600 to-pink-600 text-white flex flex-col p-6 min-h-screen shadow-2xl">
       <div 
         className="text-3xl font-bold mb-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center space-x-2"
-        onClick={() => router.push(userIsAdmin ? '/admin-dashboard' : '/dashboard')}
+        onClick={() => {
+          if (userIsAdmin) {
+            router.push('/admin-dashboard');
+          } else if (isMentor(user)) {
+            router.push('/dashboard');
+          } else {
+            router.push('/dashboard');
+          }
+        }}
       >
         <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
           SkillPilot AI

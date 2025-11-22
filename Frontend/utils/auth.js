@@ -28,6 +28,15 @@ export const isLearner = (user) => {
 };
 
 /**
+ * Check if user has mentor role
+ * @param {Object} user - User object with role property
+ * @returns {boolean} - True if user is mentor
+ */
+export const isMentor = (user) => {
+  return user?.role === 'mentor';
+};
+
+/**
  * Check if user has any of the specified roles
  * @param {Object} user - User object with role property
  * @param {string[]} roles - Array of allowed roles

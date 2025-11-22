@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { PaperAirplaneIcon, XMarkIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { sendChatMessage } from '../utils/api';
 
 export default function BottomChat() {
@@ -11,7 +11,6 @@ export default function BottomChat() {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [suggestedSkills, setSuggestedSkills] = useState([]);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -67,10 +66,10 @@ export default function BottomChat() {
   }, [messages]);
 
   useEffect(() => {
-    if (!isMinimized && inputRef.current) {
+    if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isMinimized]);
+  }, []);
 
   const handleSendMessage = async (messageText = null) => {
     const textToSend = messageText || inputMessage.trim();
@@ -137,119 +136,107 @@ export default function BottomChat() {
   };
 
   return (
-    <div className={`fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t-2 border-indigo-200 shadow-2xl z-50 transition-all duration-300 ${
-      isMinimized ? 'h-14' : 'h-[500px]'
-    }`}>
+    <div className="absolute inset-0 bg-white flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-4 flex items-center justify-between shadow-lg">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-            <span className="text-xl">🤖</span>
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-6 flex items-center justify-between shadow-lg">
+        <div className="flex items-center space-x-4">
+          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+            <span className="text-2xl">🤖</span>
           </div>
           <div>
-            <h3 className="font-bold text-lg">AI Career Coach</h3>
-            {suggestedSkills.length > 0 && !isMinimized && (
-              <span className="text-xs bg-white/30 px-2 py-1 rounded-full font-medium">
+            <h3 className="font-bold text-2xl">AI Career Coach</h3>
+            {suggestedSkills.length > 0 && (
+              <span className="text-sm bg-white/30 px-3 py-1 rounded-full font-medium">
                 {suggestedSkills.length} skill suggestions
               </span>
             )}
           </div>
         </div>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="text-white hover:bg-white/20 p-2 rounded-lg transition-all duration-200 hover:scale-110"
-            title={isMinimized ? 'Expand' : 'Minimize'}
+        <button
+          onClick={() => window.history.back()}
+          className="text-white hover:bg-white/20 p-2 rounded-lg transition-all duration-200 hover:scale-110"
+          title="Close"
+        >
+          <XMarkIcon className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Suggested Skills Tabs */}
+      {suggestedSkills.length > 0 && (
+        <div className="px-6 py-4 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border-b border-indigo-100 overflow-x-auto">
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-indigo-700 font-bold whitespace-nowrap flex items-center">
+              <span className="mr-2">💡</span> Suggested Skills:
+            </span>
+            <div className="flex space-x-3">
+              {suggestedSkills.map((skill, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSkillClick(skill)}
+                  className="px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full text-sm font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
+                >
+                  {skill}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gradient-to-br from-gray-50 to-indigo-50" style={{ height: 'calc(100vh - 200px)' }}>
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
-            {isMinimized ? (
-              <ChevronUpIcon className="w-5 h-5" />
-            ) : (
-              <ChevronDownIcon className="w-5 h-5" />
-            )}
+            <div
+              className={`max-w-[70%] rounded-2xl p-5 shadow-lg ${
+                message.role === 'user'
+                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                  : 'bg-white text-gray-800 border-2 border-indigo-100'
+              }`}
+            >
+              <p className="text-base whitespace-pre-wrap leading-relaxed">{message.content}</p>
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="bg-white border-2 border-indigo-100 rounded-2xl p-4 shadow-md">
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 bg-indigo-400 rounded-full animate-bounce"></div>
+                <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Input */}
+      <div className="p-6 border-t-2 border-indigo-200 bg-white shadow-lg">
+        <div className="flex items-center space-x-3 max-w-4xl mx-auto">
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Ask about learning, skills, career advice..."
+            className="flex-1 px-6 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-white text-base"
+            disabled={isLoading}
+          />
+          <button
+            onClick={() => handleSendMessage()}
+            disabled={!inputMessage.trim() || isLoading}
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"
+          >
+            <PaperAirplaneIcon className="w-6 h-6" />
           </button>
         </div>
       </div>
-
-      {!isMinimized && (
-        <>
-          {/* Suggested Skills Tabs */}
-          {suggestedSkills.length > 0 && (
-            <div className="px-4 py-3 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border-b border-indigo-100 overflow-x-auto">
-              <div className="flex items-center space-x-3">
-                <span className="text-xs text-indigo-700 font-bold whitespace-nowrap flex items-center">
-                  <span className="mr-1">💡</span> Suggested Skills:
-                </span>
-                <div className="flex space-x-2">
-                  {suggestedSkills.map((skill, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleSkillClick(skill)}
-                      className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full text-xs font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95"
-                    >
-                      {skill}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50" style={{ height: 'calc(500px - 180px)' }}>
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl p-4 shadow-md ${
-                    message.role === 'user'
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                      : 'bg-white text-gray-800 border-2 border-indigo-100'
-                  }`}
-                >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white border border-gray-200 rounded-lg p-3">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input */}
-          <div className="p-4 border-t border-gray-200 bg-white">
-            <div className="flex items-center space-x-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask about learning, skills, career advice..."
-                className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-white"
-                disabled={isLoading}
-              />
-              <button
-                onClick={() => handleSendMessage()}
-                disabled={!inputMessage.trim() || isLoading}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"
-              >
-                <PaperAirplaneIcon className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   );
 }
