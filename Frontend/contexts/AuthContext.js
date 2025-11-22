@@ -1,36 +1,35 @@
-// /contexts/AuthContext.js
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { createContext, useContext, useState } from "react";
+import { useRouter } from "next/router";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
-
-  const login = ({ email, password }) => {
-    // Simple: if email includes "admin", role = admin
-    const isAdmin = email.toLowerCase().includes('admin');
-    const role = isAdmin ? 'admin' : 'learner';
-    const loggedUser = { email, role };
-
-    setUser(loggedUser);
-    localStorage.setItem('user', JSON.stringify(loggedUser));
-
-    // Redirect based on role
-    if (role === 'admin') router.push('/admin-dashboard');
-    else router.push('/dashboard');
+  // Fake login for demo
+  const login = async (email, password) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // Demo users
+        if (email === "admin@example.com" && password === "admin123") {
+          const adminUser = { email, role: "admin", name: "Admin" };
+          setUser(adminUser);
+          resolve(adminUser);
+        } else if (email === "learner@example.com" && password === "learner123") {
+          const learnerUser = { email, role: "learner", name: "Learner" };
+          setUser(learnerUser);
+          resolve(learnerUser);
+        } else {
+          reject(new Error("Invalid credentials"));
+        }
+      }, 1000);
+    });
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -38,6 +37,6 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export const useAuth = () => useContext(AuthContext);
