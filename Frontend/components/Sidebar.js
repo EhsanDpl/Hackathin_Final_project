@@ -18,7 +18,7 @@ export default function Sidebar() {
   const userIsAdmin = isAdmin(user);
 
   if (user?.role === 'learner') {
-    navItems.push({ name: 'Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/dashboard' });
+    navItems.push({ name: 'Home', icon: <HomeIcon className="w-5 h-5" />, path: '/home' });
 
     navItems.push({
       name: 'Profile',

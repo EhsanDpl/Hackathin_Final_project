@@ -250,7 +250,7 @@ export default function Dashboard() {
       <div className="flex h-screen bg-gray-50">
         <Sidebar />
         <div className="flex-1 flex flex-col overflow-auto">
-          <Navbar title="Employee Dashboard" />
+          <Navbar title="Home" />
 
           <main className="p-6">
             <h1 className="text-3xl font-bold mb-6 animate-fade-in-up">Welcome, {profile?.name || user?.email}</h1>
