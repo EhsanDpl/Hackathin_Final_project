@@ -4,14 +4,28 @@ import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import Chart from '../components/Chart';
+import BottomChat from '../components/BottomChat';
 import { useAuth } from '../contexts/AuthContext';
+import { isLearner } from '../utils/auth';
 import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData } from '../utils/api';
 import { 
   ClipboardIcon, 
   PaperAirplaneIcon,
   LinkIcon,
   CheckCircleIcon,
-  XCircleIcon
+  XCircleIcon,
+  UserIcon,
+  PhoneIcon,
+  MapPinIcon,
+  EnvelopeIcon,
+  PencilIcon,
+  ArrowPathIcon,
+  LinkSlashIcon,
+  SparklesIcon,
+  ChartBarIcon,
+  AcademicCapIcon,
+  TrophyIcon,
+  FireIcon,
 } from '@heroicons/react/24/outline';
 
 export default function Dashboard() {
@@ -235,7 +249,7 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute roles={['learner']}>
-      <div className="flex h-screen bg-gray-50">
+      <div className="flex h-screen bg-gray-50" style={{ paddingBottom: isLearner(user) ? '500px' : '0' }}>
         <Sidebar />
         <div className="flex-1 flex flex-col overflow-auto">
           <Navbar title="Employee Dashboard" />
@@ -257,62 +271,110 @@ export default function Dashboard() {
 
             {/* Profile Section */}
             <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">My Profile</h2>
+              <div className="flex items-center space-x-2 mb-4">
+                <UserIcon className="h-6 w-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold">My Profile</h2>
+              </div>
               
               <form onSubmit={handleUpdateProfile} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input
-                      type="email"
-                      value={profile?.email || ''}
-                      disabled
-                      className="w-full p-3 border rounded-lg bg-gray-100 text-gray-600"
-                    />
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
+                      <EnvelopeIcon className="h-4 w-4 text-gray-500" />
+                      <span>Email</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="email"
+                        value={profile?.email || ''}
+                        disabled
+                        className="w-full pl-10 p-3 border rounded-lg bg-gray-100 text-gray-600"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <input
-                      type="text"
-                      value={profile?.name || ''}
-                      disabled
-                      className="w-full p-3 border rounded-lg bg-gray-100 text-gray-600"
-                    />
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
+                      <UserIcon className="h-4 w-4 text-gray-500" />
+                      <span>Name</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <UserIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={profile?.name || ''}
+                        disabled
+                        className="w-full pl-10 p-3 border rounded-lg bg-gray-100 text-gray-600"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                    <input
-                      type="tel"
-                      value={profileData.phone}
-                      onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                      className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-400"
-                      placeholder="Enter phone number"
-                    />
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
+                      <PhoneIcon className="h-4 w-4 text-gray-500" />
+                      <span>Phone</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <PhoneIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="tel"
+                        value={profileData.phone}
+                        onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
+                        className="w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                        placeholder="Enter phone number"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                    <input
-                      type="text"
-                      value={profileData.location}
-                      onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
-                      className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-400"
-                      placeholder="Enter location"
-                    />
+                    <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center space-x-2">
+                      <MapPinIcon className="h-4 w-4 text-gray-500" />
+                      <span>Location</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <MapPinIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={profileData.location}
+                        onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
+                        className="w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+                        placeholder="Enter location"
+                      />
+                    </div>
                   </div>
                 </div>
                 <button
                   type="submit"
                   disabled={updating}
-                  className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition disabled:opacity-50"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 disabled:opacity-50 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center space-x-2 font-semibold"
                 >
-                  {updating ? 'Updating...' : 'Update Profile'}
+                  {updating ? (
+                    <>
+                      <ArrowPathIcon className="h-5 w-5 animate-spin" />
+                      <span>Updating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <PencilIcon className="h-5 w-5" />
+                      <span>Update Profile</span>
+                    </>
+                  )}
                 </button>
               </form>
             </div>
 
             {/* Integrations Section */}
             <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">Connect Integrations</h2>
+              <div className="flex items-center space-x-2 mb-4">
+                <LinkIcon className="h-6 w-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold">Connect Integrations</h2>
+              </div>
               
               <div className="space-y-4">
                 {/* LinkedIn */}
@@ -334,9 +396,10 @@ export default function Dashboard() {
                           <button
                             onClick={() => handleDisconnectIntegration('linkedin')}
                             disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
+                            className="text-red-600 hover:text-red-700 text-sm font-semibold flex items-center space-x-1 px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
                           >
-                            Disconnect
+                            <LinkSlashIcon className="h-4 w-4" />
+                            <span>Disconnect</span>
                           </button>
                         </>
                       ) : (
@@ -345,9 +408,19 @@ export default function Dashboard() {
                           <button
                             onClick={() => handleOpenMockDataModal('linkedin')}
                             disabled={updating || loadingMockData}
-                            className="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50"
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-1 font-semibold"
                           >
-                            {loadingMockData ? 'Loading...' : 'Connect'}
+                            {loadingMockData ? (
+                              <>
+                                <ArrowPathIcon className="h-4 w-4 animate-spin" />
+                                <span>Loading...</span>
+                              </>
+                            ) : (
+                              <>
+                                <LinkIcon className="h-4 w-4" />
+                                <span>Connect</span>
+                              </>
+                            )}
                           </button>
                         </>
                       )}
@@ -374,9 +447,10 @@ export default function Dashboard() {
                           <button
                             onClick={() => handleDisconnectIntegration('jira')}
                             disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
+                            className="text-red-600 hover:text-red-700 text-sm font-semibold flex items-center space-x-1 px-3 py-1 rounded-lg hover:bg-red-50 transition-all"
                           >
-                            Disconnect
+                            <LinkSlashIcon className="h-4 w-4" />
+                            <span>Disconnect</span>
                           </button>
                         </>
                       ) : (
@@ -385,9 +459,19 @@ export default function Dashboard() {
                           <button
                             onClick={() => handleConnectIntegration('jira')}
                             disabled={updating}
-                            className="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600 disabled:opacity-50"
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-1 font-semibold"
                           >
-                            {updating ? 'Connecting...' : 'Connect'}
+                            {updating ? (
+                              <>
+                                <ArrowPathIcon className="h-4 w-4 animate-spin" />
+                                <span>Connecting...</span>
+                              </>
+                            ) : (
+                              <>
+                                <LinkIcon className="h-4 w-4" />
+                                <span>Connect</span>
+                              </>
+                            )}
                           </button>
                         </>
                       )}
@@ -513,7 +597,10 @@ export default function Dashboard() {
 
             {/* Skills Progress Section */}
             <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">Learning Progress</h2>
+              <div className="flex items-center space-x-2 mb-4">
+                <AcademicCapIcon className="h-6 w-6 text-indigo-600" />
+                <h2 className="text-2xl font-bold">Learning Progress</h2>
+              </div>
               
               <div className="mb-6">
                 <label className="block mb-2 font-medium">Select Skill</label>
@@ -546,6 +633,9 @@ export default function Dashboard() {
           </main>
         </div>
       </div>
+
+      {/* Bottom Chat - Only for learners */}
+      {isLearner(user) && <BottomChat />}
     </ProtectedRoute>
   );
 }

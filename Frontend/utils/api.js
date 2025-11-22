@@ -61,3 +61,12 @@ export const getAvailableTeamsData = async () => {
   return response.data || [];
 };
 
+// Chatbot API
+export const sendChatMessage = async (message, history = []) => {
+  const response = await apiRequest('/api/v1/llama-chat/chat', {
+    method: 'POST',
+    body: JSON.stringify({ message, history }),
+  });
+  return response.data || { response: '', model: '' };
+};
+

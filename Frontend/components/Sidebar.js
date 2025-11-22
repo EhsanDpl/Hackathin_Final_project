@@ -1,7 +1,7 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { HomeIcon, LinkIcon, UserIcon } from '@heroicons/react/24/outline';
-import { isAdmin } from '../utils/auth';
+import { HomeIcon, LinkIcon, UserIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { isAdmin, isLearner } from '../utils/auth';
 
 export default function Sidebar() {
   const { user } = useAuth();
@@ -15,7 +15,7 @@ export default function Sidebar() {
   if (user?.role === 'learner') {
     navItems.push({ name: 'Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/dashboard' });
     navItems.push({ name: 'Setup Profile', icon: <HomeIcon className="w-5 h-5" />, path: '/setup-profile' });
-    
+    navItems.push({ name: 'AI Chat', icon: <ChatBubbleLeftRightIcon className="w-5 h-5" />, path: '/chat' });
   }
 
   if (userIsAdmin) {
@@ -27,19 +27,32 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="w-64 bg-gradient-to-b from-purple-600 via-pink-500 to-red-500 text-white flex flex-col p-6 min-h-screen">
-      <h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-gray-200 transition" onClick={() => router.push(userIsAdmin ? '/admin-dashboard' : '/dashboard')}>
-        Skiller
-      </h2>
-      <ul className="flex flex-col space-y-4">
+    <aside className="w-64 bg-gradient-to-b from-indigo-600 via-purple-600 to-pink-600 text-white flex flex-col p-6 min-h-screen shadow-2xl">
+      <div 
+        className="text-3xl font-bold mb-8 cursor-pointer hover:opacity-80 transition-opacity flex items-center space-x-2"
+        onClick={() => router.push(userIsAdmin ? '/admin-dashboard' : '/dashboard')}
+      >
+        <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+          SkillPilot AI
+        </span>
+      </div>
+      <ul className="flex flex-col space-y-2">
         {navItems.map((item) => (
           <li
             key={item.name}
-            className={`flex items-center space-x-3 p-3 rounded-lg cursor-pointer hover:bg-white/20 transition ${router.pathname === item.path ? 'bg-white/30' : ''}`}
+            className={`group flex items-center space-x-3 p-3 rounded-xl cursor-pointer transition-all duration-200 ${
+              router.pathname === item.path 
+                ? 'bg-white/30 shadow-lg transform scale-105' 
+                : 'hover:bg-white/20 hover:transform hover:scale-105'
+            }`}
             onClick={() => router.push(item.path)}
           >
-            {item.icon}
-            <span className="font-medium">{item.name}</span>
+            <div className={`${router.pathname === item.path ? 'text-white' : 'text-white/80 group-hover:text-white'}`}>
+              {item.icon}
+            </div>
+            <span className={`font-semibold ${router.pathname === item.path ? 'text-white' : 'text-white/90 group-hover:text-white'}`}>
+              {item.name}
+            </span>
           </li>
         ))}
       </ul>

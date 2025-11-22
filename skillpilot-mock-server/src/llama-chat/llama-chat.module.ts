@@ -8,8 +8,10 @@
 import { Module } from '@nestjs/common';
 import { LlamaChatController } from './llama-chat.controller';
 import { LlamaChatService } from './llama-chat.service';
+import { MockServerModule } from '../mock-server/mock-server.module';
 
 @Module({
+  imports: [MockServerModule],
   controllers: [LlamaChatController],
   providers: [LlamaChatService],
   exports: [LlamaChatService],
