@@ -19,7 +19,7 @@ export default function Sidebar() {
   if (userIsAdmin) {
     navItems.push(
       { name: 'Admin Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/admin-dashboard' },
-      { name: 'Create Link', icon: <LinkIcon className="w-5 h-5" />, path: '/create-link' },
+      { name: 'Create Growth Plan', icon: <LinkIcon className="w-5 h-5" />, path: '/create-link' },
       { name: 'Create Employee', icon: <UserIcon className="w-5 h-5" />, path: '/create-employee' }
     );
   }

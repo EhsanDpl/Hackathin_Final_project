@@ -26,7 +26,7 @@ After clearing cache, test with:
 
 1. **Valid Credentials** (should work):
    - Email: `abdul.a+sadmin@dplit.com`
-   - Password: `Dpl123!!`
+   - Password: Set via `ADMIN_PASSWORD` environment variable
 
 2. **Invalid Credentials** (should show error):
    - Email: `test@test.com`

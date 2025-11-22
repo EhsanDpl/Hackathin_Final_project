@@ -21,7 +21,7 @@ All pages have been updated to accept `super_admin` role!
 
 2. **Login with Super Admin**
    - Email: `abdul.a+sadmin@dplit.com`
-   - Password: `Dpl123!!`
+   - Password: Set via `ADMIN_PASSWORD` environment variable
 
 3. **Check Browser Console** (F12)
    - You should see your debug log:

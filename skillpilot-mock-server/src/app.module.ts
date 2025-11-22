@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LangchainChatModule } from './langchain-chat/langchain-chat.module';
 import { MockServerModule } from './mock-server/mock-server.module';
 import { AuthModule } from './auth/auth.module';
+import { LlamaChatModule } from './llama-chat/llama-chat.module';
+import { InvitationModule } from './invitation/invitation.module';
 
 @Module({
   imports: [
@@ -10,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
     LangchainChatModule,
     MockServerModule,
     AuthModule,
+    LlamaChatModule,
+    InvitationModule,
   ],
   controllers: [],
   providers: [],

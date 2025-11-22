@@ -32,26 +32,35 @@ async function seedAdmin() {
     
     console.log('✅ Users table created/verified');
     
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+    
     // Check if admin already exists
     const existingAdmin = await client.query(
       'SELECT * FROM users WHERE email = $1',
-      ['abdul.a+sadmin@dplit.com']
+      [adminEmail]
     );
     
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com';
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    
+    if (!adminPassword) {
+      throw new Error('ADMIN_PASSWORD environment variable is required');
+    }
+
     if (existingAdmin.rows.length > 0) {
       console.log('⚠️  Admin user already exists, updating password...');
-      const hashedPassword = await bcrypt.hash('Dpl123!!', 10);
+      const hashedPassword = await bcrypt.hash(adminPassword, 10);
       await client.query(
         'UPDATE users SET password = $1, updated_at = CURRENT_TIMESTAMP WHERE email = $2',
-        [hashedPassword, 'abdul.a+sadmin@dplit.com']
+        [hashedPassword, adminEmail]
       );
       console.log('✅ Admin password updated');
     } else {
       console.log('👤 Creating super admin user...');
-      const hashedPassword = await bcrypt.hash('Dpl123!!', 10);
+      const hashedPassword = await bcrypt.hash(adminPassword, 10);
       await client.query(
         'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)',
-        ['abdul.a+sadmin@dplit.com', hashedPassword, 'super_admin']
+        [adminEmail, hashedPassword, 'super_admin']
       );
       console.log('✅ Super admin created successfully');
     }

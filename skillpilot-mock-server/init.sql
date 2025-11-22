@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS learners (
     "linkedinProfile" VARCHAR(255),
     "githubUsername" VARCHAR(255),
     status VARCHAR(50) DEFAULT 'active',
+    "growthPlanStatus" VARCHAR(50) DEFAULT 'inactive',
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

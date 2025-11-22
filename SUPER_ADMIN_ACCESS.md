@@ -76,7 +76,7 @@ All role checks now include super_admin:
 ### Verify Super Admin Access
 1. Login with super admin:
    - Email: `abdul.a+sadmin@dplit.com`
-   - Password: `Dpl123!!`
+   - Password: Set via `ADMIN_PASSWORD` environment variable (see `.env.example`)
 
 2. Check Sidebar:
    - Should see "Admin Dashboard" menu item

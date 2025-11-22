@@ -18,7 +18,7 @@ JWT-based authentication with super admin access is now fully implemented and wo
 - ✅ Users table created in PostgreSQL
 - ✅ Super admin user seeded:
   - **Email**: `abdul.a+sadmin@dplit.com`
-  - **Password**: `Dpl123!!`
+  - **Password**: Set via `ADMIN_PASSWORD` environment variable (see `.env.example`)
   - **Role**: `super_admin`
 
 ### 3. Frontend Integration
@@ -32,7 +32,7 @@ JWT-based authentication with super admin access is now fully implemented and wo
 
 ```
 Email: abdul.a+sadmin@dplit.com
-Password: Dpl123!!
+Password: [Set in ADMIN_PASSWORD environment variable]
 Role: super_admin
 ```
 
@@ -43,7 +43,7 @@ Role: super_admin
   ```json
   {
     "email": "abdul.a+sadmin@dplit.com",
-    "password": "Dpl123!!"
+    "password": "[Your ADMIN_PASSWORD from .env]"
   }
   ```
   
@@ -77,7 +77,7 @@ Role: super_admin
 ```bash
 curl -X POST http://localhost:3001/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"abdul.a+sadmin@dplit.com","password":"Dpl123!!"}'
+  -d '{"email":"[ADMIN_EMAIL from .env]","password":"[ADMIN_PASSWORD from .env]"}'
 ```
 
 ### Test Protected Endpoint
@@ -85,7 +85,7 @@ curl -X POST http://localhost:3001/auth/login \
 # Get token first
 TOKEN=$(curl -s -X POST http://localhost:3001/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"abdul.a+sadmin@dplit.com","password":"Dpl123!!"}' \
+  -d '{"email":"[ADMIN_EMAIL from .env]","password":"[ADMIN_PASSWORD from .env]"}' \
   | grep -o '"access_token":"[^"]*"' | cut -d'"' -f4)
 
 # Use token to access protected endpoint
