@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database
   postgres:
@@ -13,7 +11,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./skillpilot-mock-server/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U skillpilot"]
       interval: 10s
@@ -22,9 +20,11 @@ services:
     networks:
       - skillpilot-network
 
-  # Node.js API Server
+  # Backend API Server (NestJS)
   api:
-    build: .
+    build:
+      context: ./skillpilot-mock-server
+      dockerfile: Dockerfile
     container_name: skillpilot-api
     environment:
       NODE_ENV: production
@@ -39,6 +39,23 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - skillpilot-network
+    restart: unless-stopped
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: skillpilot-frontend
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://api:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
     networks:
       - skillpilot-network
     restart: unless-stopped

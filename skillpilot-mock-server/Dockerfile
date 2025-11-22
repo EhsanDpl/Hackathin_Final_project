@@ -13,9 +13,12 @@ RUN npm install
 # Copy application files
 COPY . .
 
+# Build NestJS application
+RUN npm run build
+
 # Expose port 3001
 EXPOSE 3001
 
-# Start the application (use PostgreSQL server directly)
-CMD ["node", "server-pg.js"]
+# Start the NestJS application
+CMD ["node", "dist/main.js"]
 
