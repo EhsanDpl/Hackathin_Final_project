@@ -11,6 +11,8 @@ export default function Sidebar() {
 
   if (user?.role === 'learner') {
     navItems.push({ name: 'Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/dashboard' });
+    navItems.push({ name: 'Setup Profile', icon: <HomeIcon className="w-5 h-5" />, path: '/setup-profile' });
+    
   }
 
  if (user?.role === 'admin') {

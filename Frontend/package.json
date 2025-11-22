@@ -11,10 +11,12 @@
     "@tailwindcss/forms": "^0.5.4",
     "axios": "^1.13.2",
     "chart.js": "^4.4.0",
+    "framer-motion": "^12.23.24",
     "next": "latest",
     "react": "latest",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "latest",
+    "react-hot-toast": "^2.6.0",
     "react-icons": "^4.10.1"
   },
   "devDependencies": {
