@@ -63,11 +63,12 @@ async function seedDatabase() {
     console.log('💼 Inserting LinkedIn profiles...');
     for (const profile of dbData.linkedinProfiles) {
       await client.query(
-        `INSERT INTO "linkedinProfiles" (id, "learnerId", username, "fullName", headline, location, industry, "experienceLevel", "profilePictureUrl", about, "endorsedSkills", experience, education, connections, followers)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
+        `INSERT INTO "linkedinProfiles" (id, "learnerId", username, "fullName", headline, location, industry, "experienceLevel", "profilePictureUrl", "linkedinUrl", about, "endorsedSkills", experience, education, connections, followers)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
         [
           profile.id, profile.learnerId, profile.username, profile.fullName, profile.headline,
           profile.location, profile.industry, profile.experienceLevel, profile.profilePictureUrl,
+          profile.linkedinUrl || `https://www.linkedin.com/in/${profile.username}`,
           profile.about, JSON.stringify(profile.endorsedSkills), JSON.stringify(profile.experience),
           JSON.stringify(profile.education), profile.connections, profile.followers
         ]

@@ -276,5 +276,71 @@ export class MockServerController {
       );
     }
   }
+
+  /**
+   * Get all mock LinkedIn profiles (users can select any ID)
+   * Returns all LinkedIn profiles from the bridge table
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mock-data/linkedin')
+  async getAvailableLinkedInProfiles() {
+    try {
+      const profiles = await this.mockServerService.getAvailableLinkedInProfiles();
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'LinkedIn profiles retrieved successfully',
+        data: profiles,
+      };
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Get all mock Jira data (users can select any ID)
+   * Returns all Jira data from the bridge table
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mock-data/jira')
+  async getAvailableJiraData() {
+    try {
+      const jiraData = await this.mockServerService.getAvailableJiraData();
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'Jira data retrieved successfully',
+        data: jiraData,
+      };
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Get all mock Teams calendar data (users can select any ID)
+   * Returns all Teams calendar data from the bridge table
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mock-data/teams')
+  async getAvailableTeamsData() {
+    try {
+      const teamsData = await this.mockServerService.getAvailableTeamsData();
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'Teams data retrieved successfully',
+        data: teamsData,
+      };
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }
 

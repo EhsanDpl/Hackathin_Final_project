@@ -57,6 +57,7 @@ services:
       DB_NAME: ${DB_NAME:-skillpilot_db}
       JWT_SECRET: ${JWT_SECRET:-skillpilot-super-secret-jwt-key-change-in-production-min-32-chars}
       GROQ_API_KEY: ${GROQ_API_KEY:-}
+      LINKEDIN_MOCK_DATA_URL: ${LINKEDIN_MOCK_DATA_URL:-}
       REDIS_HOST: redis
       REDIS_PORT: 6379
       MAILERSEND_API_TOKEN: ${MAILERSEND_API_TOKEN:-}

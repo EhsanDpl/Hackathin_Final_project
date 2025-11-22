@@ -1596,7 +1596,8 @@
         }
       ],
       "connections": 385,
-      "followers": 156
+      "followers": 156,
+      "linkedinUrl": "https://www.linkedin.com/in/rajesh-kumar-backend"
     },
     {
       "id": 2,
@@ -1654,7 +1655,8 @@
         }
       ],
       "connections": 567,
-      "followers": 289
+      "followers": 289,
+      "linkedinUrl": "https://www.linkedin.com/in/priya-sharma-frontend"
     },
     {
       "id": 3,
@@ -1712,7 +1714,8 @@
         }
       ],
       "connections": 234,
-      "followers": 98
+      "followers": 98,
+      "linkedinUrl": "https://www.linkedin.com/in/amit-patel-devops"
     },
     {
       "id": 4,
@@ -1770,7 +1773,8 @@
         }
       ],
       "connections": 189,
-      "followers": 76
+      "followers": 76,
+      "linkedinUrl": "https://www.linkedin.com/in/neha-singh-qa"
     },
     {
       "id": 5,
@@ -1828,7 +1832,8 @@
         }
       ],
       "connections": 678,
-      "followers": 345
+      "followers": 345,
+      "linkedinUrl": "https://www.linkedin.com/in/vikram-desai-fullstack"
     }
   ],
   "teamsCalendar": [

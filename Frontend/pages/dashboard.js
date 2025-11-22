@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import Chart from '../components/Chart';
 import { useAuth } from '../contexts/AuthContext';
-import { apiRequest } from '../utils/api';
+import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData } from '../utils/api';
 import { 
   ClipboardIcon, 
   PaperAirplaneIcon,
@@ -31,6 +31,11 @@ export default function Dashboard() {
     location: '',
     linkedinProfile: '',
   });
+  const [showMockDataModal, setShowMockDataModal] = useState(false);
+  const [selectedIntegration, setSelectedIntegration] = useState(null);
+  const [mockDataOptions, setMockDataOptions] = useState([]);
+  const [selectedMockDataId, setSelectedMockDataId] = useState(null);
+  const [loadingMockData, setLoadingMockData] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -41,10 +46,13 @@ export default function Dashboard() {
       setLoading(true);
       const data = await apiRequest('/profile');
       setProfile(data);
+      
+      // Check connected accounts from bridge table (connectedAccounts array)
+      const connectedAccounts = data.connectedAccounts || [];
       setIntegrations({
-        linkedin: data.linkedinConnected || false,
-        jira: data.jiraConnected || false,
-        teams: data.teamsConnected || false,
+        linkedin: connectedAccounts.some(acc => acc.accountType === 'linkedin') || data.linkedinConnected || false,
+        jira: connectedAccounts.some(acc => acc.accountType === 'jira') || data.jiraConnected || false,
+        teams: connectedAccounts.some(acc => acc.accountType === 'teams') || data.teamsConnected || false,
       });
       setProfileData({
         phone: data.phone || '',
@@ -59,7 +67,32 @@ export default function Dashboard() {
     }
   };
 
-  const handleConnectIntegration = async (integration) => {
+  const handleOpenMockDataModal = async (integration) => {
+    try {
+      setLoadingMockData(true);
+      setSelectedIntegration(integration);
+      setSelectedMockDataId(null);
+      
+      let data = [];
+      if (integration === 'linkedin') {
+        data = await getAvailableLinkedInProfiles();
+      } else if (integration === 'jira') {
+        data = await getAvailableJiraData();
+      } else if (integration === 'teams') {
+        data = await getAvailableTeamsData();
+      }
+      
+      setMockDataOptions(data);
+      setShowMockDataModal(true);
+    } catch (err) {
+      console.error('Error loading mock data:', err);
+      setError(`Failed to load ${selectedIntegration} mock data`);
+    } finally {
+      setLoadingMockData(false);
+    }
+  };
+
+  const handleConnectIntegration = async (integration, mockDataId = null) => {
     try {
       setUpdating(true);
       setError(null);
@@ -68,8 +101,17 @@ export default function Dashboard() {
         [`${integration}Connected`]: true,
       };
 
-      if (integration === 'linkedin' && profileData.linkedinProfile) {
-        updateData.linkedinProfile = profileData.linkedinProfile;
+      if (integration === 'linkedin') {
+        if (mockDataId) {
+          updateData.linkedinProfileId = mockDataId;
+        }
+        if (profileData.linkedinProfile) {
+          updateData.linkedinProfile = profileData.linkedinProfile;
+        }
+      } else if (integration === 'jira' && mockDataId) {
+        updateData.jiraDataId = mockDataId;
+      } else if (integration === 'teams' && mockDataId) {
+        updateData.teamsCalendarId = mockDataId;
       }
 
       const updated = await apiRequest('/profile', {
@@ -82,6 +124,10 @@ export default function Dashboard() {
         ...integrations,
         [integration]: true,
       });
+      setShowMockDataModal(false);
+      setSelectedIntegration(null);
+      setSelectedMockDataId(null);
+      setMockDataOptions([]);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
@@ -97,11 +143,22 @@ export default function Dashboard() {
       setUpdating(true);
       setError(null);
       
+      const updateData = {
+        [`${integration}Connected`]: false,
+      };
+
+      // Clear the reference IDs when disconnecting
+      if (integration === 'linkedin') {
+        updateData.linkedinProfileId = null;
+      } else if (integration === 'jira') {
+        updateData.jiraDataId = null;
+      } else if (integration === 'teams') {
+        updateData.teamsCalendarId = null;
+      }
+      
       const updated = await apiRequest('/profile', {
         method: 'PUT',
-        body: JSON.stringify({
-          [`${integration}Connected`]: false,
-        }),
+        body: JSON.stringify(updateData),
       });
 
       setProfile(updated);
@@ -284,22 +341,13 @@ export default function Dashboard() {
                       ) : (
                         <>
                           <XCircleIcon className="w-6 h-6 text-gray-400" />
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="text"
-                              value={profileData.linkedinProfile}
-                              onChange={(e) => setProfileData({ ...profileData, linkedinProfile: e.target.value })}
-                              placeholder="LinkedIn profile URL"
-                              className="px-3 py-1 border rounded text-sm"
-                            />
-                            <button
-                              onClick={() => handleConnectIntegration('linkedin')}
-                              disabled={updating || !profileData.linkedinProfile}
-                              className="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50"
-                            >
-                              Connect
-                            </button>
-                          </div>
+                          <button
+                            onClick={() => handleOpenMockDataModal('linkedin')}
+                            disabled={updating || loadingMockData}
+                            className="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50"
+                          >
+                            {loadingMockData ? 'Loading...' : 'Connect'}
+                          </button>
                         </>
                       )}
                     </div>
@@ -334,11 +382,11 @@ export default function Dashboard() {
                         <>
                           <XCircleIcon className="w-6 h-6 text-gray-400" />
                           <button
-                            onClick={() => handleConnectIntegration('jira')}
-                            disabled={updating}
+                            onClick={() => handleOpenMockDataModal('jira')}
+                            disabled={updating || loadingMockData}
                             className="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600 disabled:opacity-50"
                           >
-                            Connect
+                            {loadingMockData ? 'Loading...' : 'Connect'}
                           </button>
                         </>
                       )}
@@ -374,11 +422,11 @@ export default function Dashboard() {
                         <>
                           <XCircleIcon className="w-6 h-6 text-gray-400" />
                           <button
-                            onClick={() => handleConnectIntegration('teams')}
-                            disabled={updating}
+                            onClick={() => handleOpenMockDataModal('teams')}
+                            disabled={updating || loadingMockData}
                             className="bg-purple-600 text-white px-4 py-1 rounded text-sm hover:bg-purple-700 disabled:opacity-50"
                           >
-                            Connect
+                            {loadingMockData ? 'Loading...' : 'Connect'}
                           </button>
                         </>
                       )}
@@ -387,6 +435,94 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Mock Data Selection Modal */}
+            {showMockDataModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+                  <h3 className="text-xl font-bold mb-4">
+                    Select {selectedIntegration === 'linkedin' ? 'LinkedIn' : selectedIntegration === 'jira' ? 'Jira' : 'Teams'} Mock Data
+                  </h3>
+                  
+                  {loadingMockData ? (
+                    <div className="flex items-center justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+                    </div>
+                  ) : mockDataOptions.length === 0 ? (
+                    <p className="text-gray-500 py-4">No available mock data found.</p>
+                  ) : (
+                    <div className="space-y-2 mb-4">
+                      {mockDataOptions.map((option) => {
+                        let displayText = '';
+                        if (selectedIntegration === 'linkedin') {
+                          displayText = `${option.fullName || option.username} - ${option.headline || 'LinkedIn Profile'}`;
+                        } else if (selectedIntegration === 'jira') {
+                          displayText = `${option.issueKey || 'JIRA'} - ${option.issueTitle || option.sprintName || 'Jira Data'}`;
+                        } else if (selectedIntegration === 'teams') {
+                          displayText = `${option.eventTitle || 'Teams Event'} - ${option.eventType || 'Calendar Event'}`;
+                        }
+                        
+                        return (
+                          <div
+                            key={option.id}
+                            onClick={() => setSelectedMockDataId(option.id)}
+                            className={`p-3 border rounded-lg cursor-pointer transition ${
+                              selectedMockDataId === option.id
+                                ? 'border-purple-600 bg-purple-50'
+                                : 'border-gray-200 hover:border-purple-300'
+                            }`}
+                          >
+                            <div className="flex items-center">
+                              <input
+                                type="radio"
+                                checked={selectedMockDataId === option.id}
+                                onChange={() => setSelectedMockDataId(option.id)}
+                                className="mr-3"
+                              />
+                              <div className="flex-1">
+                                <p className="font-medium">{displayText}</p>
+                                {selectedIntegration === 'linkedin' && option.location && (
+                                  <p className="text-sm text-gray-500">{option.location}</p>
+                                )}
+                                {selectedIntegration === 'jira' && option.status && (
+                                  <p className="text-sm text-gray-500">Status: {option.status}</p>
+                                )}
+                                {selectedIntegration === 'teams' && option.startTime && (
+                                  <p className="text-sm text-gray-500">
+                                    {new Date(option.startTime).toLocaleString()}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-end space-x-3">
+                    <button
+                      onClick={() => {
+                        setShowMockDataModal(false);
+                        setSelectedIntegration(null);
+                        setSelectedMockDataId(null);
+                        setMockDataOptions([]);
+                      }}
+                      className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => handleConnectIntegration(selectedIntegration, selectedMockDataId)}
+                      disabled={!selectedMockDataId || updating}
+                      className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50"
+                    >
+                      {updating ? 'Connecting...' : 'Connect'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Skills Progress Section */}
             <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
