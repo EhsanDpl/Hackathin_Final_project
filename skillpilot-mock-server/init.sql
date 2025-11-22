@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS learners (
     "linkedinConnected" BOOLEAN DEFAULT false,
     "jiraConnected" BOOLEAN DEFAULT false,
     "teamsConnected" BOOLEAN DEFAULT false,
+    "linkedinProfileId" INTEGER REFERENCES "linkedinProfiles"(id) ON DELETE SET NULL,
+    "jiraDataId" INTEGER REFERENCES "jiraData"(id) ON DELETE SET NULL,
+    "teamsCalendarId" INTEGER REFERENCES "teamsCalendar"(id) ON DELETE SET NULL,
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -58,6 +61,7 @@ CREATE TABLE IF NOT EXISTS "linkedinProfiles" (
     industry VARCHAR(255),
     "experienceLevel" VARCHAR(255),
     "profilePictureUrl" VARCHAR(500),
+    "linkedinUrl" VARCHAR(500),
     about TEXT,
     "endorsedSkills" JSONB,
     experience JSONB,
@@ -66,6 +70,32 @@ CREATE TABLE IF NOT EXISTS "linkedinProfiles" (
     followers INTEGER DEFAULT 0,
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- External Links Table (contains mock URLs for linkedin, jira, teams)
+CREATE TABLE IF NOT EXISTS "externalLinks" (
+    id SERIAL PRIMARY KEY,
+    "accountType" VARCHAR(50) UNIQUE NOT NULL,
+    url VARCHAR(500) NOT NULL,
+    description TEXT,
+    "isActive" BOOLEAN DEFAULT true,
+    "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- User External Links Bridge Table
+CREATE TABLE IF NOT EXISTS "userExternalLinks" (
+    id SERIAL PRIMARY KEY,
+    "learnerId" INTEGER REFERENCES learners(id) ON DELETE CASCADE,
+    "externalLinkId" INTEGER REFERENCES "externalLinks"(id) ON DELETE CASCADE,
+    "accountId" INTEGER, -- Reference to linkedinProfiles.id, jiraData.id, or teamsCalendar.id
+    "accountUrl" VARCHAR(500), -- URL from externalLinks table
+    connected BOOLEAN DEFAULT false,
+    "connectedAt" TIMESTAMP,
+    "disconnectedAt" TIMESTAMP,
+    "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE("learnerId", "externalLinkId")
 );
 
 -- Skill Assessments Table
@@ -150,6 +180,7 @@ CREATE TABLE IF NOT EXISTS "jiraData" (
     "storyPoints" INTEGER,
     assignee VARCHAR(255),
     reporter VARCHAR(255),
+    "jiraUrl" VARCHAR(500),
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

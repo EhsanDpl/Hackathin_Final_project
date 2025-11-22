@@ -42,3 +42,31 @@ export const getGitHubProfiles = (learnerId) => {
   return apiRequest(`/githubProfiles${query}`);
 };
 
+// Mock data endpoints
+export const getAvailableLinkedInProfiles = async () => {
+  // Fetch from mock server's linkedinProfiles endpoint
+  const profiles = await apiRequest('/linkedinProfiles');
+  // Filter out already linked profiles on frontend if needed
+  // The backend service already handles filtering, but we can add additional client-side filtering here if needed
+  return Array.isArray(profiles) ? profiles : [];
+};
+
+export const getAvailableJiraData = async () => {
+  const response = await apiRequest('/mock-data/jira');
+  return response.data || [];
+};
+
+export const getAvailableTeamsData = async () => {
+  const response = await apiRequest('/mock-data/teams');
+  return response.data || [];
+};
+
+// Chatbot API
+export const sendChatMessage = async (message, history = []) => {
+  const response = await apiRequest('/api/v1/llama-chat/chat', {
+    method: 'POST',
+    body: JSON.stringify({ message, history }),
+  });
+  return response.data || { response: '', model: '' };
+};
+

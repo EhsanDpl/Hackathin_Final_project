@@ -3,13 +3,13 @@ import { useRouter } from 'next/router';
 import {
   HomeIcon,
   LinkIcon,
-  UserIcon,
+  UserIcon, ChatBubbleLeftRightIcon,
   AcademicCapIcon,
   ChartBarIcon,
   BookOpenIcon,
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
-import { isAdmin } from '../utils/auth';
+import { isAdmin, isLearner } from '../utils/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Sidebar() {
@@ -69,13 +69,21 @@ export default function Sidebar() {
           <li key={item.name} className="flex flex-col">
             {/* Parent Item */}
             <div
-              className={`flex items-center justify-between space-x-3 p-3 rounded-lg cursor-pointer hover:bg-white/20 transition
-                ${router.pathname.startsWith(item.path) ? 'bg-white/30' : ''}`}
+              className={`group flex items-center justify-between space-x-3 p-3 rounded-xl cursor-pointer transition
+               -all duration-200 ${
+              router.pathname.startsWith(item.path) 
+                ? 'bg-white/30 shadow-lg transform scale-105' 
+                : 'hover:bg-white/20 hover:transform hover:scale-105'
+            }`}
               onClick={() => (item.subItems ? toggleMenu(item.name) : router.push(item.path))}
             >
               <div className="flex items-center space-x-3">
-                {item.icon}
-                <span className="font-medium">{item.name}</span>
+                <div className={`${router.pathname === item.path ? 'text-white' : 'text-white/80 group-hover:text-white'}`}>
+              {item.icon}
+                </div>
+            <span className={`font-semibold ${router.pathname === item.path ? 'text-white' : 'text-white/90 group-hover:text-white'}`}>
+              {item.name}
+            </span>
               </div>
               {item.subItems && (
                 <motion.span
