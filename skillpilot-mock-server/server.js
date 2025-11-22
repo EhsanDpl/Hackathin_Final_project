@@ -14,16 +14,16 @@ if (usePostgres) {
   // Use JSON server (original) - continue with code below
   console.log('📄 Using JSON Server mode...');
   // Use JSON server (original)
-  const jsonServer = require('json-server');
-  const express = require('express');
-  const cors = require('cors');
-  const swaggerUi = require('swagger-ui-express');
-  const swaggerJSDoc = require('swagger-jsdoc');
-  const path = require('path');
+const jsonServer = require('json-server');
+const express = require('express');
+const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+const path = require('path');
 
-  const app = express();
-  const router = jsonServer.router('db.json');
-  const middlewares = jsonServer.defaults();
+const app = express();
+const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
 
 // Middleware
 app.use(cors());

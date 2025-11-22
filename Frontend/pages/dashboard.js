@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import Card from '../components/Card';
 import Chart from '../components/Chart';
 import { useAuth } from '../contexts/AuthContext';
-import { apiRequest, getAvailableLinkedInProfiles, getAvailableJiraData, getAvailableTeamsData } from '../utils/api';
+import { apiRequest, getAvailableGitHubProfiles, getAvailableJiraData } from '../utils/api';
 import { 
   ClipboardIcon, 
   PaperAirplaneIcon,
@@ -22,9 +22,8 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [integrations, setIntegrations] = useState({
-    linkedin: false,
+    github: false,
     jira: false,
-    teams: false,
   });
   const [profileData, setProfileData] = useState({
     phone: '',
@@ -50,9 +49,8 @@ export default function Dashboard() {
       // Check connected accounts from bridge table (connectedAccounts array)
       const connectedAccounts = data.connectedAccounts || [];
       setIntegrations({
-        linkedin: connectedAccounts.some(acc => acc.accountType === 'linkedin') || data.linkedinConnected || false,
+        github: connectedAccounts.some(acc => acc.accountType === 'github') || data.githubConnected || false,
         jira: connectedAccounts.some(acc => acc.accountType === 'jira') || data.jiraConnected || false,
-        teams: connectedAccounts.some(acc => acc.accountType === 'teams') || data.teamsConnected || false,
       });
       setProfileData({
         phone: data.phone || '',
@@ -74,12 +72,10 @@ export default function Dashboard() {
       setSelectedMockDataId(null);
       
       let data = [];
-      if (integration === 'linkedin') {
-        data = await getAvailableLinkedInProfiles();
+      if (integration === 'github') {
+        data = await getAvailableGitHubProfiles();
       } else if (integration === 'jira') {
         data = await getAvailableJiraData();
-      } else if (integration === 'teams') {
-        data = await getAvailableTeamsData();
       }
       
       setMockDataOptions(data);
@@ -101,17 +97,10 @@ export default function Dashboard() {
         [`${integration}Connected`]: true,
       };
 
-      if (integration === 'linkedin') {
-        if (mockDataId) {
-          updateData.linkedinProfileId = mockDataId;
-        }
-        if (profileData.linkedinProfile) {
-          updateData.linkedinProfile = profileData.linkedinProfile;
-        }
+      if (integration === 'github' && mockDataId) {
+        updateData.githubProfileId = mockDataId;
       } else if (integration === 'jira' && mockDataId) {
         updateData.jiraDataId = mockDataId;
-      } else if (integration === 'teams' && mockDataId) {
-        updateData.teamsCalendarId = mockDataId;
       }
 
       const updated = await apiRequest('/profile', {
@@ -148,12 +137,10 @@ export default function Dashboard() {
       };
 
       // Clear the reference IDs when disconnecting
-      if (integration === 'linkedin') {
-        updateData.linkedinProfileId = null;
+      if (integration === 'github') {
+        updateData.githubProfileId = null;
       } else if (integration === 'jira') {
         updateData.jiraDataId = null;
-      } else if (integration === 'teams') {
-        updateData.teamsCalendarId = null;
       }
       
       const updated = await apiRequest('/profile', {
@@ -198,23 +185,57 @@ export default function Dashboard() {
     }
   };
 
-  const skills = [
-    { id: 1, name: 'React Basics', progress: 80, points: 50 },
-    { id: 2, name: 'Next.js Fundamentals', progress: 60, points: 40 },
-    { id: 3, name: 'Tailwind CSS', progress: 90, points: 30 },
-  ];
-
-  const [selectedSkill, setSelectedSkill] = useState(null);
-  const [generatedLink, setGeneratedLink] = useState('');
-
-  const displayData = () => {
-    if (selectedSkill) return selectedSkill;
-    const totalProgress = Math.round(skills.reduce((acc, s) => acc + s.progress, 0) / skills.length);
-    const totalPoints = skills.reduce((acc, s) => acc + s.points, 0);
-    return { progress: totalProgress, points: totalPoints, name: 'Overall' };
+  const hasConnectedIntegrations = () => {
+    return integrations.github || integrations.jira;
   };
 
-  const data = displayData();
+  const handleSaveDraft = async () => {
+    try {
+      setUpdating(true);
+      setError(null);
+      
+      await apiRequest('/skill-profile/draft', {
+        method: 'POST',
+        body: JSON.stringify({
+          integrations: integrations,
+          profileData: profileData,
+        }),
+      });
+
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
+    } catch (err) {
+      console.error('Error saving draft:', err);
+      setError('Failed to save draft');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const handleGenerateProfile = async () => {
+    try {
+      setUpdating(true);
+      setError(null);
+      
+      const response = await apiRequest('/skill-profile/generate', {
+        method: 'POST',
+        body: JSON.stringify({
+          integrations: integrations,
+        }),
+      });
+
+      // Redirect to skill profile results page
+      if (typeof window !== 'undefined') {
+        window.location.href = '/skill-profile-results';
+      }
+    } catch (err) {
+      console.error('Error generating profile:', err);
+      setError('Failed to generate profile. Please try again.');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
 
   if (loading) {
     return (
@@ -310,30 +331,32 @@ export default function Dashboard() {
             </div>
 
             {/* Integrations Section */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">Connect Integrations</h2>
+            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up transform transition-all duration-300 hover:shadow-xl">
+              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Connect Integrations
+              </h2>
               
               <div className="space-y-4">
-                {/* LinkedIn */}
-                <div className="border rounded-lg p-4">
+                {/* GitHub */}
+                <div className="border-2 border-gray-200 rounded-lg p-4 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-gray-400 cursor-pointer group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
-                        in
+                      <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-md">
+                        GH
                       </div>
                       <div>
-                        <h3 className="font-semibold">LinkedIn</h3>
-                        <p className="text-sm text-gray-500">Connect your LinkedIn profile</p>
+                        <h3 className="font-semibold group-hover:text-gray-900 transition-colors">GitHub</h3>
+                        <p className="text-sm text-gray-500">Connect your GitHub profile</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
-                      {integrations.linkedin ? (
+                      {integrations.github ? (
                         <>
-                          <CheckCircleIcon className="w-6 h-6 text-green-500" />
+                          <CheckCircleIcon className="w-6 h-6 text-green-500 animate-pulse" />
                           <button
-                            onClick={() => handleDisconnectIntegration('linkedin')}
+                            onClick={() => handleDisconnectIntegration('github')}
                             disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
+                            className="text-red-600 hover:text-red-700 text-sm font-semibold transition-colors transform hover:scale-105"
                           >
                             Disconnect
                           </button>
@@ -342,9 +365,9 @@ export default function Dashboard() {
                         <>
                           <XCircleIcon className="w-6 h-6 text-gray-400" />
                           <button
-                            onClick={() => handleOpenMockDataModal('linkedin')}
+                            onClick={() => handleOpenMockDataModal('github')}
                             disabled={updating || loadingMockData}
-                            className="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700 disabled:opacity-50"
+                            className="bg-gray-900 text-white px-4 py-2 rounded text-sm hover:bg-gray-800 disabled:opacity-50 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                           >
                             {loadingMockData ? 'Loading...' : 'Connect'}
                           </button>
@@ -355,25 +378,25 @@ export default function Dashboard() {
                 </div>
 
                 {/* Jira */}
-                <div className="border rounded-lg p-4">
+                <div className="border-2 border-gray-200 rounded-lg p-4 transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-blue-400 cursor-pointer group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold">
+                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-md">
                         J
                       </div>
                       <div>
-                        <h3 className="font-semibold">Jira</h3>
+                        <h3 className="font-semibold group-hover:text-blue-600 transition-colors">Jira</h3>
                         <p className="text-sm text-gray-500">Connect your Jira workspace</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       {integrations.jira ? (
                         <>
-                          <CheckCircleIcon className="w-6 h-6 text-green-500" />
+                          <CheckCircleIcon className="w-6 h-6 text-green-500 animate-pulse" />
                           <button
                             onClick={() => handleDisconnectIntegration('jira')}
                             disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
+                            className="text-red-600 hover:text-red-700 text-sm font-semibold transition-colors transform hover:scale-105"
                           >
                             Disconnect
                           </button>
@@ -384,7 +407,7 @@ export default function Dashboard() {
                           <button
                             onClick={() => handleOpenMockDataModal('jira')}
                             disabled={updating || loadingMockData}
-                            className="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600 disabled:opacity-50"
+                            className="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600 disabled:opacity-50 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                           >
                             {loadingMockData ? 'Loading...' : 'Connect'}
                           </button>
@@ -394,45 +417,25 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Teams */}
-                <div className="border rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
-                        T
                       </div>
-                      <div>
-                        <h3 className="font-semibold">Microsoft Teams</h3>
-                        <p className="text-sm text-gray-500">Connect your Teams calendar</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      {integrations.teams ? (
-                        <>
-                          <CheckCircleIcon className="w-6 h-6 text-green-500" />
+
+              {/* Draft and Generate Profile Buttons */}
+              <div className="mt-6 pt-6 border-t flex gap-4">
                           <button
-                            onClick={() => handleDisconnectIntegration('teams')}
+                  onClick={handleSaveDraft}
                             disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
+                  className="flex-1 bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all duration-300 transform hover:scale-105 active:scale-95 disabled:opacity-50 shadow-md hover:shadow-lg"
                           >
-                            Disconnect
+                  Save Draft
                           </button>
-                        </>
-                      ) : (
-                        <>
-                          <XCircleIcon className="w-6 h-6 text-gray-400" />
                           <button
-                            onClick={() => handleOpenMockDataModal('teams')}
-                            disabled={updating || loadingMockData}
-                            className="bg-purple-600 text-white px-4 py-1 rounded text-sm hover:bg-purple-700 disabled:opacity-50"
-                          >
-                            {loadingMockData ? 'Loading...' : 'Connect'}
+                  onClick={handleGenerateProfile}
+                  disabled={updating || !hasConnectedIntegrations()}
+                  className="flex-1 bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:via-pink-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-2xl relative overflow-hidden group"
+                >
+                  <span className="relative z-10">Generate My Profile</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
                           </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -441,7 +444,7 @@ export default function Dashboard() {
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                 <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
                   <h3 className="text-xl font-bold mb-4">
-                    Select {selectedIntegration === 'linkedin' ? 'LinkedIn' : selectedIntegration === 'jira' ? 'Jira' : 'Teams'} Mock Data
+                    Select {selectedIntegration === 'github' ? 'GitHub' : selectedIntegration === 'jira' ? 'Jira' : 'Integration'} Mock Data
                   </h3>
                   
                   {loadingMockData ? (
@@ -454,12 +457,10 @@ export default function Dashboard() {
                     <div className="space-y-2 mb-4">
                       {mockDataOptions.map((option) => {
                         let displayText = '';
-                        if (selectedIntegration === 'linkedin') {
-                          displayText = `${option.fullName || option.username} - ${option.headline || 'LinkedIn Profile'}`;
+                        if (selectedIntegration === 'github') {
+                          displayText = `${option.fullName || option.username} - ${option.bio || 'GitHub Profile'}`;
                         } else if (selectedIntegration === 'jira') {
                           displayText = `${option.issueKey || 'JIRA'} - ${option.issueTitle || option.sprintName || 'Jira Data'}`;
-                        } else if (selectedIntegration === 'teams') {
-                          displayText = `${option.eventTitle || 'Teams Event'} - ${option.eventType || 'Calendar Event'}`;
                         }
                         
                         return (
@@ -481,16 +482,11 @@ export default function Dashboard() {
                               />
                               <div className="flex-1">
                                 <p className="font-medium">{displayText}</p>
-                                {selectedIntegration === 'linkedin' && option.location && (
+                                {selectedIntegration === 'github' && option.location && (
                                   <p className="text-sm text-gray-500">{option.location}</p>
                                 )}
                                 {selectedIntegration === 'jira' && option.status && (
                                   <p className="text-sm text-gray-500">Status: {option.status}</p>
-                                )}
-                                {selectedIntegration === 'teams' && option.startTime && (
-                                  <p className="text-sm text-gray-500">
-                                    {new Date(option.startTime).toLocaleString()}
-                                  </p>
                                 )}
                               </div>
                             </div>
@@ -524,38 +520,6 @@ export default function Dashboard() {
               </div>
             )}
 
-            {/* Skills Progress Section */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">Learning Progress</h2>
-              
-              <div className="mb-6">
-                <label className="block mb-2 font-medium">Select Skill</label>
-                <select
-                  className="p-3 border rounded-lg w-full"
-                  value={selectedSkill?.id || ''}
-                  onChange={(e) => {
-                    const skill = skills.find(s => s.id === parseInt(e.target.value));
-                    setSelectedSkill(skill || null);
-                    setGeneratedLink('');
-                  }}
-                >
-                  <option value="">Overall Progress</option>
-                  {skills.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <Card title="Skill Progress" value={`${data.progress}%`} icon="📈" />
-                <Card title="Points Earned" value={data.points} icon="⭐" />
-              </div>
-
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-lg font-bold mb-4">{selectedSkill ? `${selectedSkill.name} Progress` : 'Overall Progress'}</h3>
-                <Chart />
-              </div>
-            </div>
           </main>
         </div>
       </div>

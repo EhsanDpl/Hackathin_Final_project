@@ -499,10 +499,12 @@ export class MockServerService implements OnModuleDestroy {
       linkedinConnected, 
       jiraConnected, 
       teamsConnected, 
+      githubConnected,
       linkedinProfile,
       linkedinProfileId,
       jiraDataId,
-      teamsCalendarId
+      teamsCalendarId,
+      githubProfileId
     } = profileData;
     
     if (this.usePostgres && this.pool) {
@@ -522,7 +524,68 @@ export class MockServerService implements OnModuleDestroy {
         updates.push(`"linkedinProfile" = $${paramCount++}`);
         values.push(linkedinProfile);
       }
-      if (linkedinConnected !== undefined) {
+      // GitHub connection logic
+      if (githubConnected !== undefined && (githubProfileId === undefined || githubProfileId === null)) {
+        updates.push(`"githubConnected" = $${paramCount++}`);
+        values.push(githubConnected);
+      }
+      if (githubProfileId !== undefined && githubProfileId !== null) {
+        const profileId = parseInt(githubProfileId, 10);
+        if (isNaN(profileId)) {
+          throw new Error('Invalid githubProfileId: must be a number');
+        }
+        // Verify the profile exists
+        const profileCheck = await this.pool.query(
+          'SELECT id FROM "githubProfiles" WHERE id = $1',
+          [profileId]
+        );
+        if (profileCheck.rows.length === 0) {
+          throw new Error(`GitHub profile with id ${profileId} not found`);
+        }
+        
+        // Get learner ID
+        const learnerResult = await this.pool.query('SELECT id FROM learners WHERE email = $1', [email]);
+        if (learnerResult.rows.length === 0) {
+          throw new Error('Learner not found');
+        }
+        const learnerId = learnerResult.rows[0].id;
+        
+        // Get external link ID and URL from externalLinks table for 'github'
+        const externalLinkResult = await this.pool.query(
+          'SELECT id, url FROM "externalLinks" WHERE "accountType" = $1 AND "isActive" = true',
+          ['github']
+        );
+        if (externalLinkResult.rows.length === 0) {
+          throw new Error('GitHub external link not found in externalLinks table');
+        }
+        const externalLinkId = externalLinkResult.rows[0].id;
+        const externalLinkUrl = externalLinkResult.rows[0].url;
+        
+        // Create or update bridge table entry (userExternalLinks)
+        await this.pool.query(
+          `INSERT INTO "userExternalLinks" ("learnerId", "externalLinkId", "accountId", "accountUrl", connected, "connectedAt")
+           VALUES ($1, $2, $3, $4, true, CURRENT_TIMESTAMP)
+           ON CONFLICT ("learnerId", "externalLinkId")
+           DO UPDATE SET 
+             "accountId" = EXCLUDED."accountId",
+             "accountUrl" = EXCLUDED."accountUrl",
+             connected = true,
+             "connectedAt" = CURRENT_TIMESTAMP,
+             "disconnectedAt" = NULL,
+             "updatedAt" = CURRENT_TIMESTAMP`,
+          [learnerId, externalLinkId, profileId, externalLinkUrl]
+        );
+        
+        // Also update learners table for backward compatibility
+        updates.push(`"githubProfileId" = $${paramCount++}`);
+        updates.push(`"githubConnected" = $${paramCount++}`);
+        values.push(profileId);
+        values.push(true);
+        this.logger.log(`🔗 Linking learner ${email} to GitHub profile ID: ${profileId} via external link ID: ${externalLinkId} with URL: ${externalLinkUrl}`);
+      }
+      // Only add linkedinConnected separately if linkedinProfileId is not provided
+      // (linkedinProfileId block will set it automatically)
+      if (linkedinConnected !== undefined && (linkedinProfileId === undefined || linkedinProfileId === null)) {
         updates.push(`"linkedinConnected" = $${paramCount++}`);
         values.push(linkedinConnected);
       }
@@ -581,7 +644,9 @@ export class MockServerService implements OnModuleDestroy {
         values.push(true);
         this.logger.log(`🔗 Linking learner ${email} to LinkedIn profile ID: ${profileId} via external link ID: ${externalLinkId} with URL: ${externalLinkUrl}`);
       }
-      if (jiraConnected !== undefined) {
+      // Only add jiraConnected separately if jiraDataId is not provided
+      // (jiraDataId block will set it automatically)
+      if (jiraConnected !== undefined && (jiraDataId === undefined || jiraDataId === null)) {
         updates.push(`"jiraConnected" = $${paramCount++}`);
         values.push(jiraConnected);
       }
@@ -639,7 +704,9 @@ export class MockServerService implements OnModuleDestroy {
         values.push(true);
         this.logger.log(`🔗 Linking learner ${email} to Jira data ID: ${jiraId} via external link ID: ${externalLinkId} with URL: ${externalLinkUrl}`);
       }
-      if (teamsConnected !== undefined) {
+      // Only add teamsConnected separately if teamsCalendarId is not provided
+      // (teamsCalendarId block will set it automatically)
+      if (teamsConnected !== undefined && (teamsCalendarId === undefined || teamsCalendarId === null)) {
         updates.push(`"teamsConnected" = $${paramCount++}`);
         values.push(teamsConnected);
       }
@@ -794,11 +861,24 @@ export class MockServerService implements OnModuleDestroy {
   }
 
   /**
+   * Get all GitHub profiles (allow selecting any ID, not assigned to a learner)
+   */
+  async getAvailableGitHubProfiles() {
+    if (this.usePostgres && this.pool) {
+      const query = `SELECT * FROM "githubProfiles" WHERE "learnerId" IS NULL ORDER BY id`;
+      const result = await this.pool.query(query);
+      return result.rows;
+    } else {
+      return this.dbData?.githubProfiles || [];
+    }
+  }
+
+  /**
    * Get all Jira data (allow selecting any ID)
    */
   async getAvailableJiraData() {
     if (this.usePostgres && this.pool) {
-      const query = `SELECT * FROM "jiraData" ORDER BY id`;
+      const query = `SELECT * FROM "jiraData" WHERE "learnerId" IS NULL ORDER BY id`;
       const result = await this.pool.query(query);
       return result.rows;
     } else {

@@ -43,11 +43,8 @@ export const getGitHubProfiles = (learnerId) => {
 };
 
 // Mock data endpoints
-export const getAvailableLinkedInProfiles = async () => {
-  // Fetch from mock server's linkedinProfiles endpoint
-  const profiles = await apiRequest('/linkedinProfiles');
-  // Filter out already linked profiles on frontend if needed
-  // The backend service already handles filtering, but we can add additional client-side filtering here if needed
+export const getAvailableGitHubProfiles = async () => {
+  const profiles = await apiRequest('/githubProfiles');
   return Array.isArray(profiles) ? profiles : [];
 };
 
@@ -56,8 +53,4 @@ export const getAvailableJiraData = async () => {
   return response.data || [];
 };
 
-export const getAvailableTeamsData = async () => {
-  const response = await apiRequest('/mock-data/teams');
-  return response.data || [];
-};
 

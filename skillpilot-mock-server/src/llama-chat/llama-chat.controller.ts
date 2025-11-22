@@ -33,6 +33,17 @@ export class LlamaChatController {
   }
 
   /**
+   * Career Coach chat endpoint - Process a chat message with career-focused context
+   * @param chatMessageDto - DTO containing the user's message and optional chat history
+   * @returns Chat response from Llama model with career coaching focus
+   */
+  @Post('career-coach')
+  @HttpCode(200)
+  async careerCoach(@Body() chatMessageDto: ChatMessageDto) {
+    return await this.llamaChatService.careerCoach(chatMessageDto);
+  }
+
+  /**
    * Health check endpoint - Check if Llama chat service is configured
    * @returns Service health status
    */

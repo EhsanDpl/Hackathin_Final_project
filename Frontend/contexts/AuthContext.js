@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
       }
 
       const loggedUser = responseData.user;
-      console.log("::::abdul.a+sadmin@dplit.com",loggedUser,responseData)
       const authToken = responseData.access_token;
 
       setUser(loggedUser);

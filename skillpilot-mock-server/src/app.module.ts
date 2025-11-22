@@ -5,6 +5,9 @@ import { MockServerModule } from './mock-server/mock-server.module';
 import { AuthModule } from './auth/auth.module';
 import { LlamaChatModule } from './llama-chat/llama-chat.module';
 import { InvitationModule } from './invitation/invitation.module';
+import { SkillProfileModule } from './skill-profile/skill-profile.module';
+import { LearningPathModule } from './learning-path/learning-path.module';
+import { ContentGeneratorModule } from './content-generator/content-generator.module';
 
 @Module({
   imports: [
@@ -14,6 +17,9 @@ import { InvitationModule } from './invitation/invitation.module';
     AuthModule,
     LlamaChatModule,
     InvitationModule,
+    SkillProfileModule,
+    LearningPathModule,
+    ContentGeneratorModule,
   ],
   controllers: [],
   providers: [],

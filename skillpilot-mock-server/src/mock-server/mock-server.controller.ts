@@ -300,6 +300,28 @@ export class MockServerController {
   }
 
   /**
+   * Get all mock GitHub profiles (users can select any ID)
+   * Returns all GitHub profiles not assigned to a learner
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mock-data/github')
+  async getAvailableGitHubProfiles() {
+    try {
+      const profiles = await this.mockServerService.getAvailableGitHubProfiles();
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'GitHub profiles retrieved successfully',
+        data: profiles,
+      };
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
    * Get all mock Jira data (users can select any ID)
    * Returns all Jira data from the bridge table
    */
@@ -322,18 +344,19 @@ export class MockServerController {
   }
 
   /**
-   * Get all mock Teams calendar data (users can select any ID)
-   * Returns all Teams calendar data from the bridge table
+   * Get all mock GitLab profiles (users can select any ID)
+   * Returns all GitLab profiles (using GitHub profiles as mock data for now)
    */
   @UseGuards(JwtAuthGuard)
-  @Get('mock-data/teams')
-  async getAvailableTeamsData() {
+  @Get('mock-data/gitlab')
+  async getAvailableGitLabProfiles() {
     try {
-      const teamsData = await this.mockServerService.getAvailableTeamsData();
+      // Use GitHub profiles as mock GitLab data for now
+      const gitlabData = await this.mockServerService.getGitHubProfiles();
       return {
         statusCode: HttpStatus.OK,
-        message: 'Teams data retrieved successfully',
-        data: teamsData,
+        message: 'GitLab profiles retrieved successfully',
+        data: Array.isArray(gitlabData) ? gitlabData : [],
       };
     } catch (error) {
       throw new HttpException(
