@@ -6,4 +6,9 @@ npm-debug.log
 .DS_Store
 *.md
 !README.md
+dist
+coverage
+.vscode
+.idea
+*.log
 

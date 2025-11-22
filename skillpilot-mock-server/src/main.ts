@@ -1,0 +1,45 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  
+  // Enable CORS
+  app.enableCors();
+  
+  // Swagger configuration
+  const config = new DocumentBuilder()
+    .setTitle('SkillPilot AI API')
+    .setDescription('Comprehensive API for SkillPilot AI hackathon. Includes mock server endpoints and LangChain chat functionality.')
+    .setVersion('1.0.0')
+    .addTag('Mock Server', 'Mock API endpoints for learners, integrations, and data')
+    .addTag('LangChain Chat', 'AI chat endpoints using LangChain')
+    .build();
+  
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
+  
+  const port = process.env.PORT || 3001;
+  await app.listen(port);
+  
+  console.log('');
+  console.log('╔════════════════════════════════════════════════════════════╗');
+  console.log('║   SkillPilot AI - NestJS API Server                         ║');
+  console.log('╚════════════════════════════════════════════════════════════╝');
+  console.log('');
+  console.log(`🚀 Server running at: http://localhost:${port}`);
+  console.log(`📚 API Docs at: http://localhost:${port}/api-docs`);
+  console.log('');
+  console.log('Available Endpoints:');
+  console.log(`  GET http://localhost:${port}/healthcheck - Health check`);
+  console.log(`  GET http://localhost:${port}/learners - Get all learners`);
+  console.log(`  GET http://localhost:${port}/githubProfiles - GitHub integration`);
+  console.log(`  GET http://localhost:${port}/linkedinProfiles - LinkedIn integration`);
+  console.log(`  POST http://localhost:${port}/api/v1/langchain-chat/basic-chat - Basic chat`);
+  console.log(`  POST http://localhost:${port}/api/v1/langchain-chat/context-aware-chat - Context-aware chat`);
+  console.log('');
+}
+
+bootstrap();
+
