@@ -1,0 +1,30 @@
+node_modules/
+package-lock.json
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Misc
+.cache/
+dist/
+build/
+temp/
+
+# Keep db.json for version control
+!db.json

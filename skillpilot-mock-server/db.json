@@ -1,0 +1,1352 @@
+{
+  "learners": [
+    {
+      "id": 1,
+      "name": "Rajesh Kumar",
+      "email": "rajesh.kumar@company.com",
+      "phone": "+91-9876543210",
+      "role": "Software Engineer II (Backend)",
+      "department": "Backend Platform",
+      "location": "Bangalore, India",
+      "joinDate": "2022-03-15",
+      "currentLevel": "Mid-Level",
+      "yearsExperience": 5,
+      "timezone": "IST",
+      "reportsTo": "Vikram Singh",
+      "linkedinProfile": "rajesh-kumar-backend",
+      "githubUsername": "rajesh-kb",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "Priya Sharma",
+      "email": "priya.sharma@company.com",
+      "phone": "+91-8765432109",
+      "role": "Senior Frontend Engineer",
+      "department": "Frontend",
+      "location": "Bangalore, India",
+      "joinDate": "2020-08-22",
+      "currentLevel": "Senior",
+      "yearsExperience": 7,
+      "timezone": "IST",
+      "reportsTo": "Abhishek Nair",
+      "linkedinProfile": "priya-sharma-frontend",
+      "githubUsername": "priya-sharma-ui",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "name": "Amit Patel",
+      "email": "amit.patel@company.com",
+      "phone": "+91-7654321098",
+      "role": "DevOps Engineer",
+      "department": "Infrastructure",
+      "location": "Hyderabad, India",
+      "joinDate": "2021-11-05",
+      "currentLevel": "Mid-Level",
+      "yearsExperience": 6,
+      "timezone": "IST",
+      "reportsTo": "Manish Tiwari",
+      "linkedinProfile": "amit-patel-devops",
+      "githubUsername": "amit-devops",
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "name": "Neha Singh",
+      "email": "neha.singh@company.com",
+      "phone": "+91-6543210987",
+      "role": "QA Automation Engineer",
+      "department": "Quality Assurance",
+      "location": "Pune, India",
+      "joinDate": "2021-06-18",
+      "currentLevel": "Mid-Level",
+      "yearsExperience": 4,
+      "timezone": "IST",
+      "reportsTo": "Rajeev Malhotra",
+      "linkedinProfile": "neha-singh-qa",
+      "githubUsername": "neha-qa-automation",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "name": "Vikram Desai",
+      "email": "vikram.desai@company.com",
+      "phone": "+91-5432109876",
+      "role": "Full-Stack Engineer",
+      "department": "Platform",
+      "location": "Mumbai, India",
+      "joinDate": "2019-02-10",
+      "currentLevel": "Senior",
+      "yearsExperience": 8,
+      "timezone": "IST",
+      "reportsTo": "Suresh Gupta",
+      "linkedinProfile": "vikram-desai-fullstack",
+      "githubUsername": "vikram-fullstack",
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "name": "Sneha Gupta",
+      "email": "sneha.gupta@company.com",
+      "phone": "+91-4321098765",
+      "role": "Junior Software Engineer",
+      "department": "Backend Platform",
+      "location": "Bangalore, India",
+      "joinDate": "2023-07-01",
+      "currentLevel": "Junior",
+      "yearsExperience": 1,
+      "timezone": "IST",
+      "reportsTo": "Rajesh Kumar",
+      "linkedinProfile": "sneha-gupta-junior",
+      "githubUsername": "sneha-junior-dev",
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "name": "Rohan Verma",
+      "email": "rohan.verma@company.com",
+      "phone": "+91-3210987654",
+      "role": "Engineering Lead",
+      "department": "Backend Platform",
+      "location": "Delhi, India",
+      "joinDate": "2018-01-15",
+      "currentLevel": "Lead",
+      "yearsExperience": 12,
+      "timezone": "IST",
+      "reportsTo": "CTO Office",
+      "linkedinProfile": "rohan-verma-engineering-lead",
+      "githubUsername": "rohan-lead",
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "name": "Divya Reddy",
+      "email": "divya.reddy@company.com",
+      "phone": "+91-2109876543",
+      "role": "Data Engineer",
+      "department": "Data & Analytics",
+      "location": "Bangalore, India",
+      "joinDate": "2021-04-20",
+      "currentLevel": "Mid-Level",
+      "yearsExperience": 5,
+      "timezone": "IST",
+      "reportsTo": "Arun Sharma",
+      "linkedinProfile": "divya-reddy-data",
+      "githubUsername": "divya-data-eng",
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "name": "Arjun Mishra",
+      "email": "arjun.mishra@company.com",
+      "phone": "+91-1098765432",
+      "role": "Mobile Developer",
+      "department": "Mobile",
+      "location": "Hyderabad, India",
+      "joinDate": "2022-09-12",
+      "currentLevel": "Mid-Level",
+      "yearsExperience": 4,
+      "timezone": "IST",
+      "reportsTo": "Prakash Bhatt",
+      "linkedinProfile": "arjun-mishra-mobile",
+      "githubUsername": "arjun-mobile",
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "name": "Zara Khan",
+      "email": "zara.khan@company.com",
+      "phone": "+91-9098765432",
+      "role": "Frontend Specialist",
+      "department": "Frontend",
+      "location": "Bangalore, India",
+      "joinDate": "2020-11-08",
+      "currentLevel": "Senior",
+      "yearsExperience": 8,
+      "timezone": "IST",
+      "reportsTo": "Abhishek Nair",
+      "linkedinProfile": "zara-khan-frontend",
+      "githubUsername": "zara-frontend-specialist",
+      "status": "active"
+    }
+  ],
+  "skillAssessments": [
+    {"id": 1, "learnerId": 1, "skill": "TypeScript", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 72, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
+    {"id": 2, "learnerId": 1, "skill": "Node.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-15", "source": "GitHub Analysis"},
+    {"id": 3, "learnerId": 1, "skill": "Docker", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
+    {"id": 4, "learnerId": 1, "skill": "AWS", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 45, "assessmentDate": "2024-01-15", "source": "Gap Analysis"},
+    {"id": 5, "learnerId": 1, "skill": "System Design", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-15", "source": "Self-Assessment"},
+    {"id": 6, "learnerId": 2, "skill": "React", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 95, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
+    {"id": 7, "learnerId": 2, "skill": "TypeScript", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 88, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
+    {"id": 8, "learnerId": 2, "skill": "Next.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
+    {"id": 9, "learnerId": 2, "skill": "System Design", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-14", "source": "Self-Assessment"},
+    {"id": 10, "learnerId": 2, "skill": "Testing (Jest)", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-14", "source": "GitHub Analysis"},
+    {"id": 11, "learnerId": 3, "skill": "Kubernetes", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-13", "source": "Work Experience"},
+    {"id": 12, "learnerId": 3, "skill": "Docker", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-13", "source": "Work Experience"},
+    {"id": 13, "learnerId": 3, "skill": "AWS", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 72, "assessmentDate": "2024-01-13", "source": "Work Experience"},
+    {"id": 14, "learnerId": 3, "skill": "Terraform", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-13", "source": "Self-Assessment"},
+    {"id": 15, "learnerId": 3, "skill": "CI/CD", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-13", "source": "Work Experience"},
+    {"id": 16, "learnerId": 4, "skill": "Python", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-12", "source": "GitHub Analysis"},
+    {"id": 17, "learnerId": 4, "skill": "Selenium", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-12", "source": "Work Experience"},
+    {"id": 18, "learnerId": 4, "skill": "API Testing", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-12", "source": "Work Experience"},
+    {"id": 19, "learnerId": 4, "skill": "Performance Testing", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 40, "assessmentDate": "2024-01-12", "source": "Gap Analysis"},
+    {"id": 20, "learnerId": 4, "skill": "CI/CD", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-12", "source": "Self-Assessment"},
+    {"id": 21, "learnerId": 5, "skill": "TypeScript", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 92, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
+    {"id": 22, "learnerId": 5, "skill": "React", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
+    {"id": 23, "learnerId": 5, "skill": "Node.js", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-11", "source": "GitHub Analysis"},
+    {"id": 24, "learnerId": 5, "skill": "Cloud Architecture", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-11", "source": "Self-Assessment"},
+    {"id": 25, "learnerId": 5, "skill": "System Design", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 78, "assessmentDate": "2024-01-11", "source": "Self-Assessment"},
+    {"id": 26, "learnerId": 6, "skill": "JavaScript", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 35, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
+    {"id": 27, "learnerId": 6, "skill": "React", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 30, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
+    {"id": 28, "learnerId": 6, "skill": "Node.js", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 32, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
+    {"id": 29, "learnerId": 6, "skill": "SQL", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 55, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
+    {"id": 30, "learnerId": 6, "skill": "Git", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 40, "assessmentDate": "2024-01-10", "source": "Self-Assessment"},
+    {"id": 31, "learnerId": 7, "skill": "Leadership", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-09", "source": "360 Review"},
+    {"id": 32, "learnerId": 7, "skill": "Architecture", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 95, "assessmentDate": "2024-01-09", "source": "Work Experience"},
+    {"id": 33, "learnerId": 7, "skill": "Mentoring", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-09", "source": "360 Review"},
+    {"id": 34, "learnerId": 7, "skill": "Strategic Thinking", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 78, "assessmentDate": "2024-01-09", "source": "360 Review"},
+    {"id": 35, "learnerId": 7, "skill": "Technical Communication", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-09", "source": "360 Review"},
+    {"id": 36, "learnerId": 8, "skill": "Python", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 88, "assessmentDate": "2024-01-08", "source": "GitHub Analysis"},
+    {"id": 37, "learnerId": 8, "skill": "SQL", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 82, "assessmentDate": "2024-01-08", "source": "Work Experience"},
+    {"id": 38, "learnerId": 8, "skill": "Spark", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-08", "source": "Work Experience"},
+    {"id": 39, "learnerId": 8, "skill": "Machine Learning", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 45, "assessmentDate": "2024-01-08", "source": "Self-Assessment"},
+    {"id": 40, "learnerId": 8, "skill": "Data Visualization", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 65, "assessmentDate": "2024-01-08", "source": "Self-Assessment"},
+    {"id": 41, "learnerId": 9, "skill": "Swift", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 70, "assessmentDate": "2024-01-07", "source": "Work Experience"},
+    {"id": 42, "learnerId": 9, "skill": "Kotlin", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 68, "assessmentDate": "2024-01-07", "source": "Work Experience"},
+    {"id": 43, "learnerId": 9, "skill": "Backend Development", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 38, "assessmentDate": "2024-01-07", "source": "Gap Analysis"},
+    {"id": 44, "learnerId": 9, "skill": "Node.js", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 35, "assessmentDate": "2024-01-07", "source": "Self-Assessment"},
+    {"id": 45, "learnerId": 9, "skill": "System Design", "currentLevel": "Beginner", "targetLevel": "Intermediate", "proficiency": 32, "assessmentDate": "2024-01-07", "source": "Self-Assessment"},
+    {"id": 46, "learnerId": 10, "skill": "React", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 93, "assessmentDate": "2024-01-06", "source": "GitHub Analysis"},
+    {"id": 47, "learnerId": 10, "skill": "CSS/Styling", "currentLevel": "Expert", "targetLevel": "Expert", "proficiency": 94, "assessmentDate": "2024-01-06", "source": "GitHub Analysis"},
+    {"id": 48, "learnerId": 10, "skill": "Performance Optimization", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 85, "assessmentDate": "2024-01-06", "source": "Work Experience"},
+    {"id": 49, "learnerId": 10, "skill": "System Design", "currentLevel": "Advanced", "targetLevel": "Expert", "proficiency": 80, "assessmentDate": "2024-01-06", "source": "Self-Assessment"},
+    {"id": 50, "learnerId": 10, "skill": "Leadership", "currentLevel": "Intermediate", "targetLevel": "Advanced", "proficiency": 60, "assessmentDate": "2024-01-06", "source": "360 Review"}
+  ],
+  "learningPaths": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "title": "Full-Stack TypeScript Mastery",
+      "description": "Master TypeScript and modern backend development with Node.js",
+      "duration": "6 weeks",
+      "startDate": "2024-01-15",
+      "endDate": "2024-02-26",
+      "totalModules": 12,
+      "completedModules": 3,
+      "progress": 25,
+      "difficulty": "Intermediate",
+      "status": "in-progress"
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "title": "AWS Solutions Architecture",
+      "description": "From basics to AWS Solutions Architect certification",
+      "duration": "8 weeks",
+      "startDate": "2024-01-22",
+      "endDate": "2024-03-18",
+      "totalModules": 16,
+      "completedModules": 0,
+      "progress": 0,
+      "difficulty": "Advanced",
+      "status": "planned"
+    },
+    {
+      "id": 3,
+      "learnerId": 2,
+      "title": "Advanced React Patterns & Performance",
+      "description": "Deep dive into React patterns, hooks, and optimization",
+      "duration": "4 weeks",
+      "startDate": "2024-01-20",
+      "endDate": "2024-02-17",
+      "totalModules": 10,
+      "completedModules": 5,
+      "progress": 50,
+      "difficulty": "Advanced",
+      "status": "in-progress"
+    },
+    {
+      "id": 4,
+      "learnerId": 2,
+      "title": "System Design Fundamentals",
+      "description": "Learn to design scalable systems",
+      "duration": "6 weeks",
+      "startDate": "2024-02-01",
+      "endDate": "2024-03-15",
+      "totalModules": 12,
+      "completedModules": 0,
+      "progress": 0,
+      "difficulty": "Advanced",
+      "status": "planned"
+    },
+    {
+      "id": 5,
+      "learnerId": 3,
+      "title": "Kubernetes Mastery",
+      "description": "Complete guide to Kubernetes orchestration",
+      "duration": "5 weeks",
+      "startDate": "2024-01-18",
+      "endDate": "2024-02-22",
+      "totalModules": 11,
+      "completedModules": 4,
+      "progress": 36,
+      "difficulty": "Advanced",
+      "status": "in-progress"
+    },
+    {
+      "id": 6,
+      "learnerId": 3,
+      "title": "Terraform & Infrastructure as Code",
+      "description": "Master IaC with Terraform and best practices",
+      "duration": "4 weeks",
+      "startDate": "2024-02-05",
+      "endDate": "2024-03-05",
+      "totalModules": 9,
+      "completedModules": 0,
+      "progress": 0,
+      "difficulty": "Intermediate",
+      "status": "planned"
+    },
+    {
+      "id": 7,
+      "learnerId": 4,
+      "title": "Performance Testing Bootcamp",
+      "description": "Learn load testing, stress testing, and optimization",
+      "duration": "3 weeks",
+      "startDate": "2024-01-25",
+      "endDate": "2024-02-15",
+      "totalModules": 8,
+      "completedModules": 2,
+      "progress": 25,
+      "difficulty": "Intermediate",
+      "status": "in-progress"
+    },
+    {
+      "id": 8,
+      "learnerId": 4,
+      "title": "Advanced Selenium & Automation",
+      "description": "Advanced automation techniques and frameworks",
+      "duration": "5 weeks",
+      "startDate": "2024-02-10",
+      "endDate": "2024-03-20",
+      "totalModules": 10,
+      "completedModules": 0,
+      "progress": 0,
+      "difficulty": "Advanced",
+      "status": "planned"
+    },
+    {
+      "id": 9,
+      "learnerId": 5,
+      "title": "Cloud Architecture & Scaling",
+      "description": "Build scalable cloud systems on AWS",
+      "duration": "4 weeks",
+      "startDate": "2024-01-28",
+      "endDate": "2024-02-25",
+      "totalModules": 10,
+      "completedModules": 2,
+      "progress": 20,
+      "difficulty": "Advanced",
+      "status": "in-progress"
+    },
+    {
+      "id": 10,
+      "learnerId": 6,
+      "title": "JavaScript Fundamentals",
+      "description": "Complete beginner guide to JavaScript",
+      "duration": "8 weeks",
+      "startDate": "2024-01-10",
+      "endDate": "2024-03-07",
+      "totalModules": 16,
+      "completedModules": 7,
+      "progress": 44,
+      "difficulty": "Beginner",
+      "status": "in-progress"
+    }
+  ],
+  "dailyMissions": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "title": "Implement async/await patterns",
+      "description": "Create a TypeScript function using async/await to handle multiple API calls",
+      "xp": 50,
+      "difficulty": "Medium",
+      "category": "Coding",
+      "completed": false,
+      "dueDate": "2024-01-20",
+      "createdDate": "2024-01-19",
+      "learningPathId": 1
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "title": "Learn TypeScript generics",
+      "description": "Watch tutorial on TypeScript generics and solve 3 practice problems",
+      "xp": 35,
+      "difficulty": "Hard",
+      "category": "Learning",
+      "completed": true,
+      "dueDate": "2024-01-19",
+      "completedDate": "2024-01-19",
+      "createdDate": "2024-01-18",
+      "learningPathId": 1
+    },
+    {
+      "id": 3,
+      "learnerId": 1,
+      "title": "Docker best practices review",
+      "description": "Read Docker best practices guide and take quiz",
+      "xp": 25,
+      "difficulty": "Easy",
+      "category": "Review",
+      "completed": false,
+      "dueDate": "2024-01-21",
+      "createdDate": "2024-01-19",
+      "learningPathId": 1
+    },
+    {
+      "id": 4,
+      "learnerId": 2,
+      "title": "Build custom React hook",
+      "description": "Create a useWindowSize custom hook with proper typing",
+      "xp": 60,
+      "difficulty": "Hard",
+      "category": "Coding",
+      "completed": true,
+      "dueDate": "2024-01-18",
+      "completedDate": "2024-01-18",
+      "createdDate": "2024-01-17",
+      "learningPathId": 3
+    },
+    {
+      "id": 5,
+      "learnerId": 2,
+      "title": "Learn React performance optimization",
+      "description": "Study React.memo, useMemo, and useCallback patterns",
+      "xp": 45,
+      "difficulty": "Medium",
+      "category": "Learning",
+      "completed": false,
+      "dueDate": "2024-01-22",
+      "createdDate": "2024-01-19",
+      "learningPathId": 3
+    },
+    {
+      "id": 6,
+      "learnerId": 3,
+      "title": "Deploy app to Kubernetes",
+      "description": "Deploy a sample app to Kubernetes cluster",
+      "xp": 70,
+      "difficulty": "Hard",
+      "category": "Hands-On",
+      "completed": false,
+      "dueDate": "2024-01-25",
+      "createdDate": "2024-01-19",
+      "learningPathId": 5
+    },
+    {
+      "id": 7,
+      "learnerId": 3,
+      "title": "Kubernetes networking basics",
+      "description": "Understand Kubernetes services, ingress, and networking",
+      "xp": 40,
+      "difficulty": "Medium",
+      "category": "Learning",
+      "completed": true,
+      "dueDate": "2024-01-17",
+      "completedDate": "2024-01-17",
+      "createdDate": "2024-01-15",
+      "learningPathId": 5
+    },
+    {
+      "id": 8,
+      "learnerId": 4,
+      "title": "Performance test a REST API",
+      "description": "Use JMeter to load test an API endpoint",
+      "xp": 55,
+      "difficulty": "Medium",
+      "category": "Hands-On",
+      "completed": false,
+      "dueDate": "2024-01-23",
+      "createdDate": "2024-01-19",
+      "learningPathId": 7
+    },
+    {
+      "id": 9,
+      "learnerId": 4,
+      "title": "Performance metrics quiz",
+      "description": "Take quiz on key performance testing concepts",
+      "xp": 30,
+      "difficulty": "Easy",
+      "category": "Quiz",
+      "completed": true,
+      "dueDate": "2024-01-18",
+      "completedDate": "2024-01-18",
+      "createdDate": "2024-01-17",
+      "learningPathId": 7
+    },
+    {
+      "id": 10,
+      "learnerId": 6,
+      "title": "JavaScript variables and scope",
+      "description": "Complete interactive coding challenges on var, let, const",
+      "xp": 25,
+      "difficulty": "Easy",
+      "category": "Coding",
+      "completed": true,
+      "dueDate": "2024-01-16",
+      "completedDate": "2024-01-16",
+      "createdDate": "2024-01-14",
+      "learningPathId": 10
+    }
+  ],
+  "streaks": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "currentStreak": 12,
+      "longestStreak": 18,
+      "lastCompletionDate": "2024-01-19",
+      "totalMissionsCompleted": 42
+    },
+    {
+      "id": 2,
+      "learnerId": 2,
+      "currentStreak": 8,
+      "longestStreak": 25,
+      "lastCompletionDate": "2024-01-18",
+      "totalMissionsCompleted": 56
+    },
+    {
+      "id": 3,
+      "learnerId": 3,
+      "currentStreak": 6,
+      "longestStreak": 15,
+      "lastCompletionDate": "2024-01-17",
+      "totalMissionsCompleted": 35
+    },
+    {
+      "id": 4,
+      "learnerId": 4,
+      "currentStreak": 5,
+      "longestStreak": 12,
+      "lastCompletionDate": "2024-01-18",
+      "totalMissionsCompleted": 28
+    },
+    {
+      "id": 5,
+      "learnerId": 6,
+      "currentStreak": 14,
+      "longestStreak": 14,
+      "lastCompletionDate": "2024-01-19",
+      "totalMissionsCompleted": 38
+    }
+  ],
+  "progressTracking": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "learningPathId": 1,
+      "weekNumber": 1,
+      "completedModules": 3,
+      "totalModules": 12,
+      "weeklyXP": 150,
+      "missionsCompleted": 4,
+      "tasksCompleted": 8,
+      "averageScore": 82,
+      "weekEnding": "2024-01-21"
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "learningPathId": 1,
+      "weekNumber": 2,
+      "completedModules": 0,
+      "totalModules": 12,
+      "weeklyXP": 0,
+      "missionsCompleted": 0,
+      "tasksCompleted": 0,
+      "averageScore": 0,
+      "weekEnding": "2024-01-28"
+    },
+    {
+      "id": 3,
+      "learnerId": 2,
+      "learningPathId": 3,
+      "weekNumber": 1,
+      "completedModules": 5,
+      "totalModules": 10,
+      "weeklyXP": 200,
+      "missionsCompleted": 6,
+      "tasksCompleted": 12,
+      "averageScore": 88,
+      "weekEnding": "2024-01-24"
+    },
+    {
+      "id": 4,
+      "learnerId": 3,
+      "learningPathId": 5,
+      "weekNumber": 1,
+      "completedModules": 4,
+      "totalModules": 11,
+      "weeklyXP": 175,
+      "missionsCompleted": 5,
+      "tasksCompleted": 10,
+      "averageScore": 85,
+      "weekEnding": "2024-01-25"
+    }
+  ],
+  "learnerDashboard": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "totalXP": 1250,
+      "level": 8,
+      "rank": 3,
+      "activePathsCount": 2,
+      "completedPathsCount": 5,
+      "streakStatus": "active",
+      "currentStreak": 12,
+      "nextMilestone": 1500
+    },
+    {
+      "id": 2,
+      "learnerId": 2,
+      "totalXP": 1680,
+      "level": 10,
+      "rank": 1,
+      "activePathsCount": 1,
+      "completedPathsCount": 8,
+      "streakStatus": "active",
+      "currentStreak": 8,
+      "nextMilestone": 2000
+    },
+    {
+      "id": 3,
+      "learnerId": 3,
+      "totalXP": 980,
+      "level": 6,
+      "rank": 5,
+      "activePathsCount": 2,
+      "completedPathsCount": 3,
+      "streakStatus": "active",
+      "currentStreak": 6,
+      "nextMilestone": 1000
+    },
+    {
+      "id": 4,
+      "learnerId": 4,
+      "totalXP": 750,
+      "level": 5,
+      "rank": 7,
+      "activePathsCount": 2,
+      "completedPathsCount": 2,
+      "streakStatus": "active",
+      "currentStreak": 5,
+      "nextMilestone": 1000
+    },
+    {
+      "id": 5,
+      "learnerId": 6,
+      "totalXP": 450,
+      "level": 3,
+      "rank": 9,
+      "activePathsCount": 1,
+      "completedPathsCount": 0,
+      "streakStatus": "active",
+      "currentStreak": 14,
+      "nextMilestone": 500
+    }
+  ],
+  "managerDashboard": [
+    {
+      "id": 1,
+      "managerId": 7,
+      "departmentTeamSize": 15,
+      "teamAverageXP": 920,
+      "teamAverageLevel": 6.5,
+      "activeLearnersCount": 12,
+      "completedPathsTotal": 28,
+      "departmentProgress": 42,
+      "topPerformer": "Priya Sharma",
+      "needsAttention": ["Sneha Gupta", "Arjun Mishra"]
+    }
+  ],
+  "githubProfiles": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "username": "rajesh-kb",
+      "fullName": "Rajesh Kumar",
+      "bio": "Backend engineer passionate about scalable systems",
+      "location": "Bangalore",
+      "publicRepos": 28,
+      "followers": 145,
+      "following": 67,
+      "languages": ["TypeScript", "JavaScript", "Python", "Go"],
+      "primaryLanguage": "TypeScript",
+      "recentActivity": "Active 2 days ago",
+      "profileUrl": "https://github.com/rajesh-kb",
+      "topRepositories": [
+        {"name": "distributed-cache", "language": "TypeScript", "stars": 234, "forks": 45},
+        {"name": "api-gateway", "language": "Go", "stars": 156, "forks": 28},
+        {"name": "data-pipeline", "language": "Python", "stars": 89, "forks": 12}
+      ],
+      "contributionsLastYear": 1250
+    },
+    {
+      "id": 2,
+      "learnerId": 2,
+      "username": "priya-sharma-ui",
+      "fullName": "Priya Sharma",
+      "bio": "Frontend specialist and React expert",
+      "location": "Bangalore",
+      "publicRepos": 35,
+      "followers": 287,
+      "following": 89,
+      "languages": ["JavaScript", "TypeScript", "CSS", "HTML"],
+      "primaryLanguage": "JavaScript",
+      "recentActivity": "Active 1 day ago",
+      "profileUrl": "https://github.com/priya-sharma-ui",
+      "topRepositories": [
+        {"name": "react-ui-kit", "language": "TypeScript", "stars": 1205, "forks": 245},
+        {"name": "performance-guide", "language": "Markdown", "stars": 678, "forks": 123},
+        {"name": "next-starter", "language": "TypeScript", "stars": 456, "forks": 89}
+      ],
+      "contributionsLastYear": 1890
+    },
+    {
+      "id": 3,
+      "learnerId": 3,
+      "username": "amit-devops",
+      "fullName": "Amit Patel",
+      "bio": "DevOps engineer and cloud architect",
+      "location": "Hyderabad",
+      "publicRepos": 22,
+      "followers": 98,
+      "following": 54,
+      "languages": ["HCL", "YAML", "Python", "Bash"],
+      "primaryLanguage": "HCL",
+      "recentActivity": "Active 3 days ago",
+      "profileUrl": "https://github.com/amit-devops",
+      "topRepositories": [
+        {"name": "terraform-modules", "language": "HCL", "stars": 345, "forks": 67},
+        {"name": "k8s-automation", "language": "Bash", "stars": 189, "forks": 34},
+        {"name": "infra-as-code", "language": "Python", "stars": 123, "forks": 22}
+      ],
+      "contributionsLastYear": 980
+    },
+    {
+      "id": 4,
+      "learnerId": 4,
+      "username": "neha-qa-automation",
+      "fullName": "Neha Singh",
+      "bio": "QA automation enthusiast and Python developer",
+      "location": "Pune",
+      "publicRepos": 18,
+      "followers": 76,
+      "following": 42,
+      "languages": ["Python", "JavaScript", "Java", "Gherkin"],
+      "primaryLanguage": "Python",
+      "recentActivity": "Active 1 day ago",
+      "profileUrl": "https://github.com/neha-qa-automation",
+      "topRepositories": [
+        {"name": "selenium-framework", "language": "Python", "stars": 234, "forks": 45},
+        {"name": "api-test-suite", "language": "Python", "stars": 145, "forks": 28},
+        {"name": "automation-utils", "language": "JavaScript", "stars": 89, "forks": 15}
+      ],
+      "contributionsLastYear": 756
+    },
+    {
+      "id": 5,
+      "learnerId": 5,
+      "username": "vikram-fullstack",
+      "fullName": "Vikram Desai",
+      "bio": "Full-stack developer and open-source contributor",
+      "location": "Mumbai",
+      "publicRepos": 42,
+      "followers": 512,
+      "following": 156,
+      "languages": ["TypeScript", "JavaScript", "Python", "SQL"],
+      "primaryLanguage": "TypeScript",
+      "recentActivity": "Active today",
+      "profileUrl": "https://github.com/vikram-fullstack",
+      "topRepositories": [
+        {"name": "full-stack-starter", "language": "TypeScript", "stars": 2345, "forks": 456},
+        {"name": "micro-services", "language": "TypeScript", "stars": 1567, "forks": 289},
+        {"name": "monitoring-toolkit", "language": "Python", "stars": 789, "forks": 145}
+      ],
+      "contributionsLastYear": 2145
+    },
+    {
+      "id": 6,
+      "learnerId": 6,
+      "username": "sneha-junior-dev",
+      "fullName": "Sneha Gupta",
+      "bio": "Junior developer learning full-stack",
+      "location": "Bangalore",
+      "publicRepos": 8,
+      "followers": 12,
+      "following": 25,
+      "languages": ["JavaScript", "Python", "HTML", "CSS"],
+      "primaryLanguage": "JavaScript",
+      "recentActivity": "Active 2 hours ago",
+      "profileUrl": "https://github.com/sneha-junior-dev",
+      "topRepositories": [
+        {"name": "portfolio-site", "language": "JavaScript", "stars": 15, "forks": 3},
+        {"name": "todo-app", "language": "React", "stars": 8, "forks": 2},
+        {"name": "practice-problems", "language": "Python", "stars": 22, "forks": 5}
+      ],
+      "contributionsLastYear": 245
+    },
+    {
+      "id": 7,
+      "learnerId": 7,
+      "username": "rohan-lead",
+      "fullName": "Rohan Verma",
+      "bio": "Engineering leader and architect",
+      "location": "Delhi",
+      "publicRepos": 56,
+      "followers": 890,
+      "following": 234,
+      "languages": ["TypeScript", "Go", "Python", "Java"],
+      "primaryLanguage": "TypeScript",
+      "recentActivity": "Active today",
+      "profileUrl": "https://github.com/rohan-lead",
+      "topRepositories": [
+        {"name": "scalable-architecture", "language": "TypeScript", "stars": 3456, "forks": 678},
+        {"name": "system-design-patterns", "language": "Markdown", "stars": 2789, "forks": 567},
+        {"name": "engineering-handbook", "language": "Markdown", "stars": 2145, "forks": 434}
+      ],
+      "contributionsLastYear": 3456
+    },
+    {
+      "id": 8,
+      "learnerId": 8,
+      "username": "divya-data-eng",
+      "fullName": "Divya Reddy",
+      "bio": "Data engineer and analytics specialist",
+      "location": "Bangalore",
+      "publicRepos": 19,
+      "followers": 143,
+      "following": 67,
+      "languages": ["Python", "SQL", "Scala", "Spark"],
+      "primaryLanguage": "Python",
+      "recentActivity": "Active 1 day ago",
+      "profileUrl": "https://github.com/divya-data-eng",
+      "topRepositories": [
+        {"name": "etl-pipeline", "language": "Python", "stars": 267, "forks": 45},
+        {"name": "data-viz-toolkit", "language": "Python", "stars": 145, "forks": 28},
+        {"name": "spark-utils", "language": "Scala", "stars": 98, "forks": 16}
+      ],
+      "contributionsLastYear": 1123
+    },
+    {
+      "id": 9,
+      "learnerId": 9,
+      "username": "arjun-mobile",
+      "fullName": "Arjun Mishra",
+      "bio": "Mobile developer (iOS/Android) transitioning to backend",
+      "location": "Hyderabad",
+      "publicRepos": 15,
+      "followers": 54,
+      "following": 38,
+      "languages": ["Swift", "Kotlin", "JavaScript", "Python"],
+      "primaryLanguage": "Swift",
+      "recentActivity": "Active 4 days ago",
+      "profileUrl": "https://github.com/arjun-mobile",
+      "topRepositories": [
+        {"name": "ios-app-kit", "language": "Swift", "stars": 189, "forks": 34},
+        {"name": "android-library", "language": "Kotlin", "stars": 123, "forks": 22},
+        {"name": "mobile-utils", "language": "Swift", "stars": 76, "forks": 12}
+      ],
+      "contributionsLastYear": 654
+    },
+    {
+      "id": 10,
+      "learnerId": 10,
+      "username": "zara-frontend-specialist",
+      "fullName": "Zara Khan",
+      "bio": "Frontend specialist and design systems advocate",
+      "location": "Bangalore",
+      "publicRepos": 38,
+      "followers": 456,
+      "following": 123,
+      "languages": ["TypeScript", "JavaScript", "CSS", "HTML"],
+      "primaryLanguage": "TypeScript",
+      "recentActivity": "Active today",
+      "profileUrl": "https://github.com/zara-frontend-specialist",
+      "topRepositories": [
+        {"name": "design-system-lib", "language": "TypeScript", "stars": 1897, "forks": 345},
+        {"name": "frontend-best-practices", "language": "Markdown", "stars": 1234, "forks": 223},
+        {"name": "accessibility-toolkit", "language": "TypeScript", "stars": 876, "forks": 156}
+      ],
+      "contributionsLastYear": 1876
+    }
+  ],
+  "linkedinProfiles": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "username": "rajesh-kumar-backend",
+      "fullName": "Rajesh Kumar",
+      "headline": "Software Engineer II | Backend | TypeScript | Node.js",
+      "location": "Bangalore, Karnataka, India",
+      "industry": "Software Development",
+      "experienceLevel": "Mid-Level Professional",
+      "profilePictureUrl": "https://api.placeholder.com/rajesh-kumar.jpg",
+      "about": "Passionate about building scalable backend systems. 5+ years of experience in full-stack development.",
+      "endorsedSkills": [
+        {"skill": "TypeScript", "endorsements": 45},
+        {"skill": "Node.js", "endorsements": 52},
+        {"skill": "AWS", "endorsements": 28},
+        {"skill": "Docker", "endorsements": 35},
+        {"skill": "System Design", "endorsements": 22}
+      ],
+      "experience": [
+        {
+          "title": "Software Engineer II",
+          "company": "Current Company",
+          "duration": "Mar 2022 - Present",
+          "description": "Leading backend platform development"
+        },
+        {
+          "title": "Software Engineer I",
+          "company": "Previous Company",
+          "duration": "Jan 2020 - Feb 2022",
+          "description": "Full-stack development"
+        }
+      ],
+      "education": [
+        {
+          "school": "NIT Bangalore",
+          "degree": "B.Tech",
+          "field": "Computer Science",
+          "year": 2019
+        }
+      ],
+      "connections": 385,
+      "followers": 156
+    },
+    {
+      "id": 2,
+      "learnerId": 2,
+      "username": "priya-sharma-frontend",
+      "fullName": "Priya Sharma",
+      "headline": "Senior Frontend Engineer | React | Performance Optimization",
+      "location": "Bangalore, Karnataka, India",
+      "industry": "Software Development",
+      "experienceLevel": "Senior Professional",
+      "profilePictureUrl": "https://api.placeholder.com/priya-sharma.jpg",
+      "about": "Frontend specialist with 7+ years building performant React applications.",
+      "endorsedSkills": [
+        {"skill": "React", "endorsements": 89},
+        {"skill": "JavaScript", "endorsements": 76},
+        {"skill": "Performance Optimization", "endorsements": 64},
+        {"skill": "TypeScript", "endorsements": 71},
+        {"skill": "UI/UX", "endorsements": 45}
+      ],
+      "experience": [
+        {
+          "title": "Senior Frontend Engineer",
+          "company": "Current Company",
+          "duration": "Aug 2020 - Present",
+          "description": "Leading frontend team and architecture"
+        },
+        {
+          "title": "Frontend Engineer",
+          "company": "Previous Company",
+          "duration": "Aug 2017 - Jul 2020",
+          "description": "React development"
+        }
+      ],
+      "education": [
+        {
+          "school": "Delhi University",
+          "degree": "B.Tech",
+          "field": "Information Technology",
+          "year": 2017
+        }
+      ],
+      "connections": 567,
+      "followers": 289
+    },
+    {
+      "id": 3,
+      "learnerId": 3,
+      "username": "amit-patel-devops",
+      "fullName": "Amit Patel",
+      "headline": "DevOps Engineer | Kubernetes | Infrastructure as Code",
+      "location": "Hyderabad, Telangana, India",
+      "industry": "Software Development",
+      "experienceLevel": "Mid-Level Professional",
+      "profilePictureUrl": "https://api.placeholder.com/amit-patel.jpg",
+      "about": "DevOps engineer focused on cloud infrastructure and automation.",
+      "endorsedSkills": [
+        {"skill": "Kubernetes", "endorsements": 42},
+        {"skill": "Docker", "endorsements": 48},
+        {"skill": "AWS", "endorsements": 38},
+        {"skill": "Terraform", "endorsements": 35},
+        {"skill": "CI/CD", "endorsements": 40}
+      ],
+      "experience": [
+        {
+          "title": "DevOps Engineer",
+          "company": "Current Company",
+          "duration": "Nov 2021 - Present",
+          "description": "Infrastructure management and automation"
+        },
+        {
+          "title": "Cloud Engineer",
+          "company": "Previous Company",
+          "duration": "Mar 2020 - Oct 2021",
+          "description": "Cloud operations"
+        }
+      ],
+      "education": [
+        {
+          "school": "JNTU Hyderabad",
+          "degree": "B.Tech",
+          "field": "Computer Science",
+          "year": 2019
+        }
+      ],
+      "connections": 234,
+      "followers": 98
+    },
+    {
+      "id": 4,
+      "learnerId": 4,
+      "username": "neha-singh-qa",
+      "fullName": "Neha Singh",
+      "headline": "QA Automation Engineer | Python | Selenium",
+      "location": "Pune, Maharashtra, India",
+      "industry": "Software Development",
+      "experienceLevel": "Mid-Level Professional",
+      "profilePictureUrl": "https://api.placeholder.com/neha-singh.jpg",
+      "about": "QA automation enthusiast with expertise in test automation frameworks.",
+      "endorsedSkills": [
+        {"skill": "Selenium", "endorsements": 38},
+        {"skill": "Python", "endorsements": 52},
+        {"skill": "Test Automation", "endorsements": 44},
+        {"skill": "API Testing", "endorsements": 32},
+        {"skill": "CI/CD", "endorsements": 25}
+      ],
+      "experience": [
+        {
+          "title": "QA Automation Engineer",
+          "company": "Current Company",
+          "duration": "Jun 2021 - Present",
+          "description": "Automation framework development"
+        },
+        {
+          "title": "QA Engineer",
+          "company": "Previous Company",
+          "duration": "Sep 2019 - May 2021",
+          "description": "Manual and automation testing"
+        }
+      ],
+      "education": [
+        {
+          "school": "Symbiosis University",
+          "degree": "B.Tech",
+          "field": "Information Technology",
+          "year": 2019
+        }
+      ],
+      "connections": 189,
+      "followers": 76
+    },
+    {
+      "id": 5,
+      "learnerId": 5,
+      "username": "vikram-desai-fullstack",
+      "fullName": "Vikram Desai",
+      "headline": "Full-Stack Engineer | Cloud Architecture | Open Source",
+      "location": "Mumbai, Maharashtra, India",
+      "industry": "Software Development",
+      "experienceLevel": "Senior Professional",
+      "profilePictureUrl": "https://api.placeholder.com/vikram-desai.jpg",
+      "about": "Full-stack expert with 8+ years building scalable systems. Active open source contributor.",
+      "endorsedSkills": [
+        {"skill": "TypeScript", "endorsements": 78},
+        {"skill": "React", "endorsements": 62},
+        {"skill": "Node.js", "endorsements": 71},
+        {"skill": "Cloud Architecture", "endorsements": 55},
+        {"skill": "Microservices", "endorsements": 48}
+      ],
+      "experience": [
+        {
+          "title": "Senior Full-Stack Engineer",
+          "company": "Current Company",
+          "duration": "Feb 2019 - Present",
+          "description": "Platform engineering and architecture"
+        },
+        {
+          "title": "Full-Stack Developer",
+          "company": "Previous Company",
+          "duration": "Mar 2017 - Jan 2019",
+          "description": "Full-stack development"
+        }
+      ],
+      "education": [
+        {
+          "school": "Mumbai University",
+          "degree": "B.Tech",
+          "field": "Computer Science",
+          "year": 2016
+        }
+      ],
+      "connections": 678,
+      "followers": 345
+    }
+  ],
+  "teamsCalendar": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "eventTitle": "1:1 with Manager",
+      "eventType": "Meeting",
+      "startTime": "2024-01-22T10:00:00Z",
+      "endTime": "2024-01-22T10:30:00Z",
+      "duration": 30,
+      "attendees": ["rajesh.kumar@company.com", "manager@company.com"],
+      "isRecurring": true,
+      "status": "Scheduled"
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "eventTitle": "Team Standup",
+      "eventType": "Meeting",
+      "startTime": "2024-01-22T09:30:00Z",
+      "endTime": "2024-01-22T09:45:00Z",
+      "duration": 15,
+      "attendees": ["rajesh.kumar@company.com", "team@company.com"],
+      "isRecurring": true,
+      "status": "Scheduled"
+    },
+    {
+      "id": 3,
+      "learnerId": 2,
+      "eventTitle": "Design Review",
+      "eventType": "Meeting",
+      "startTime": "2024-01-22T14:00:00Z",
+      "endTime": "2024-01-22T15:00:00Z",
+      "duration": 60,
+      "attendees": ["priya.sharma@company.com", "design-team@company.com"],
+      "isRecurring": false,
+      "status": "Scheduled"
+    },
+    {
+      "id": 4,
+      "learnerId": 3,
+      "eventTitle": "Infrastructure Planning",
+      "eventType": "Meeting",
+      "startTime": "2024-01-23T11:00:00Z",
+      "endTime": "2024-01-23T12:00:00Z",
+      "duration": 60,
+      "attendees": ["amit.patel@company.com", "infra-team@company.com"],
+      "isRecurring": false,
+      "status": "Scheduled"
+    }
+  ],
+  "jiraData": [
+    {
+      "id": 1,
+      "learnerId": 1,
+      "sprintName": "Sprint 24",
+      "sprintStatus": "Active",
+      "sprintStartDate": "2024-01-15",
+      "sprintEndDate": "2024-01-29",
+      "issueKey": "BACKEND-1245",
+      "issueTitle": "Implement TypeScript migration for API module",
+      "issueType": "Story",
+      "status": "In Progress",
+      "priority": "High",
+      "storyPoints": 8,
+      "assignee": "rajesh.kumar@company.com",
+      "reporter": "team-lead@company.com"
+    },
+    {
+      "id": 2,
+      "learnerId": 1,
+      "sprintName": "Sprint 24",
+      "sprintStatus": "Active",
+      "issueKey": "BACKEND-1246",
+      "issueTitle": "Add error handling middleware",
+      "issueType": "Task",
+      "status": "To Do",
+      "priority": "Medium",
+      "storyPoints": 3,
+      "assignee": "rajesh.kumar@company.com",
+      "reporter": "team-lead@company.com"
+    },
+    {
+      "id": 3,
+      "learnerId": 2,
+      "sprintName": "Sprint 24",
+      "sprintStatus": "Active",
+      "issueKey": "FRONTEND-892",
+      "issueTitle": "React component library refactor",
+      "issueType": "Story",
+      "status": "Code Review",
+      "priority": "High",
+      "storyPoints": 13,
+      "assignee": "priya.sharma@company.com",
+      "reporter": "tech-lead@company.com"
+    },
+    {
+      "id": 4,
+      "learnerId": 3,
+      "sprintName": "Sprint 24",
+      "sprintStatus": "Active",
+      "issueKey": "INFRA-456",
+      "issueTitle": "Kubernetes cluster upgrade",
+      "issueType": "Task",
+      "status": "In Progress",
+      "priority": "Critical",
+      "storyPoints": 5,
+      "assignee": "amit.patel@company.com",
+      "reporter": "devops-lead@company.com"
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "Backend Platform",
+      "managerId": 7,
+      "teamSize": 8,
+      "budget": 500000,
+      "location": "Bangalore"
+    },
+    {
+      "id": 2,
+      "name": "Frontend",
+      "managerId": 7,
+      "teamSize": 6,
+      "budget": 400000,
+      "location": "Bangalore"
+    },
+    {
+      "id": 3,
+      "name": "Infrastructure",
+      "managerId": 7,
+      "teamSize": 4,
+      "budget": 300000,
+      "location": "Hyderabad"
+    },
+    {
+      "id": 4,
+      "name": "Quality Assurance",
+      "managerId": 7,
+      "teamSize": 5,
+      "budget": 280000,
+      "location": "Pune"
+    },
+    {
+      "id": 5,
+      "name": "Data & Analytics",
+      "managerId": 7,
+      "teamSize": 4,
+      "budget": 320000,
+      "location": "Bangalore"
+    }
+  ],
+  "skillTaxonomy": [
+    {
+      "id": 1,
+      "category": "Backend Development",
+      "skills": ["TypeScript", "Node.js", "Python", "Go", "Java", "System Design", "Database Design", "API Design"]
+    },
+    {
+      "id": 2,
+      "category": "Frontend Development",
+      "skills": ["React", "Vue.js", "Angular", "CSS/Styling", "Performance Optimization", "Testing", "Accessibility"]
+    },
+    {
+      "id": 3,
+      "category": "DevOps & Infrastructure",
+      "skills": ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD", "Monitoring", "Security"]
+    },
+    {
+      "id": 4,
+      "category": "Quality Assurance",
+      "skills": ["Selenium", "API Testing", "Performance Testing", "Test Automation", "Gherkin", "Manual Testing"]
+    },
+    {
+      "id": 5,
+      "category": "Data Engineering",
+      "skills": ["Python", "SQL", "Spark", "ETL", "Data Modeling", "Machine Learning", "Analytics"]
+    },
+    {
+      "id": 6,
+      "category": "Leadership & Soft Skills",
+      "skills": ["Leadership", "Mentoring", "Communication", "Strategic Thinking", "Project Management", "Team Building"]
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "courseTitle": "TypeScript Advanced Patterns",
+      "courseProvider": "Udemy",
+      "difficulty": "Advanced",
+      "duration": "15 hours",
+      "rating": 4.8,
+      "reviews": 2345,
+      "price": "$14.99",
+      "skills": ["TypeScript", "Advanced"],
+      "description": "Master TypeScript with advanced patterns and best practices"
+    },
+    {
+      "id": 2,
+      "courseTitle": "React Performance Optimization",
+      "courseProvider": "Pluralsight",
+      "difficulty": "Advanced",
+      "duration": "4 hours",
+      "rating": 4.9,
+      "reviews": 876,
+      "price": "$29/month",
+      "skills": ["React", "Performance"],
+      "description": "Optimize React applications for maximum performance"
+    },
+    {
+      "id": 3,
+      "courseTitle": "Kubernetes Complete Guide",
+      "courseProvider": "Udemy",
+      "difficulty": "Intermediate",
+      "duration": "22 hours",
+      "rating": 4.7,
+      "reviews": 5678,
+      "price": "$14.99",
+      "skills": ["Kubernetes", "DevOps"],
+      "description": "Complete Kubernetes deployment and management"
+    },
+    {
+      "id": 4,
+      "courseTitle": "System Design Interview",
+      "courseProvider": "Coursera",
+      "difficulty": "Advanced",
+      "duration": "40 hours",
+      "rating": 4.6,
+      "reviews": 3456,
+      "price": "$49/month",
+      "skills": ["System Design", "Architecture"],
+      "description": "Prepare for system design interviews"
+    },
+    {
+      "id": 5,
+      "courseTitle": "Python for Data Engineering",
+      "courseProvider": "DataCamp",
+      "difficulty": "Intermediate",
+      "duration": "30 hours",
+      "rating": 4.5,
+      "reviews": 2134,
+      "price": "$25/month",
+      "skills": ["Python", "Data Engineering"],
+      "description": "Build data pipelines with Python"
+    }
+  ]
+}
