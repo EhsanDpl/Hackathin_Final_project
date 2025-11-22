@@ -79,7 +79,8 @@ export default function Dashboard() {
       } else if (integration === 'jira') {
         data = await getAvailableJiraData();
       } else if (integration === 'teams') {
-        data = await getAvailableTeamsData();
+        // Teams is disabled
+        data = [];
       }
       
       setMockDataOptions(data);
@@ -382,11 +383,11 @@ export default function Dashboard() {
                         <>
                           <XCircleIcon className="w-6 h-6 text-gray-400" />
                           <button
-                            onClick={() => handleOpenMockDataModal('jira')}
-                            disabled={updating || loadingMockData}
+                            onClick={() => handleConnectIntegration('jira')}
+                            disabled={updating}
                             className="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600 disabled:opacity-50"
                           >
-                            {loadingMockData ? 'Loading...' : 'Connect'}
+                            {updating ? 'Connecting...' : 'Connect'}
                           </button>
                         </>
                       )}
@@ -394,8 +395,9 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Teams */}
-                <div className="border rounded-lg p-4">
+                {/* Teams - Disabled */}
+                {/* 
+                <div className="border rounded-lg p-4 opacity-50">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
@@ -407,32 +409,17 @@ export default function Dashboard() {
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
-                      {integrations.teams ? (
-                        <>
-                          <CheckCircleIcon className="w-6 h-6 text-green-500" />
-                          <button
-                            onClick={() => handleDisconnectIntegration('teams')}
-                            disabled={updating}
-                            className="text-red-600 hover:text-red-700 text-sm"
-                          >
-                            Disconnect
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <XCircleIcon className="w-6 h-6 text-gray-400" />
-                          <button
-                            onClick={() => handleOpenMockDataModal('teams')}
-                            disabled={updating || loadingMockData}
-                            className="bg-purple-600 text-white px-4 py-1 rounded text-sm hover:bg-purple-700 disabled:opacity-50"
-                          >
-                            {loadingMockData ? 'Loading...' : 'Connect'}
-                          </button>
-                        </>
-                      )}
+                      <XCircleIcon className="w-6 h-6 text-gray-400" />
+                      <button
+                        disabled
+                        className="bg-gray-400 text-white px-4 py-1 rounded text-sm cursor-not-allowed"
+                      >
+                        Disabled
+                      </button>
                     </div>
                   </div>
                 </div>
+                */}
               </div>
             </div>
 

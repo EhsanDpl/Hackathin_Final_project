@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS "jiraData" (
     "storyPoints" INTEGER,
     assignee VARCHAR(255),
     reporter VARCHAR(255),
+    "jiraUrl" VARCHAR(500),
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

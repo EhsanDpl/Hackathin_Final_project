@@ -429,6 +429,7 @@ export class MockServerService implements OnModuleDestroy {
       if (learner) {
         // Initialize connectedAccounts array
         learner.connectedAccounts = [];
+        learner.externalLinks = [];
         
         try {
           // Check if userExternalLinks table exists
@@ -441,24 +442,73 @@ export class MockServerService implements OnModuleDestroy {
           );
           
           if (tableCheck.rows[0]?.exists) {
-            // Get connected accounts from bridge table
-            const connectedAccountsResult = await this.pool.query(
+            // Get ALL external links (connected and disconnected) from bridge table
+            const allExternalLinksResult = await this.pool.query(
               `SELECT 
                 uel.id,
                 uel."accountId",
                 uel."accountUrl",
                 uel.connected,
                 uel."connectedAt",
+                uel."disconnectedAt",
                 el."accountType",
-                el.url as "externalUrl"
+                el.url as "externalUrl",
+                el.description,
+                el."isActive"
                FROM "userExternalLinks" uel
                JOIN "externalLinks" el ON uel."externalLinkId" = el.id
-               WHERE uel."learnerId" = $1 AND uel.connected = true`,
+               WHERE uel."learnerId" = $1
+               ORDER BY el."accountType"`,
               [learner.id]
             );
             
-            // Add connected accounts info to learner object
-            learner.connectedAccounts = connectedAccountsResult.rows.map((row: any) => ({
+            // Get all available external link types
+            const allExternalLinkTypes = await this.pool.query(
+              `SELECT id, "accountType", url, description, "isActive"
+               FROM "externalLinks"
+               WHERE "isActive" = true
+               ORDER BY "accountType"`
+            );
+            
+            // Build complete external links array with connection status
+            const externalLinksMap = new Map();
+            
+            // Add all available external link types
+            allExternalLinkTypes.rows.forEach((link: any) => {
+              externalLinksMap.set(link.accountType, {
+                accountType: link.accountType,
+                externalUrl: link.url,
+                description: link.description,
+                isActive: link.isActive,
+                connected: false,
+                accountId: null,
+                accountUrl: null,
+                connectedAt: null,
+                disconnectedAt: null,
+              });
+            });
+            
+            // Update with actual connection data
+            allExternalLinksResult.rows.forEach((row: any) => {
+              externalLinksMap.set(row.accountType, {
+                accountType: row.accountType,
+                externalUrl: row.externalUrl,
+                description: row.description,
+                isActive: row.isActive,
+                connected: row.connected,
+                accountId: row.accountId,
+                accountUrl: row.accountUrl,
+                connectedAt: row.connectedAt,
+                disconnectedAt: row.disconnectedAt,
+              });
+            });
+            
+            // Convert map to array
+            learner.externalLinks = Array.from(externalLinksMap.values());
+            
+            // Get only connected accounts for backward compatibility
+            const connectedAccounts = allExternalLinksResult.rows.filter((r: any) => r.connected);
+            learner.connectedAccounts = connectedAccounts.map((row: any) => ({
               accountType: row.accountType,
               accountId: row.accountId,
               accountUrl: row.accountUrl,
@@ -468,21 +518,23 @@ export class MockServerService implements OnModuleDestroy {
             }));
             
             // Set connection flags for backward compatibility
-            learner.linkedinConnected = connectedAccountsResult.rows.some((r: any) => r.accountType === 'linkedin');
-            learner.jiraConnected = connectedAccountsResult.rows.some((r: any) => r.accountType === 'jira');
-            learner.teamsConnected = connectedAccountsResult.rows.some((r: any) => r.accountType === 'teams');
+            learner.linkedinConnected = connectedAccounts.some((r: any) => r.accountType === 'linkedin');
+            learner.jiraConnected = connectedAccounts.some((r: any) => r.accountType === 'jira');
+            learner.teamsConnected = connectedAccounts.some((r: any) => r.accountType === 'teams');
           } else {
             // Table doesn't exist yet, use old flags
             learner.linkedinConnected = learner.linkedinConnected || false;
             learner.jiraConnected = learner.jiraConnected || false;
             learner.teamsConnected = learner.teamsConnected || false;
+            learner.externalLinks = [];
           }
         } catch (error: any) {
           // If there's an error, fall back to old flags
-          this.logger.warn(`Error fetching connected accounts for ${email}: ${error.message}`);
+          this.logger.warn(`Error fetching external links for ${email}: ${error.message}`);
           learner.linkedinConnected = learner.linkedinConnected || false;
           learner.jiraConnected = learner.jiraConnected || false;
           learner.teamsConnected = learner.teamsConnected || false;
+          learner.externalLinks = [];
         }
       }
       
@@ -584,6 +636,58 @@ export class MockServerService implements OnModuleDestroy {
       if (jiraConnected !== undefined) {
         updates.push(`"jiraConnected" = $${paramCount++}`);
         values.push(jiraConnected);
+        
+        // Get learner ID
+        const learnerResult = await this.pool.query('SELECT id FROM learners WHERE email = $1', [email]);
+        if (learnerResult.rows.length === 0) {
+          throw new Error('Learner not found');
+        }
+        const learnerId = learnerResult.rows[0].id;
+        
+        // Get external link ID and URL from externalLinks table for 'jira'
+        const externalLinkResult = await this.pool.query(
+          'SELECT id, url FROM "externalLinks" WHERE "accountType" = $1 AND "isActive" = true',
+          ['jira']
+        );
+        if (externalLinkResult.rows.length === 0) {
+          throw new Error('Jira external link not found in externalLinks table');
+        }
+        const externalLinkId = externalLinkResult.rows[0].id;
+        const externalLinkUrl = externalLinkResult.rows[0].url;
+        
+        if (jiraConnected) {
+          // If connecting, create or update bridge table entry with dummy data
+          const dummyJiraId = jiraDataId ? parseInt(jiraDataId, 10) : null;
+          
+          await this.pool.query(
+            `INSERT INTO "userExternalLinks" ("learnerId", "externalLinkId", "accountId", "accountUrl", connected, "connectedAt")
+             VALUES ($1, $2, $3, $4, true, CURRENT_TIMESTAMP)
+             ON CONFLICT ("learnerId", "externalLinkId")
+             DO UPDATE SET 
+               "accountId" = COALESCE(EXCLUDED."accountId", "userExternalLinks"."accountId"),
+               "accountUrl" = EXCLUDED."accountUrl",
+               connected = true,
+               "connectedAt" = CURRENT_TIMESTAMP,
+               "disconnectedAt" = NULL,
+               "updatedAt" = CURRENT_TIMESTAMP`,
+            [learnerId, externalLinkId, dummyJiraId, externalLinkUrl]
+          );
+          
+          // Also update learners table for backward compatibility
+          if (dummyJiraId) {
+            updates.push(`"jiraDataId" = $${paramCount++}`);
+            values.push(dummyJiraId);
+          }
+          this.logger.log(`🔗 Connecting learner ${email} to Jira via external link ID: ${externalLinkId} with URL: ${externalLinkUrl}`);
+        } else {
+          // If disconnecting, update bridge table
+          await this.pool.query(
+            `UPDATE "userExternalLinks" 
+             SET connected = false, "disconnectedAt" = CURRENT_TIMESTAMP, "updatedAt" = CURRENT_TIMESTAMP
+             WHERE "learnerId" = $1 AND "externalLinkId" = $2`,
+            [learnerId, externalLinkId]
+          );
+        }
       }
       if (jiraDataId !== undefined && jiraDataId !== null) {
         const jiraId = parseInt(jiraDataId, 10);
