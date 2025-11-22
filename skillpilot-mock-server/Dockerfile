@@ -16,6 +16,6 @@ COPY . .
 # Expose port 3001
 EXPOSE 3001
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application (use PostgreSQL server directly)
+CMD ["node", "server-pg.js"]
 
