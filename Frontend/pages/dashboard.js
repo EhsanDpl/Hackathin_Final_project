@@ -387,39 +387,6 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-
-            {/* Skills Progress Section */}
-            <div className="bg-white p-6 rounded-2xl shadow-lg mb-6 animate-fade-in-up">
-              <h2 className="text-2xl font-bold mb-4">Learning Progress</h2>
-              
-              <div className="mb-6">
-                <label className="block mb-2 font-medium">Select Skill</label>
-                <select
-                  className="p-3 border rounded-lg w-full"
-                  value={selectedSkill?.id || ''}
-                  onChange={(e) => {
-                    const skill = skills.find(s => s.id === parseInt(e.target.value));
-                    setSelectedSkill(skill || null);
-                    setGeneratedLink('');
-                  }}
-                >
-                  <option value="">Overall Progress</option>
-                  {skills.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <Card title="Skill Progress" value={`${data.progress}%`} icon="📈" />
-                <Card title="Points Earned" value={data.points} icon="⭐" />
-              </div>
-
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h3 className="text-lg font-bold mb-4">{selectedSkill ? `${selectedSkill.name} Progress` : 'Overall Progress'}</h3>
-                <Chart />
-              </div>
-            </div>
           </main>
         </div>
       </div>
