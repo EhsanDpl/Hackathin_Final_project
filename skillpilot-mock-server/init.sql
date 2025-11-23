@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS learners (
     "linkedinProfileId" INTEGER REFERENCES "linkedinProfiles"(id) ON DELETE SET NULL,
     "jiraDataId" INTEGER REFERENCES "jiraData"(id) ON DELETE SET NULL,
     "teamsCalendarId" INTEGER REFERENCES "teamsCalendar"(id) ON DELETE SET NULL,
+    "mentorId" INTEGER REFERENCES learners(id) ON DELETE SET NULL,
+    position VARCHAR(255),
+    skills JSONB,
     "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
