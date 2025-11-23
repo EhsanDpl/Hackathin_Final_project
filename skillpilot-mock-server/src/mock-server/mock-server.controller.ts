@@ -168,8 +168,44 @@ export class MockServerController {
 
   @UseGuards(JwtAuthGuard)
   @Post('employees')
-  async createEmployee(@Body() employeeData: any) {
+  async createEmployee(@Request() req: any, @Body() employeeData: any) {
     try {
+      const currentUserRole = req.user.role;
+      const requestedRole = employeeData.role;
+
+      // Validate role creation permissions
+      if (requestedRole === 'admin') {
+        // Only super_admin can create admin
+        if (currentUserRole !== 'super_admin') {
+          throw new HttpException(
+            'Only Super Admin can create Admin accounts',
+            HttpStatus.FORBIDDEN,
+          );
+        }
+      } else if (requestedRole === 'mentor') {
+        // super_admin and admin can create mentor
+        if (currentUserRole !== 'super_admin' && currentUserRole !== 'admin') {
+          throw new HttpException(
+            'Only Super Admin and Admin can create Mentor accounts',
+            HttpStatus.FORBIDDEN,
+          );
+        }
+      } else if (requestedRole === 'learner') {
+        // super_admin and admin can create learner
+        if (currentUserRole !== 'super_admin' && currentUserRole !== 'admin') {
+          throw new HttpException(
+            'Only Super Admin and Admin can create Learner accounts',
+            HttpStatus.FORBIDDEN,
+          );
+        }
+      } else if (requestedRole === 'super_admin') {
+        // Nobody can create super_admin through this endpoint
+        throw new HttpException(
+          'Cannot create Super Admin accounts through this endpoint',
+          HttpStatus.FORBIDDEN,
+        );
+      }
+
       // Create employee record with password
       const employee = await this.mockServerService.createEmployee(employeeData);
 
@@ -178,6 +214,9 @@ export class MockServerController {
         message: 'Employee created successfully',
       };
     } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
       throw new HttpException(
         error.message || 'Internal server error',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -247,6 +286,23 @@ export class MockServerController {
       }
 
       return profile;
+    } catch (error) {
+      throw new HttpException(
+        error.message || 'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Get all mentors
+   */
+  @UseGuards(JwtAuthGuard)
+  @Get('mentors')
+  async getMentors() {
+    try {
+      const mentors = await this.mockServerService.getMentors();
+      return mentors;
     } catch (error) {
       throw new HttpException(
         error.message || 'Internal server error',

@@ -38,11 +38,12 @@ export class LlamaChatService {
   }
 
   /**
-   * Process a chat message using Llama 3.3 70B Versatile model
+   * Process a chat message using Llama 3.3 70B Versatile model with learner context
    * @param chatMessageDto - DTO containing the user's message and optional chat history
-   * @returns Response from the Llama model
+   * @param learnerContext - Optional learner context (profile, skills, learning paths)
+   * @returns Response from the Llama model with personalized learning recommendations
    */
-  async chat(chatMessageDto: ChatMessageDto) {
+  async chat(chatMessageDto: ChatMessageDto, learnerContext?: any) {
     try {
       if (!this.groq) {
         throw new HttpException(
@@ -53,11 +54,49 @@ export class LlamaChatService {
 
       const { message, history = [] } = chatMessageDto;
 
+      // Build system prompt with learner context
+      let systemPrompt = 'You are an AI career coach and learning advisor for SkillPilot. Your role is to help users solve problems and provide personalized learning recommendations based on their profile, skills, and career goals.';
+      
+      if (learnerContext) {
+        systemPrompt += `\n\nUser Context:
+- Name: ${learnerContext.name}
+- Role: ${learnerContext.role || 'Not specified'}
+- Department: ${learnerContext.department || 'Not specified'}
+- Current Level: ${learnerContext.currentLevel || 'Not specified'}
+- Years of Experience: ${learnerContext.yearsExperience || 'Not specified'}
+- Location: ${learnerContext.location || 'Not specified'}`;
+
+        if (learnerContext.skills && learnerContext.skills.length > 0) {
+          systemPrompt += `\n\nCurrent Skills:`;
+          learnerContext.skills.forEach((skill: any) => {
+            systemPrompt += `\n- ${skill.skill}: ${skill.currentLevel || 'Not assessed'} (Proficiency: ${skill.proficiency || 0}%)`;
+            if (skill.targetLevel) {
+              systemPrompt += ` → Target: ${skill.targetLevel}`;
+            }
+          });
+        }
+
+        if (learnerContext.learningPaths && learnerContext.learningPaths.length > 0) {
+          systemPrompt += `\n\nActive Learning Paths:`;
+          learnerContext.learningPaths.forEach((path: any) => {
+            systemPrompt += `\n- ${path.title}: ${path.progress || 0}% complete (Status: ${path.status || 'active'})`;
+          });
+        }
+
+        if (learnerContext.activeMissions > 0) {
+          systemPrompt += `\n\nActive Daily Missions: ${learnerContext.activeMissions}`;
+        }
+
+        systemPrompt += `\n\nBased on this context, provide personalized learning recommendations, skill development advice, and solutions to help the user achieve their career goals. Focus on practical, actionable advice tailored to their current level and role.`;
+      } else {
+        systemPrompt += ' Provide helpful learning recommendations and career advice.';
+      }
+
       // Format messages for Groq API
       const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
         {
           role: 'system',
-          content: 'You are a helpful AI assistant. Provide clear, concise, and helpful responses.',
+          content: systemPrompt,
         },
         ...history.map((msg) => ({
           role: msg.role as 'user' | 'assistant',
@@ -79,10 +118,12 @@ export class LlamaChatService {
       const response = completion.choices[0]?.message?.content || 'No response generated';
 
       this.logger.log(`✅ Chat response generated for message: ${message.substring(0, 50)}...`);
+      this.logger.log(`📝 AI Response: ${response.substring(0, 200)}...`);
 
       return customMessage(HttpStatus.OK, MESSAGES.SUCCESS, {
         response,
         model: this.model,
+        hasContext: !!learnerContext,
       });
     } catch (error: any) {
       this.logger.error('Error in Llama chat:', error);

@@ -1913,7 +1913,8 @@
       "priority": "High",
       "storyPoints": 8,
       "assignee": "rajesh.kumar@company.com",
-      "reporter": "team-lead@company.com"
+      "reporter": "team-lead@company.com",
+      "jiraUrl": "https://jira.example.com/browse/BACKEND-1245"
     },
     {
       "id": 2,
@@ -1927,7 +1928,8 @@
       "priority": "Medium",
       "storyPoints": 3,
       "assignee": "rajesh.kumar@company.com",
-      "reporter": "team-lead@company.com"
+      "reporter": "team-lead@company.com",
+      "jiraUrl": "https://jira.example.com/browse/BACKEND-1246"
     },
     {
       "id": 3,
@@ -1941,7 +1943,8 @@
       "priority": "High",
       "storyPoints": 13,
       "assignee": "priya.sharma@company.com",
-      "reporter": "tech-lead@company.com"
+      "reporter": "tech-lead@company.com",
+      "jiraUrl": "https://jira.example.com/browse/FRONTEND-892"
     },
     {
       "id": 4,
@@ -1955,7 +1958,8 @@
       "priority": "Critical",
       "storyPoints": 5,
       "assignee": "amit.patel@company.com",
-      "reporter": "devops-lead@company.com"
+      "reporter": "devops-lead@company.com",
+      "jiraUrl": "https://jira.example.com/browse/INFRA-456"
     }
   ],
   "departments": [

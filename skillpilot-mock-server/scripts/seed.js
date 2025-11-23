@@ -138,12 +138,13 @@ async function seedDatabase() {
     console.log('🎫 Inserting JIRA data...');
     for (const jira of dbData.jiraData) {
       await client.query(
-        `INSERT INTO "jiraData" (id, "learnerId", "sprintName", "sprintStatus", "sprintStartDate", "sprintEndDate", "issueKey", "issueTitle", "issueType", status, priority, "storyPoints", assignee, reporter)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
+        `INSERT INTO "jiraData" (id, "learnerId", "sprintName", "sprintStatus", "sprintStartDate", "sprintEndDate", "issueKey", "issueTitle", "issueType", status, priority, "storyPoints", assignee, reporter, "jiraUrl")
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
         [
           jira.id, jira.learnerId, jira.sprintName, jira.sprintStatus, jira.sprintStartDate,
           jira.sprintEndDate, jira.issueKey, jira.issueTitle, jira.issueType, jira.status,
-          jira.priority, jira.storyPoints, jira.assignee, jira.reporter
+          jira.priority, jira.storyPoints, jira.assignee, jira.reporter,
+          jira.jiraUrl || `https://jira.example.com/browse/${jira.issueKey || `JIRA-${jira.id}`}`
         ]
       );
     }
