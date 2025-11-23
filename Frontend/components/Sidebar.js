@@ -1,6 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { HomeIcon, LinkIcon, UserIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, UserIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 import { isAdmin } from '../utils/auth';
 
 export default function Sidebar() {
@@ -14,7 +14,6 @@ export default function Sidebar() {
 
   if (user?.role === 'learner') {
     navItems.push({ name: 'Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/dashboard' });
-    navItems.push({ name: 'Setup Profile', icon: <HomeIcon className="w-5 h-5" />, path: '/setup-profile' });
     navItems.push({ name: 'Skill Profile Results', icon: <AcademicCapIcon className="w-5 h-5" />, path: '/skill-profile-results' });
     navItems.push({ name: 'Learning Path', icon: <AcademicCapIcon className="w-5 h-5" />, path: '/learning-path' });
     navItems.push({ name: 'AI Content Generator', icon: <AcademicCapIcon className="w-5 h-5" />, path: '/ai-content-generator' });
@@ -24,7 +23,6 @@ export default function Sidebar() {
   if (userIsAdmin) {
     navItems.push(
       { name: 'Manager Dashboard', icon: <HomeIcon className="w-5 h-5" />, path: '/manager-dashboard' },
-      { name: 'Create Growth Plan', icon: <LinkIcon className="w-5 h-5" />, path: '/create-link' },
       { name: 'Create Employee', icon: <UserIcon className="w-5 h-5" />, path: '/create-employee' }
     );
   }

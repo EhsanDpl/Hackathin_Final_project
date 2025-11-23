@@ -3,9 +3,12 @@ import {
   HttpStatus,
   Injectable,
   Logger,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { Pool } from 'pg';
 import Groq from 'groq-sdk';
+import { LearningPathService } from '../learning-path/learning-path.service';
 
 @Injectable()
 export class ContentGeneratorService {
@@ -14,7 +17,10 @@ export class ContentGeneratorService {
   private groq: Groq | null = null;
   private readonly model = 'llama-3.3-70b-versatile';
 
-  constructor() {
+  constructor(
+    @Inject(forwardRef(() => LearningPathService))
+    private learningPathService: LearningPathService,
+  ) {
     // Initialize PostgreSQL connection
     if (
       process.env.DB_HOST &&
@@ -489,6 +495,16 @@ export class ContentGeneratorService {
       );
 
       this.logger.log(`✅ Saved ${resultData.contentType} result for learner ${learnerId}`);
+
+      // Update learning path progress immediately after saving (await to ensure it completes)
+      try {
+        await this.updateLearningPathProgress(learnerId);
+      } catch (error: any) {
+        this.logger.error(`❌ Failed to update learning path progress for learner ${learnerId}:`, error);
+        this.logger.error('Error stack:', error?.stack);
+        // Don't throw - progress update failure shouldn't break result saving
+      }
+
       return {
         id: result.rows[0].id,
         message: 'Result saved successfully',
@@ -499,6 +515,125 @@ export class ContentGeneratorService {
         error.message || 'Failed to save result',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  private async updateLearningPathProgress(learnerId: number): Promise<void> {
+    if (!this.pool) {
+      this.logger.warn(`⚠️ Cannot update progress: Database pool not initialized for learner ${learnerId}`);
+      return;
+    }
+
+    try {
+      this.logger.log(`🔄 [Learner ${learnerId}] Starting automatic progress update...`);
+      
+      // Get learning path for this learner
+      const pathResult = await this.pool.query(
+        'SELECT * FROM "learningPaths" WHERE "learnerId" = $1 ORDER BY "createdAt" DESC LIMIT 1',
+        [learnerId],
+      );
+
+      if (pathResult.rows.length === 0) {
+        this.logger.warn(`⚠️ No learning path found for learner ${learnerId}, skipping progress update`);
+        return;
+      }
+      
+      this.logger.log(`📊 [Learner ${learnerId}] Found learning path, calculating progress...`);
+
+      const learningPath = pathResult.rows[0];
+
+      // Count completed content (quizzes and coding challenges)
+      const contentResult = await this.pool.query(
+        `SELECT COUNT(*) as total_completed
+         FROM "contentResults" 
+         WHERE "learnerId" = $1 
+         AND "contentType" IN ('quiz', 'coding-challenge')`,
+        [learnerId],
+      );
+
+      const totalCompleted = parseInt(contentResult.rows[0].total_completed) || 0;
+      this.logger.log(`📈 [Learner ${learnerId}] Found ${totalCompleted} completed items (quizzes + challenges)`);
+
+      // Calculate progress based on completed content
+      // Each quiz/challenge represents a module completion
+      // Progress = (completed modules / total modules) * 100
+      const totalModules = learningPath.totalModules || 24; // Default to 24 if not set
+      const completedModules = Math.min(totalCompleted, totalModules);
+      const progress = Math.round((completedModules / totalModules) * 100);
+      
+      this.logger.log(`📊 [Learner ${learnerId}] Calculated: ${completedModules}/${totalModules} modules = ${progress}%`);
+
+      // Parse weeks from description if stored as JSON
+      let weeksData: any = {};
+      try {
+        weeksData = JSON.parse(learningPath.description || '{}');
+      } catch (e) {
+        // Description is not JSON, skip weekly update
+      }
+
+      // Calculate weekly progress
+      if (weeksData.weeks && Array.isArray(weeksData.weeks)) {
+        const weeks = weeksData.weeks;
+        let modulesCompletedSoFar = 0;
+
+        for (let i = 0; i < weeks.length; i++) {
+          const week = weeks[i];
+          const weekModules = week.modules || 0;
+          
+          // Calculate how many modules completed in this week
+          const modulesInThisWeek = Math.min(
+            Math.max(0, completedModules - modulesCompletedSoFar),
+            weekModules
+          );
+          
+          // Calculate week progress percentage
+          const weekProgress = weekModules > 0 
+            ? Math.round((modulesInThisWeek / weekModules) * 100)
+            : 0;
+
+          // Update week with progress
+          weeks[i] = {
+            ...week,
+            completedModules: modulesInThisWeek,
+            progress: weekProgress,
+          };
+
+          modulesCompletedSoFar += weekModules;
+        }
+
+        // Update weeks data
+        weeksData.weeks = weeks;
+        
+        // Save updated weeks back to description
+        const updatedDescription = JSON.stringify(weeksData);
+        await this.pool.query(
+          'UPDATE "learningPaths" SET description = $1, "updatedAt" = CURRENT_TIMESTAMP WHERE "learnerId" = $2',
+          [updatedDescription, learnerId],
+        );
+      }
+
+      // Update learning path progress directly in database (more reliable)
+      await this.pool.query(
+        `UPDATE "learningPaths" 
+         SET progress = $1, 
+             "completedModules" = $2,
+             status = CASE WHEN status = 'planned' AND $2 > 0 THEN 'in-progress' ELSE status END,
+             "updatedAt" = CURRENT_TIMESTAMP
+         WHERE "learnerId" = $3`,
+        [
+          Math.min(progress, 100),
+          completedModules,
+          learnerId,
+        ],
+      );
+
+      this.logger.log(
+        `✅ [Learner ${learnerId}] AUTOMATIC PROGRESS UPDATE: ${progress}% (${completedModules}/${totalModules} modules) - Status: ${learningPath.status === 'planned' && completedModules > 0 ? 'in-progress' : learningPath.status}`,
+      );
+    } catch (error: any) {
+      this.logger.error(`❌ Error updating learning path progress for learner ${learnerId}:`, error);
+      this.logger.error('Error details:', error.message, error.stack);
+      // Don't throw error - progress update failure shouldn't break result saving
     }
   }
 

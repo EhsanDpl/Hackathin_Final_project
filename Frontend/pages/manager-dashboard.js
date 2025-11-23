@@ -430,38 +430,6 @@ export default function ManagerDashboard() {
               )}
             </div>
 
-            {/* AI-Powered Learning Impact Analysis */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg mb-6">
-              <div className="flex items-center gap-2 mb-4">
-                <ChartBarIcon className="w-6 h-6 text-green-600" />
-                <h2 className="text-2xl font-bold text-gray-800">AI-Powered Learning Impact Analysis</h2>
-              </div>
-              <p className="text-gray-600 mb-6">Real-time correlation between learning and work performance.</p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-green-700 mb-1">+32%</div>
-                  <div className="text-sm text-green-600 font-medium">Code Quality</div>
-                  <div className="text-xs text-gray-500 mt-1">After training</div>
-                </div>
-                <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-green-700 mb-1">-18%</div>
-                  <div className="text-sm text-green-600 font-medium">Bug Rate</div>
-                  <div className="text-xs text-gray-500 mt-1">Last quarter</div>
-                </div>
-                <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-green-700 mb-1">+24%</div>
-                  <div className="text-sm text-green-600 font-medium">PR Velocity</div>
-                  <div className="text-xs text-gray-500 mt-1">Faster merges</div>
-                </div>
-                <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-green-700 mb-1">+41%</div>
-                  <div className="text-sm text-green-600 font-medium">Task Completion</div>
-                  <div className="text-xs text-gray-500 mt-1">Complex tickets</div>
-                </div>
-              </div>
-            </div>
-
             {/* ROI Highlight */}
             <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-2xl p-6 shadow-lg mb-6">
               <div className="flex items-center gap-2 mb-3">

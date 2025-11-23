@@ -245,10 +245,10 @@ export default function LearningPath() {
                         </div>
                         
                         {/* Stats Badges */}
-                        <div className="flex gap-3 flex-wrap">
+                        <div className="flex gap-3 flex-wrap mb-4">
                           <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 text-blue-800 px-5 py-2.5 rounded-xl text-sm font-semibold transform transition-all duration-300 hover:scale-110 hover:shadow-md flex items-center gap-2">
                             <span className="text-lg">📚</span>
-                            <span>{week.modules || 0} Modules</span>
+                            <span>{week.completedModules || 0}/{week.modules || 0} Modules</span>
                           </div>
                           <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 text-green-800 px-5 py-2.5 rounded-xl text-sm font-semibold transform transition-all duration-300 hover:scale-110 hover:shadow-md flex items-center gap-2">
                             <span className="text-lg">⏱️</span>
@@ -259,6 +259,26 @@ export default function LearningPath() {
                             <span>{week.xp || 0} XP</span>
                           </div>
                         </div>
+                        
+                        {/* Week Progress Bar */}
+                        {week.progress !== undefined && (
+                          <div className="mt-2">
+                            <div className="flex justify-between text-xs text-gray-600 mb-1">
+                              <span>Week Progress</span>
+                              <span className="font-semibold">{week.progress}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                              <div
+                                className={`h-2.5 rounded-full transition-all duration-300 ${
+                                  week.progress >= 100 ? 'bg-green-500' :
+                                  week.progress >= 50 ? 'bg-yellow-500' :
+                                  'bg-blue-500'
+                                }`}
+                                style={{ width: `${Math.min(week.progress, 100)}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -227,14 +227,80 @@ export class LearningPathService {
 
       const learningPath = result.rows[0];
 
+      // Recalculate progress from content results
+      const contentResult = await this.pool.query(
+        `SELECT COUNT(*) as total_completed
+         FROM "contentResults" 
+         WHERE "learnerId" = $1 
+         AND "contentType" IN ('quiz', 'coding-challenge')`,
+        [learnerId],
+      );
+
+      const totalCompleted = parseInt(contentResult.rows[0].total_completed) || 0;
+      const totalModules = learningPath.totalModules || 24;
+      const completedModules = Math.min(totalCompleted, totalModules);
+      const progress = Math.round((completedModules / totalModules) * 100);
+
       // Parse weeks from description if stored as JSON
+      let weeksData: any = {};
       try {
-        const weeksData = JSON.parse(learningPath.description || '{}');
-        if (weeksData.weeks) {
-          learningPath.weeks = weeksData.weeks;
-        }
+        weeksData = JSON.parse(learningPath.description || '{}');
       } catch (e) {
         // Description is not JSON, use as is
+      }
+
+      // Calculate weekly progress
+      if (weeksData.weeks && Array.isArray(weeksData.weeks)) {
+        const weeks = weeksData.weeks;
+        let modulesCompletedSoFar = 0;
+
+        for (let i = 0; i < weeks.length; i++) {
+          const week = weeks[i];
+          const weekModules = week.modules || 0;
+          
+          // Calculate how many modules completed in this week
+          const modulesInThisWeek = Math.min(
+            Math.max(0, completedModules - modulesCompletedSoFar),
+            weekModules
+          );
+          
+          // Calculate week progress percentage
+          const weekProgress = weekModules > 0 
+            ? Math.round((modulesInThisWeek / weekModules) * 100)
+            : 0;
+
+          // Update week with progress
+          weeks[i] = {
+            ...week,
+            completedModules: modulesInThisWeek,
+            progress: weekProgress,
+          };
+
+          modulesCompletedSoFar += weekModules;
+        }
+
+        // Update weeks data
+        weeksData.weeks = weeks;
+        
+        // Save updated weeks back to description
+        const updatedDescription = JSON.stringify(weeksData);
+        await this.pool.query(
+          'UPDATE "learningPaths" SET description = $1, "updatedAt" = CURRENT_TIMESTAMP WHERE "learnerId" = $2',
+          [updatedDescription, learnerId],
+        );
+        
+        learningPath.description = updatedDescription;
+        learningPath.weeks = weeks;
+      }
+
+      // Update if progress has changed
+      if (learningPath.progress !== progress || learningPath.completedModules !== completedModules) {
+        await this.updateLearningPath(learnerId, {
+          progress: Math.min(progress, 100),
+          completedModules: completedModules,
+        });
+        learningPath.progress = Math.min(progress, 100);
+        learningPath.completedModules = completedModules;
       }
 
       return learningPath;

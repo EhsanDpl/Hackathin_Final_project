@@ -21,6 +21,7 @@ export default function AIContentGenerator() {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedContentType, setSelectedContentType] = useState('quiz');
   const [topic, setTopic] = useState('');
+  const [customTopic, setCustomTopic] = useState('');
   const [difficulty, setDifficulty] = useState('Intermediate');
   const [duration, setDuration] = useState('15 minutes');
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ export default function AIContentGenerator() {
   const [generatedContent, setGeneratedContent] = useState(null);
   const [error, setError] = useState(null);
   const [learningPath, setLearningPath] = useState(null);
+  const [learningPathTopics, setLearningPathTopics] = useState([]);
 
   useEffect(() => {
     fetchSkillsGap();
@@ -39,6 +41,37 @@ export default function AIContentGenerator() {
     try {
       const data = await apiRequest('/learning-path');
       setLearningPath(data);
+      
+      // Extract topics from learning path weeks
+      if (data && data.description) {
+        try {
+          const weeksData = JSON.parse(data.description || '{}');
+          if (weeksData.weeks && Array.isArray(weeksData.weeks)) {
+            const topics = [];
+            weeksData.weeks.forEach((week) => {
+              // Add week title as topic
+              if (week.title) {
+                topics.push({
+                  value: week.title,
+                  label: week.title,
+                  week: week.week,
+                });
+              }
+              // Add subtitle as topic
+              if (week.subtitle) {
+                topics.push({
+                  value: week.subtitle,
+                  label: week.subtitle,
+                  week: week.week,
+                });
+              }
+            });
+            setLearningPathTopics(topics);
+          }
+        } catch (e) {
+          // Description is not JSON, skip
+        }
+      }
     } catch (err) {
       // Learning path might not exist yet, that's okay
       console.log('No learning path found yet');
@@ -85,7 +118,8 @@ export default function AIContentGenerator() {
   };
 
   const handleGenerateContent = async () => {
-    if (!topic.trim()) {
+    const finalTopic = topic === '__custom__' ? customTopic : topic;
+    if (!finalTopic.trim()) {
       setError('Please enter a topic or select a suggestion');
       return;
     }
@@ -99,7 +133,7 @@ export default function AIContentGenerator() {
         method: 'POST',
         body: JSON.stringify({
           contentType: selectedContentType,
-          topic: topic.trim(),
+          topic: finalTopic.trim(),
           difficulty,
           duration,
         }),
@@ -239,30 +273,18 @@ export default function AIContentGenerator() {
             {/* Content Type Selection */}
             <div className="bg-white rounded-2xl p-6 shadow-lg mb-6 animate-fade-in-up">
               <h2 className="text-xl font-bold mb-4 text-gray-800">Select Content Type</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
-                {contentTypes.map((type) => {
-                  const Icon = type.icon;
-                  const isSelected = selectedContentType === type.id;
-                  const iconColorClass = isSelected 
-                    ? 'text-white' 
-                    : type.color === 'purple' 
-                      ? 'text-purple-600' 
-                      : 'text-orange-600';
-                  return (
-                    <button
-                      key={type.id}
-                      onClick={() => setSelectedContentType(type.id)}
-                      className={`p-4 rounded-lg border-2 transition-all duration-300 transform hover:scale-105 ${
-                        isSelected
-                          ? 'bg-gradient-to-r from-purple-600 to-pink-500 text-white border-purple-600 shadow-lg'
-                          : 'bg-white border-gray-300 text-gray-700 hover:border-purple-400 hover:shadow-md'
-                      }`}
-                    >
-                      <Icon className={`w-8 h-8 mx-auto mb-2 ${iconColorClass}`} />
-                      <div className="font-semibold">{type.name}</div>
-                    </button>
-                  );
-                })}
+              <div className="max-w-md">
+                <select
+                  value={selectedContentType}
+                  onChange={(e) => setSelectedContentType(e.target.value)}
+                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all text-lg font-medium"
+                >
+                  {contentTypes.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -281,13 +303,47 @@ export default function AIContentGenerator() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Topic or Concept
                   </label>
-                  <input
-                    type="text"
-                    value={topic}
-                    onChange={(e) => setTopic(e.target.value)}
-                    placeholder="e.g., MongoDB Aggregation Pipeline"
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-                  />
+                  {learningPathTopics.length > 0 ? (
+                    <>
+                      <select
+                        value={topic === '__custom__' ? '' : topic}
+                        onChange={(e) => {
+                          if (e.target.value === '__custom__') {
+                            setTopic('__custom__');
+                          } else {
+                            setTopic(e.target.value);
+                          }
+                        }}
+                        className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                      >
+                        <option value="">Select a topic from your learning path...</option>
+                        {learningPathTopics.map((topicOption, index) => (
+                          <option key={index} value={topicOption.value}>
+                            Week {topicOption.week}: {topicOption.label}
+                          </option>
+                        ))}
+                        <option value="__custom__">--- Or enter custom topic ---</option>
+                      </select>
+                      {topic === '__custom__' && (
+                        <input
+                          type="text"
+                          value={customTopic}
+                          onChange={(e) => setCustomTopic(e.target.value)}
+                          placeholder="Enter your custom topic..."
+                          className="w-full mt-2 p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                          autoFocus
+                        />
+                      )}
+                    </>
+                  ) : (
+                    <input
+                      type="text"
+                      value={topic}
+                      onChange={(e) => setTopic(e.target.value)}
+                      placeholder="e.g., MongoDB Aggregation Pipeline"
+                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                    />
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
