@@ -81,7 +81,7 @@ export default function SkillProfileResults() {
                 {error || 'Profile not found. Please generate your profile first.'}
               </div>
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => router.push('/home')}
                 className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700"
               >
                 Go to Dashboard
@@ -321,7 +321,7 @@ export default function SkillProfileResults() {
             {/* Action Buttons with Enhanced Interactions */}
             <div className="flex gap-4 mt-6">
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => router.push('/home')}
                 className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
               >
                 Back

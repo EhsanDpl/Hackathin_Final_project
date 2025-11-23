@@ -40,8 +40,8 @@ export default function LearningPath() {
           status: 'in-progress',
         }),
       });
-      // Redirect to dashboard or learning path progress
-      router.push('/dashboard');
+      // Redirect to home or learning path progress
+      router.push('/home');
     } catch (err) {
       console.error('Error starting journey:', err);
       setError('Failed to start journey. Please try again.');
