@@ -22,7 +22,7 @@ export default function Login() {
       if (user.role === 'admin' || user.role === 'super_admin') {
         router.push('/manager-dashboard');
       } else {
-        router.push('/home');
+        router.push('/dashboard');
       }
     }
   }, [user]);

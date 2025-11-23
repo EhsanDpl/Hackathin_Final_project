@@ -369,7 +369,7 @@ export default function AIContentGenerator() {
             {/* Back Button */}
             <div className="flex justify-start">
               <button
-                onClick={() => router.push('/home')}
+                onClick={() => router.push('/dashboard')}
                 className="flex items-center gap-2 bg-white border-2 border-gray-300 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
               >
                 <ArrowLeftIcon className="w-5 h-5" />

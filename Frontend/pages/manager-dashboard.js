@@ -476,7 +476,7 @@ export default function ManagerDashboard() {
             {/* Switch to Learner View */}
             <div className="flex justify-center mt-6">
               <button
-                onClick={() => window.location.href = '/home'}
+                onClick={() => window.location.href = '/dashboard'}
                 className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Switch to Learner View

@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       if (loggedUser.role === 'super_admin' || loggedUser.role === 'admin') {
         router.push('/manager-dashboard');
       } else {
-        router.push('/home');
+        router.push('/dashboard');
       }
     } catch (error) {
       console.error('Login error:', error);
