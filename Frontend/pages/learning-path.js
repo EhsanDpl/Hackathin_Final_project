@@ -21,11 +21,18 @@ export default function LearningPath() {
   const fetchLearningPath = async () => {
     try {
       setLoading(true);
+      setError(null);
       const data = await apiRequest('/learning-path');
       setLearningPath(data);
     } catch (err) {
       console.error('Error fetching learning path:', err);
-      setError('Failed to load learning path. Please create one first.');
+      // If learning path doesn't exist (404), show default path instead of error
+      if (err.message && err.message.includes('not found')) {
+        setError(null); // Clear error, we'll show default path
+        setLearningPath(null); // Set to null to trigger default display
+      } else {
+        setError('Failed to load learning path. Please create one first.');
+      }
     } finally {
       setLoading(false);
     }
@@ -33,13 +40,19 @@ export default function LearningPath() {
 
   const handleStartJourney = async () => {
     try {
-      // Update learning path status to 'in-progress'
-      await apiRequest('/learning-path', {
-        method: 'PUT',
-        body: JSON.stringify({
-          status: 'in-progress',
-        }),
-      });
+      if (learningPath) {
+        // Update learning path status to 'in-progress'
+        await apiRequest('/learning-path', {
+          method: 'PUT',
+          body: JSON.stringify({
+            status: 'in-progress',
+          }),
+        });
+      } else {
+        // If no learning path exists, redirect to create one
+        router.push('/skill-profile-results');
+        return;
+      }
       // Redirect to dashboard or learning path progress
       router.push('/dashboard');
     } catch (err) {
@@ -64,7 +77,8 @@ export default function LearningPath() {
     );
   }
 
-  if (error || !learningPath) {
+  // If there's an actual error (not just missing path), show error message
+  if (error && error !== 'Learning path not found') {
     return (
       <ProtectedRoute roles={['learner']}>
         <div className="flex h-screen bg-gray-50">
@@ -73,7 +87,7 @@ export default function LearningPath() {
             <Navbar title="Learning Path" />
             <main className="p-6">
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                {error || 'Learning path not found. Please create one from your skill profile.'}
+                {error}
               </div>
               <button
                 onClick={() => router.push('/skill-profile-results')}
@@ -87,6 +101,17 @@ export default function LearningPath() {
       </ProtectedRoute>
     );
   }
+
+  // If no learning path exists, use default structure
+  const displayLearningPath = learningPath || {
+    title: 'Full-Stack Development Mastery',
+    description: 'A comprehensive learning journey designed to enhance your skills and advance your career',
+    duration: '6 weeks',
+    difficulty: 'Intermediate',
+    status: 'planned',
+    progress: 0,
+    totalModules: 24,
+  };
 
   // Parse weeks from description if stored as JSON
   let weeks = [];
@@ -151,8 +176,21 @@ export default function LearningPath() {
                 Your Personalized Learning Journey 🗺️
               </h1>
               <p className="text-gray-600 text-lg">
-                {learningPath.duration || '6-week'} roadmap to master your skills
+                {displayLearningPath.duration || '6-week'} roadmap to master your skills
               </p>
+              {!learningPath && (
+                <div className="mt-4 bg-yellow-50 border border-yellow-400 text-yellow-800 px-4 py-3 rounded-lg">
+                  <p className="text-sm">
+                    <strong>Note:</strong> No personalized learning path found. Showing default path. 
+                    <button
+                      onClick={() => router.push('/skill-profile-results')}
+                      className="ml-2 text-yellow-900 underline font-semibold hover:text-yellow-700"
+                    >
+                      Create your personalized path →
+                    </button>
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Learning Path Hero Card with Enhanced Design */}
@@ -168,7 +206,7 @@ export default function LearningPath() {
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-3 h-3 bg-yellow-300 rounded-full animate-pulse"></div>
                     <span className="text-sm font-semibold text-white/80 uppercase tracking-wide">
-                      {learningPath.status === 'in-progress' ? 'In Progress' : learningPath.status === 'planned' ? 'Ready to Start' : 'Planned'}
+                      {displayLearningPath.status === 'in-progress' ? 'In Progress' : displayLearningPath.status === 'planned' ? 'Ready to Start' : 'Planned'}
                     </span>
                   </div>
                   <h2 className="text-4xl font-bold mb-3 leading-tight">
@@ -180,16 +218,16 @@ export default function LearningPath() {
                   <div className="flex flex-wrap gap-4 mt-4">
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
                       <div className="text-sm text-white/80">Duration</div>
-                      <div className="text-xl font-bold">{learningPath.duration || '6 weeks'}</div>
+                      <div className="text-xl font-bold">{displayLearningPath.duration || '6 weeks'}</div>
                     </div>
                     <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
                       <div className="text-sm text-white/80">Difficulty</div>
-                      <div className="text-xl font-bold">{learningPath.difficulty || 'Intermediate'}</div>
+                      <div className="text-xl font-bold">{displayLearningPath.difficulty || 'Intermediate'}</div>
                     </div>
-                    {learningPath.progress !== undefined && (
+                    {displayLearningPath.progress !== undefined && displayLearningPath.progress > 0 && (
                       <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
                         <div className="text-sm text-white/80">Progress</div>
-                        <div className="text-xl font-bold">{learningPath.progress}%</div>
+                        <div className="text-xl font-bold">{displayLearningPath.progress}%</div>
                       </div>
                     )}
                   </div>
@@ -198,7 +236,7 @@ export default function LearningPath() {
                   <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border-2 border-white/30">
                     <div className="text-7xl font-bold mb-2">{weeks.length}</div>
                     <div className="text-xl font-semibold">Weeks</div>
-                    <div className="text-sm text-white/80 mt-2">{learningPath.totalModules || weeks.length * 4} Modules</div>
+                    <div className="text-sm text-white/80 mt-2">{displayLearningPath.totalModules || weeks.length * 4} Modules</div>
                   </div>
                 </div>
               </div>
